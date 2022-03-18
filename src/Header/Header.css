@@ -37,8 +37,8 @@
   text-align: center;
   color: #bbbbbb;
   background-color: #111111;
-  width: 140px;
   border: 2px solid #bbbbbb;
+  width: 140px;
   padding: 0;
   margin: 0;
 }
@@ -47,24 +47,50 @@
   color: #666666;
 }
 
+.header__link_center {
+  position: relative;
+  display: block;
+  background-color: #111111;
+  border: 2px solid #bbbbbb;
+  border-radius: 22px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin: 0 -22px;
+  z-index: 10;
+}
+
+.header__link_center:hover svg {
+  fill: #666666;
+}
+
 .header__link_left {
-  border-right: 1px solid #bbbbbb;
+  border-right: none;
   border-top-left-radius: 22px;
   border-bottom-left-radius: 22px;
+  padding-right: 18px;
 }
 
 .header__link_right {
-  border-left: 1px solid #bbbbbb;
+  border-left: none;
   border-top-right-radius: 22px;
   border-bottom-right-radius: 22px;
+  padding-left: 18px;
 }
 
 .header__link_active {
   color: #111111;
   background-color: #bbbbbb;
-
 }
 
 .header__link_active:hover {
   color: #111111;
+}
+
+.header__link_active svg {
+  fill: #111111;
+}
+
+.header__link_active:hover svg {
+  fill: #111111;
 }
