@@ -1,5 +1,5 @@
 import './Manual.css';
-import electrician from '../images/electrician.png';
+import electrician from '../../images/electrician.png';
 
 function Manual() {
   return (
