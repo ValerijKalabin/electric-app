@@ -1,4 +1,5 @@
 import AutoSwitch from '../AutoSwitch/AutoSwitch';
+import JunctionBox from '../JunctionBox/JunctionBox';
 import './Start.css';
 
 function Start() {
@@ -10,9 +11,7 @@ function Start() {
           <AutoSwitch />
         </li>
         <li className="start__item start__item_box">
-          <svg width="60" height="60" fill="transparent" stroke="#d5d832" strokeWidth="4" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="30" cy="30" r="26" />
-          </svg>
+          <JunctionBox />
         </li>
         <li className="start__item start__item_lamp">
           <svg width="60" height="60" fill="transparent" stroke="#d5d832" strokeWidth="4" xmlns="http://www.w3.org/2000/svg">
