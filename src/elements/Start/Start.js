@@ -1,3 +1,4 @@
+import AutoSwitch from '../AutoSwitch/AutoSwitch';
 import './Start.css';
 
 function Start() {
@@ -5,16 +6,8 @@ function Start() {
     <div className="start">
       <h1 className="start__title">?</h1>
       <ul className="start__list">
-        <li className="start__item start__item_auto">
-          <svg width="60" height="60" fill="transparent" stroke="#d5d832" strokeWidth="4" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="30" cy="30" r="26" />
-            <line x1="4" x2="22" y1="22" y2="22" />
-            <line x1="4" x2="22" y1="38" y2="38" />
-            <line x1="38" x2="56" y1="22" y2="22" />
-            <line x1="38" x2="56" y1="38" y2="38" />
-            <line x1="22" x2="38" y1="22" y2="14" />
-            <line x1="22" x2="38" y1="38" y2="30" />
-          </svg>
+        <li className="start__item start__item_auto-switch">
+          <AutoSwitch />
         </li>
         <li className="start__item start__item_box">
           <svg width="60" height="60" fill="transparent" stroke="#d5d832" strokeWidth="4" xmlns="http://www.w3.org/2000/svg">

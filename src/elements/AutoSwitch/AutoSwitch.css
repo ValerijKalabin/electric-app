@@ -1,0 +1,15 @@
+.text {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 44px;
+  text-align: center;
+  color: #d5d832;
+  background-color: transparent;
+  box-sizing: border-box;
+  width: 60px;
+  height: 60px;
+  border: 4px solid #d5d832;
+  border-radius: 30px;
+  padding: 0 0 8px 0;
+  margin: 0;
+}
