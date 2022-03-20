@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import AutoSwitch from '../../icons/AutoSwitch/AutoSwitch';
 import Help from '../../icons/Help/Help';
 import JunctionBox from '../../icons/JunctionBox/JunctionBox';
@@ -10,7 +11,9 @@ function Elements() {
   return (
     <ul className="elements">
       <li className="elements__item elements__item_help">
-        <Help color="gray" />
+        <Link className="elements__link" to="/buttons-assignment">
+          <Help color="gray" />
+        </Link>
       </li>
       <li className="elements__item elements__item_auto-switch">
         <AutoSwitch color="yellow" />

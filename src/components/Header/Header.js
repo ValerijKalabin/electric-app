@@ -10,7 +10,7 @@ function Header() {
         <ul className="header__list">
           <li className="header__item">
             <NavLink
-              to="/sheme"
+              to="/scheme"
               className={
                 (navData) => navData.isActive ?
                 "header__link header__link_left header__link_active" :

@@ -2,7 +2,7 @@ import './Help.css';
 
 function Help({ color }) {
   return (
-    <p className={`text ${color}`}>?</p>
+    <p className={`help ${color}`}>?</p>
   );
 }
 

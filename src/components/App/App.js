@@ -5,6 +5,7 @@ import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
 import List from '../List/List';
 import Footer from '../Footer/Footer';
+import ButtonsAssignment from '../ButtonsAssignment/ButtonsAssignment';
 
 
 function App() {
@@ -13,8 +14,9 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Manual />} />
-        <Route path='/sheme' element={<Scheme />} />
-        <Route path='/list' element={<List/>} />
+        <Route path='/scheme' element={<Scheme />} />
+        <Route path='/list' element={<List />} />
+        <Route path='/buttons-assignment' element={<ButtonsAssignment />} />
       </Routes>
       <Footer />
     </div>
