@@ -1,6 +1,7 @@
 import AutoSwitch from '../AutoSwitch/AutoSwitch';
 import JunctionBox from '../JunctionBox/JunctionBox';
 import Lamp from '../Lamp/Lamp';
+import Socket from '../Socket/Socket';
 import './Start.css';
 
 function Start() {
@@ -18,15 +19,7 @@ function Start() {
           <Lamp color="yellow" />
         </li>
         <li className="start__item start__item_socket">
-          <svg width="60" height="60" fill="transparent" stroke="#d5d832" strokeWidth="4" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="30" cy="30" r="26" />
-            <line x1="2" x2="16" y1="30" y2="30" />
-            <line x1="32" x2="58" y1="30" y2="30" />
-            <line x1="16" x2="26" y1="30" y2="20" />
-            <line x1="16" x2="26" y1="30" y2="40" />
-            <line x1="32" x2="42" y1="30" y2="20" />
-            <line x1="32" x2="42" y1="30" y2="40" />
-          </svg>
+          <Socket color="yellow" />
         </li>
         <li className="start__item start__item_switch">
           <svg width="60" height="60" fill="transparent" stroke="#d5d832" strokeWidth="4" xmlns="http://www.w3.org/2000/svg">
