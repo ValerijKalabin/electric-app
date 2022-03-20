@@ -1,8 +1,8 @@
 import './AutoSwitch.css';
 
-function AutoSwitch() {
+function AutoSwitch({ color }) {
   return (
-    <p className="text">A</p>
+    <p className={`text ${color}`}>A</p>
   );
 }
 

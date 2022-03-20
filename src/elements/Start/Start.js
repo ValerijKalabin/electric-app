@@ -1,5 +1,6 @@
 import AutoSwitch from '../AutoSwitch/AutoSwitch';
 import JunctionBox from '../JunctionBox/JunctionBox';
+import Lamp from '../Lamp/Lamp';
 import './Start.css';
 
 function Start() {
@@ -8,17 +9,13 @@ function Start() {
       <h1 className="start__title">?</h1>
       <ul className="start__list">
         <li className="start__item start__item_auto-switch">
-          <AutoSwitch />
+          <AutoSwitch color="yellow" />
         </li>
-        <li className="start__item start__item_box">
-          <JunctionBox />
+        <li className="start__item start__item_junction-box">
+          <JunctionBox color="yellow" />
         </li>
         <li className="start__item start__item_lamp">
-          <svg width="60" height="60" fill="transparent" stroke="#d5d832" strokeWidth="4" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="30" cy="30" r="26" />
-            <line x1="10" x2="50" y1="50" y2="10" />
-            <line x1="10" x2="50" y1="10" y2="50" />
-          </svg>
+          <Lamp color="yellow" />
         </li>
         <li className="start__item start__item_socket">
           <svg width="60" height="60" fill="transparent" stroke="#d5d832" strokeWidth="4" xmlns="http://www.w3.org/2000/svg">

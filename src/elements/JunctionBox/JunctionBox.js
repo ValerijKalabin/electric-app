@@ -1,9 +1,9 @@
 import './JunctionBox.css';
 
-function JunctionBox() {
+function JunctionBox({ color }) {
   return (
-    <div className="box">
-      <div className="box__inner" />
+    <div className={`box ${color}`}>
+      <div className={`box__inner ${color}`} />
     </div>
   );
 }

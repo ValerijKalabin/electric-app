@@ -3,13 +3,23 @@
   font-weight: 700;
   line-height: 44px;
   text-align: center;
-  color: #d5d832;
+  color: red;
   background-color: transparent;
   box-sizing: border-box;
   width: 60px;
   height: 60px;
-  border: 4px solid #d5d832;
+  border: 4px solid red;
   border-radius: 30px;
   padding: 0 0 8px 0;
   margin: 0;
+}
+
+.gray {
+  color: #bbbbbb;
+  border-color: #bbbbbb;
+}
+
+.yellow {
+  color: #d5d832;
+  border-color: #d5d832;
 }
