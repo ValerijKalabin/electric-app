@@ -34,7 +34,7 @@
   }
 }
 
-.start__list {
+.elements {
   list-style-type: none;
   display: block;
   position: relative;
@@ -45,7 +45,7 @@
   animation: rotation 30s linear infinite running;
 }
 
-.start__item {
+.elements__item {
   display: block;
   position: absolute;
   width: 60px;
@@ -55,32 +55,32 @@
   animation: opposite-rotation 30s linear infinite running;
 }
 
-.start__item_help {
+.elements__item_help {
   top: 0;
   left: 0;
 }
 
-.start__item_lamp {
+.elements__item_lamp {
   top: -120px;
   left: 0;
 }
 
-.start__item_junction-box {
+.elements__item_junction-box {
   top: -37px;
   right: -114px;
 }
 
-.start__item_auto-switch {
+.elements__item_auto-switch {
   top: -37px;
   left: -114px;
 }
 
-.start__item_switch {
+.elements__item_switch {
   bottom: -97px;
   right: -71px;
 }
 
-.start__item_socket {
+.elements__item_socket {
   bottom: -97px;
   left: -71px;
 }

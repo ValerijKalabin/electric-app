@@ -1,10 +1,10 @@
-import Start from '../../elements/Start/Start';
+import Elements from '../Elements/Elements';
 import './Scheme.css';
 
 function Scheme() {
   return (
     <main className="scheme">
-      <Start />
+      <Elements />
     </main>
   );
 }
