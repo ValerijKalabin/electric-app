@@ -6,26 +6,26 @@ import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
 import './ListElements.css';
 
-function ListElements({ onClickHelp }) {
+function ListElements({ onClickButton }) {
   return (
     <ul className="elements">
       <li className="elements__item elements__item_help">
-        <Help listName="elements" onClickHelp={onClickHelp} />
+        <Help listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_auto-switch">
-        <AutoSwitch listName="elements" />
+        <AutoSwitch listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_junction-box">
-        <JunctionBox listName="elements" />
+        <JunctionBox listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_lamp">
-        <Lamp listName="elements" />
+        <Lamp listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_socket">
-        <Socket listName="elements" />
+        <Socket listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_switch">
-        <Switch listName="elements" />
+        <Switch listName="elements" onClickButton={onClickButton} />
       </li>
     </ul>
   );

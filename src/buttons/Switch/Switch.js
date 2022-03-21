@@ -2,11 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import { getElementButtonColor } from '../../utils/color';
 import './Switch.css';
 
-function Switch({ listName }) {
+function Switch({ listName, onClickButton }) {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate("/");
+    navigate("/element");
+    onClickButton({
+      listName: listName,
+      buttonName: 'switch'
+    });
   }
 
   return (

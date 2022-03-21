@@ -2,12 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import { getActionButtonColor } from '../../utils/color';
 import './Help.css';
 
-function Help({ listName, onClickHelp }) {
+function Help({ listName, onClickButton }) {
   const navigate = useNavigate();
 
   function handleClick() {
-    onClickHelp(listName);
     navigate("/buttons");
+    onClickButton({
+      listName: listName,
+      buttonName: 'help'
+    });
   }
 
   return (

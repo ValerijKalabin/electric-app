@@ -2,11 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import { getElementButtonColor } from '../../utils/color';
 import './Lamp.css';
 
-function Lamp({ listName }) {
+function Lamp({ listName, onClickButton }) {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate("/");
+    navigate("/element");
+    onClickButton({
+      listName: listName,
+      buttonName: 'lamp'
+    });
   }
 
   return (

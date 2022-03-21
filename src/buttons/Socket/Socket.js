@@ -2,11 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import { getElementButtonColor } from '../../utils/color';
 import './Socket.css';
 
-function Socket({ listName }) {
+function Socket({ listName, onClickButton }) {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate("/");
+    navigate("/element");
+    onClickButton({
+      listName: listName,
+      buttonName: 'socket'
+    });
   }
 
   return (
@@ -25,7 +29,6 @@ function Socket({ listName }) {
         <line x1="42" x2="32" y1="29" y2="40" />
       </svg>
     </button>
-
   );
 }
 

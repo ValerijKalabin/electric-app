@@ -2,11 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import { getElementButtonColor } from '../../utils/color';
 import './AutoSwitch.css';
 
-function AutoSwitch({ listName }) {
+function AutoSwitch({ listName, onClickButton }) {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate("/");
+    navigate("/element");
+    onClickButton({
+      listName: listName,
+      buttonName: 'auto-switch'
+    });
   }
 
   return (

@@ -2,11 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import { getElementButtonColor } from '../../utils/color';
 import './JunctionBox.css';
 
-function JunctionBox({ listName }) {
+function JunctionBox({ listName, onClickButton }) {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate("/");
+    navigate("/element");
+    onClickButton({
+      listName: listName,
+      buttonName: 'junction-box'
+    });
   }
 
   return (

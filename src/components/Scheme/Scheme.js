@@ -1,10 +1,10 @@
 import ListElements from '../ListElements/ListElements';
 import './Scheme.css';
 
-function Scheme({ onClickHelp }) {
+function Scheme({ onClickButton }) {
   return (
     <main className="scheme">
-      <ListElements onClickHelp={onClickHelp} />
+      <ListElements onClickButton={onClickButton} />
     </main>
   );
 }

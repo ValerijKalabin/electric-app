@@ -7,7 +7,7 @@ import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
 import './ListButtons.css';
 
-function ListButtons({ listState }) {
+function ListButtons({ listState, onClickButton }) {
   return (
     <main className="buttons">
       <h1 className="buttons__title">
@@ -17,7 +17,7 @@ function ListButtons({ listState }) {
         { listState === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <AutoSwitch listName="buttons" />
+              <AutoSwitch listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -29,7 +29,7 @@ function ListButtons({ listState }) {
         { listState === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <JunctionBox listName="buttons" />
+              <JunctionBox listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -41,7 +41,7 @@ function ListButtons({ listState }) {
         { listState === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Lamp listName="buttons" />
+              <Lamp listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -53,7 +53,7 @@ function ListButtons({ listState }) {
         { listState === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Socket listName="buttons" />
+              <Socket listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -65,7 +65,7 @@ function ListButtons({ listState }) {
         { listState === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Switch listName="buttons" />
+              <Switch listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -77,7 +77,7 @@ function ListButtons({ listState }) {
         { listState === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Help listName="buttons" />
+              <Help listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
