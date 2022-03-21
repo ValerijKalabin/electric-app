@@ -9,7 +9,7 @@ function Help({ listName, onClickHelp }) {
 
   return (
     <Link
-      to="/list-buttons"
+      to="/buttons"
       className={`help ${getActionButtonColor(listName)}`}
       onClick={ handleClick }
     >

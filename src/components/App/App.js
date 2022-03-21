@@ -1,4 +1,4 @@
-import './App.css';
+import { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
@@ -6,7 +6,7 @@ import Scheme from '../Scheme/Scheme';
 import List from '../List/List';
 import Footer from '../Footer/Footer';
 import ListButtons from '../ListButtons/ListButtons';
-import { useState } from 'react';
+import './App.css';
 
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
         <Route path='/' element={<Manual />} />
         <Route path='/scheme' element={<Scheme onClickHelp={handleClickHelp} />} />
         <Route path='/list' element={<List />} />
-        <Route path='/list-buttons' element={<ListButtons listState={buttonsListState} />} />
+        <Route path='/buttons' element={<ListButtons listState={buttonsListState} />} />
       </Routes>
       <Footer />
     </div>

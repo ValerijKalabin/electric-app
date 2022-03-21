@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
-import AutoSwitch from '../../icons/AutoSwitch/AutoSwitch';
-import Help from '../../icons/Help/Help';
-import JunctionBox from '../../icons/JunctionBox/JunctionBox';
-import Lamp from '../../icons/Lamp/Lamp';
-import Socket from '../../icons/Socket/Socket';
-import Switch from '../../icons/Switch/Switch';
+import AutoSwitch from '../../buttons/AutoSwitch/AutoSwitch';
+import Help from '../../buttons/Help/Help';
+import JunctionBox from '../../buttons/JunctionBox/JunctionBox';
+import Lamp from '../../buttons/Lamp/Lamp';
+import Socket from '../../buttons/Socket/Socket';
+import Switch from '../../buttons/Switch/Switch';
 import './ListButtons.css';
 
 function ListButtons({ listState }) {
