@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import AutoSwitch from '../../icons/AutoSwitch/AutoSwitch';
 import Help from '../../icons/Help/Help';
 import JunctionBox from '../../icons/JunctionBox/JunctionBox';
@@ -7,13 +6,11 @@ import Socket from '../../icons/Socket/Socket';
 import Switch from '../../icons/Switch/Switch';
 import './Elements.css';
 
-function Elements() {
+function Elements({ onClickHelp }) {
   return (
     <ul className="elements">
       <li className="elements__item elements__item_help">
-        <Link className="elements__link" to="/buttons-assignment">
-          <Help color="gray" />
-        </Link>
+        <Help type="element" onClickHelp={onClickHelp} />
       </li>
       <li className="elements__item elements__item_auto-switch">
         <AutoSwitch color="yellow" />

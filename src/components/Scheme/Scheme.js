@@ -1,10 +1,10 @@
 import Elements from '../Elements/Elements';
 import './Scheme.css';
 
-function Scheme() {
+function Scheme({ onClickHelp }) {
   return (
     <main className="scheme">
-      <Elements />
+      <Elements onClickHelp={onClickHelp} />
     </main>
   );
 }

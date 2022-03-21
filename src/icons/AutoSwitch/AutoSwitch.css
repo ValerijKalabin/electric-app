@@ -23,3 +23,13 @@
   color: #d5d832;
   border-color: #d5d832;
 }
+
+.text:hover.gray {
+  color: #111111;
+  background-color: #bbbbbb;
+}
+
+.text:hover.yellow {
+  color: #111111;
+  background-color: #d5d832;
+}

@@ -5,3 +5,18 @@
 .yellow {
   stroke: #d5d832;
 }
+
+.gray:hover {
+  fill: #bbbbbb;
+}
+
+.yellow:hover {
+  fill: #d5d832;
+}
+
+.gray:hover line {
+  stroke: #111111;
+}
+.yellow:hover line {
+  stroke: #111111;
+}

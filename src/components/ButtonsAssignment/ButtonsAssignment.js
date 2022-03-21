@@ -7,7 +7,7 @@ import Socket from '../../icons/Socket/Socket';
 import Switch from '../../icons/Switch/Switch';
 import './ButtonsAssignment.css';
 
-function ButtonsAssignment({ type = "element" }) {
+function ButtonsAssignment({ type }) {
   return (
     <main className="assignment">
       <h1 className="assignment__title">

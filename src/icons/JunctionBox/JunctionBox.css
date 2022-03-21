@@ -23,3 +23,15 @@
 .yellow {
   border-color: #d5d832;
 }
+
+.box:hover .box__inner {
+  border-color: #111111;
+}
+
+.box:hover.gray {
+  background-color: #bbbbbb;
+}
+
+.box:hover.yellow {
+  background-color: #d5d832;
+}
