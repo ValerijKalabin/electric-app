@@ -2,7 +2,7 @@
   display: block;
   font-size: 36px;
   font-weight: 700;
-  line-height: 46px;
+  line-height: 52px;
   text-align: center;
   text-decoration: none;
   color: red;
@@ -12,8 +12,10 @@
   height: 60px;
   border: 4px solid red;
   border-radius: 30px;
-  padding: 0 0 6px 0;
+  padding: 0;
   margin: 0;
+  outline: none;
+  cursor: pointer;
 }
 
 .gray {

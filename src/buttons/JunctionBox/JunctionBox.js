@@ -1,10 +1,22 @@
+import { useNavigate } from 'react-router-dom';
+import { getElementButtonColor } from '../../utils/color';
 import './JunctionBox.css';
 
-function JunctionBox({ color }) {
+function JunctionBox({ listName }) {
+  const navigate = useNavigate();
+
+  function handleClick() {
+    navigate("/");
+  }
+
   return (
-    <div className={`box ${color}`}>
-      <div className={`box__inner ${color}`} />
-    </div>
+    <button
+      type="button"
+      className={`box ${getElementButtonColor(listName)}`}
+      onClick={ handleClick }
+    >
+      <div className={`box__inner ${getElementButtonColor(listName)}`} />
+    </button>
   );
 }
 

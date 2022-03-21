@@ -17,7 +17,7 @@ function ListButtons({ listState }) {
         { listState === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <AutoSwitch color="yellow" />
+              <AutoSwitch listName="buttons" />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -29,7 +29,7 @@ function ListButtons({ listState }) {
         { listState === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <JunctionBox color="yellow" />
+              <JunctionBox listName="buttons" />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -41,7 +41,7 @@ function ListButtons({ listState }) {
         { listState === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Lamp color="yellow" />
+              <Lamp listName="buttons" />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -53,7 +53,7 @@ function ListButtons({ listState }) {
         { listState === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Socket color="yellow" />
+              <Socket listName="buttons" />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -65,7 +65,7 @@ function ListButtons({ listState }) {
         { listState === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Switch color="yellow" />
+              <Switch listName="buttons" />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -77,7 +77,7 @@ function ListButtons({ listState }) {
         { listState === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Help color="yellow" />
+              <Help listName="buttons" />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">

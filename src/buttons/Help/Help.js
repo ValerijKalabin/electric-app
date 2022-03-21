@@ -1,20 +1,23 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getActionButtonColor } from '../../utils/color';
 import './Help.css';
 
 function Help({ listName, onClickHelp }) {
+  const navigate = useNavigate();
+
   function handleClick() {
     onClickHelp(listName);
+    navigate("/buttons");
   }
 
   return (
-    <Link
-      to="/buttons"
+    <button
+      type="button"
       className={`help ${getActionButtonColor(listName)}`}
       onClick={ handleClick }
     >
       ?
-    </Link>
+    </button>
   );
 }
 

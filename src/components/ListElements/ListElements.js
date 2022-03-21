@@ -13,19 +13,19 @@ function ListElements({ onClickHelp }) {
         <Help listName="elements" onClickHelp={onClickHelp} />
       </li>
       <li className="elements__item elements__item_auto-switch">
-        <AutoSwitch color="yellow" />
+        <AutoSwitch listName="elements" />
       </li>
       <li className="elements__item elements__item_junction-box">
-        <JunctionBox color="yellow" />
+        <JunctionBox listName="elements" />
       </li>
       <li className="elements__item elements__item_lamp">
-        <Lamp color="yellow" />
+        <Lamp listName="elements" />
       </li>
       <li className="elements__item elements__item_socket">
-        <Socket color="yellow" />
+        <Socket listName="elements" />
       </li>
       <li className="elements__item elements__item_switch">
-        <Switch color="yellow" />
+        <Switch listName="elements" />
       </li>
     </ul>
   );
