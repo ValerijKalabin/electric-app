@@ -1,9 +1,9 @@
 export const getActionButtonColor = (type) => {
-  if (type === 'element') return 'gray';
-  if (type === 'action') return 'yellow';
+  if (type === 'elements') return 'gray';
+  if (type === 'actions') return 'yellow';
 };
 
 export const getElementButtonColor = (type) => {
-  if (type === 'action') return 'gray';
-  if (type === 'element') return 'yellow';
+  if (type === 'actions') return 'gray';
+  if (type === 'elements') return 'yellow';
 };

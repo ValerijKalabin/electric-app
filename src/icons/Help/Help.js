@@ -2,16 +2,16 @@ import { Link } from 'react-router-dom';
 import { getActionButtonColor } from '../../utils/color';
 import './Help.css';
 
-function Help({ type, onClickHelp }) {
+function Help({ listName, onClickHelp }) {
   function handleClick() {
-    onClickHelp(type);
+    onClickHelp(listName);
   }
 
   return (
     <Link
-      to="/buttons-assignment"
-      className={`help ${getActionButtonColor(type)}`}
-      onClick={handleClick}
+      to="/list-buttons"
+      className={`help ${getActionButtonColor(listName)}`}
+      onClick={ handleClick }
     >
       ?
     </Link>

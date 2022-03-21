@@ -5,91 +5,91 @@ import JunctionBox from '../../icons/JunctionBox/JunctionBox';
 import Lamp from '../../icons/Lamp/Lamp';
 import Socket from '../../icons/Socket/Socket';
 import Switch from '../../icons/Switch/Switch';
-import './ButtonsAssignment.css';
+import './ListButtons.css';
 
-function ButtonsAssignment({ type }) {
+function ListButtons({ listState }) {
   return (
-    <main className="assignment">
-      <h1 className="assignment__title">
+    <main className="buttons">
+      <h1 className="buttons__title">
         Назначение кнопок
       </h1>
-      <ul className="assignment__list">
-        { type === "element" &&
-          <li className="assignment__item">
-            <div className="assignment__icon">
+      <ul className="buttons__list">
+        { listState === "elements" &&
+          <li className="buttons__item">
+            <div className="buttons__container">
               <AutoSwitch color="yellow" />
             </div>
-            <div className="assignment__label">
-              <p className="assignment__text">
+            <div className="buttons__label">
+              <p className="buttons__text">
                 Добавить в схему автоматический выключатель
               </p>
             </div>
           </li>
         }
-        { type === "element" &&
-          <li className="assignment__item">
-            <div className="assignment__icon">
+        { listState === "elements" &&
+          <li className="buttons__item">
+            <div className="buttons__container">
               <JunctionBox color="yellow" />
             </div>
-            <div className="assignment__label">
-              <p className="assignment__text">
+            <div className="buttons__label">
+              <p className="buttons__text">
                 Добавить в схему распаечную коробку
               </p>
             </div>
           </li>
         }
-        { type === "element" &&
-          <li className="assignment__item">
-            <div className="assignment__icon">
+        { listState === "elements" &&
+          <li className="buttons__item">
+            <div className="buttons__container">
               <Lamp color="yellow" />
             </div>
-            <div className="assignment__label">
-              <p className="assignment__text">
+            <div className="buttons__label">
+              <p className="buttons__text">
                 Добавить в схему светильник
               </p>
             </div>
           </li>
         }
-        { type === "element" &&
-          <li className="assignment__item">
-            <div className="assignment__icon">
+        { listState === "elements" &&
+          <li className="buttons__item">
+            <div className="buttons__container">
               <Socket color="yellow" />
             </div>
-            <div className="assignment__label">
-              <p className="assignment__text">
+            <div className="buttons__label">
+              <p className="buttons__text">
                 Добавить в схему розетку
               </p>
             </div>
           </li>
         }
-        { type === "element" &&
-          <li className="assignment__item">
-            <div className="assignment__icon">
+        { listState === "elements" &&
+          <li className="buttons__item">
+            <div className="buttons__container">
               <Switch color="yellow" />
             </div>
-            <div className="assignment__label">
-              <p className="assignment__text">
+            <div className="buttons__label">
+              <p className="buttons__text">
                 Добавить в схему выключатель
               </p>
             </div>
           </li>
         }
-        { type === "action" &&
-          <li className="assignment__item">
-            <div className="assignment__icon">
+        { listState === "actions" &&
+          <li className="buttons__item">
+            <div className="buttons__container">
               <Help color="yellow" />
             </div>
-            <div className="assignment__label">
-              <p className="assignment__text">
+            <div className="buttons__label">
+              <p className="buttons__text">
                 Посмотреть назначение кнопок
               </p>
             </div>
           </li>
         }
       </ul>
-      <Link to="/scheme" className="assignment__return">Закрыть</Link>
+      <Link to="/scheme" className="buttons__return">Закрыть</Link>
     </main>
   );
 }
 
-export default ButtonsAssignment;
+export default ListButtons;

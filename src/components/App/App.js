@@ -5,15 +5,15 @@ import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
 import List from '../List/List';
 import Footer from '../Footer/Footer';
-import ButtonsAssignment from '../ButtonsAssignment/ButtonsAssignment';
+import ListButtons from '../ListButtons/ListButtons';
 import { useState } from 'react';
 
 
 function App() {
-  const [typeOfButtons, setTypeOfButtons] = useState('');
+  const [buttonsListState, setButtonsListState] = useState('');
 
-  function handleClickHelp(type) {
-    setTypeOfButtons(type);
+  function handleClickHelp(listName) {
+    setButtonsListState(listName);
   }
 
   return (
@@ -23,7 +23,7 @@ function App() {
         <Route path='/' element={<Manual />} />
         <Route path='/scheme' element={<Scheme onClickHelp={handleClickHelp} />} />
         <Route path='/list' element={<List />} />
-        <Route path='/buttons-assignment' element={<ButtonsAssignment type={typeOfButtons} />} />
+        <Route path='/list-buttons' element={<ListButtons listState={buttonsListState} />} />
       </Routes>
       <Footer />
     </div>

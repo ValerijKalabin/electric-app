@@ -1,9 +1,9 @@
-.assignment {
+.buttons {
   padding: 0;
   margin: 0;
 }
 
-.assignment__title {
+.buttons__title {
   font-size: 28px;
   font-weight: 600;
   line-height: 40px;
@@ -15,13 +15,13 @@
   margin: 0;
 }
 
-.assignment__list {
+.buttons__list {
   list-style-type: none;
   padding: 0;
   margin: 0 0 46px;
 }
 
-.assignment__item {
+.buttons__item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -30,14 +30,14 @@
   margin: 0;
 }
 
-.assignment__icon {
+.buttons__container {
   width: 60px;
   height: 60px;
   padding: 0;
   margin: 0 20px 0 0;
 }
 
-.assignment__label {
+.buttons__label {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -51,7 +51,7 @@
   margin: 0;
 }
 
-.assignment__text {
+.buttons__text {
   font-size: 20px;
   font-weight: 400;
   line-height: 24px;
@@ -62,7 +62,7 @@
   margin: 0;
 }
 
-.assignment__return {
+.buttons__return {
   display: block;
   font-size: 24px;
   font-weight: 400;
@@ -79,7 +79,7 @@
   margin: 0 auto;
 }
 
-.assignment__return:hover {
+.buttons__return:hover {
   color: #111111;
   background-color: #d5d832;
   cursor: pointer;

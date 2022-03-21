@@ -10,7 +10,7 @@ function Elements({ onClickHelp }) {
   return (
     <ul className="elements">
       <li className="elements__item elements__item_help">
-        <Help type="element" onClickHelp={onClickHelp} />
+        <Help listName="elements" onClickHelp={onClickHelp} />
       </li>
       <li className="elements__item elements__item_auto-switch">
         <AutoSwitch color="yellow" />
