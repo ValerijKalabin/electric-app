@@ -70,9 +70,9 @@
   text-transform: uppercase;
   text-decoration: none;
   text-align: center;
-  color: #d5d832;
+  color: #bbbbbb;
   background-color: #111111;
-  border: 2px solid #d5d832;
+  border: 2px solid #bbbbbb;
   border-radius: 22px;
   width: 160px;
   padding: 0;
@@ -81,6 +81,6 @@
 
 .buttons__return:hover {
   color: #111111;
-  background-color: #d5d832;
+  background-color: #bbbbbb;
   cursor: pointer;
 }

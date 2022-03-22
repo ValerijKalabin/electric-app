@@ -21,7 +21,7 @@ function ListButtons({ listState, onClickButton }) {
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
-                Добавить в схему автоматический выключатель
+                Добавить в схему блок автоматических выключателей
               </p>
             </div>
           </li>
@@ -57,7 +57,7 @@ function ListButtons({ listState, onClickButton }) {
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
-                Добавить в схему розетку
+                Добавить в схему блок розеток
               </p>
             </div>
           </li>
@@ -69,7 +69,7 @@ function ListButtons({ listState, onClickButton }) {
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
-                Добавить в схему выключатель
+                Добавить в схему блок выключателей
               </p>
             </div>
           </li>

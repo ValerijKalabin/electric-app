@@ -1,3 +1,134 @@
+.element {
+  max-width: 600px;
+  padding: 0;
+  margin: 0;
+}
+
 .element__title {
-  color: red;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 32px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #bbbbbb;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 40px;
+}
+
+.element__container {
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.element__label {
+  display: block;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28px;
+  color: #d5d832;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 20px;
+}
+
+.element__input {
+  display: block;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 52px;
+  color: #bbbbbb;
+  background-color: transparent;
+  outline: none;
+  box-sizing: border-box;
+  border: 4px solid #bbbbbb;
+  border-radius: 30px;
+  width: 100%;
+  height: 60px;
+  padding: 0 20px;
+  margin: 0 0 10px;
+}
+
+.element__input:hover {
+  border-color: #d5d832;
+}
+
+.element__input:focus {
+  color: #111111;
+  background-color: #bbbbbb;
+  border-color: #bbbbbb;
+}
+
+.element__input::-webkit-outer-spin-button,
+.element__input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.element__explanation {
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #bbbbbb;
+  width: 100%;
+  min-height: 60px;
+  padding: 0;
+  margin: 0;
+}
+
+.element__buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.element__submit {
+  display: block;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 40px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  color: #d5d832;
+  background-color: transparent;
+  border: 2px solid #d5d832;
+  border-radius: 22px;
+  box-sizing: border-box;
+  width: 150px;
+  padding: 0;
+  margin: 0;
+}
+
+.element__submit:hover {
+  color: #111111;
+  background-color: #d5d832;
+  cursor: pointer;
+}
+
+.element__return {
+  display: block;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 40px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  color: #bbbbbb;
+  background-color: transparent;
+  border: 2px solid #bbbbbb;
+  border-radius: 22px;
+  box-sizing: border-box;
+  width: 150px;
+  padding: 0;
+  margin: 0;
+}
+
+.element__return:hover {
+  color: #111111;
+  background-color: #bbbbbb;
+  cursor: pointer;
 }
