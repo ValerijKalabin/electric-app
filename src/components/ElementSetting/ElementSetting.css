@@ -1,5 +1,5 @@
 .element {
-  max-width: 600px;
+  width: 600px;
   padding: 0;
   margin: 0;
 }
@@ -76,6 +76,10 @@
   margin: 0;
 }
 
+.element__explanation_error {
+  color: red;
+}
+
 .element__buttons {
   display: flex;
   flex-direction: row;
@@ -101,12 +105,23 @@
   width: 150px;
   padding: 0;
   margin: 0;
+  opacity: 1;
 }
 
 .element__submit:hover {
   color: #111111;
   background-color: #d5d832;
   cursor: pointer;
+}
+
+.element__submit_disabled {
+  opacity: 0.2;
+}
+
+.element__submit_disabled:hover {
+  color: #d5d832;
+  background-color: transparent;
+  cursor: default;
 }
 
 .element__return {
@@ -131,4 +146,10 @@
   color: #111111;
   background-color: #bbbbbb;
   cursor: pointer;
+}
+
+@media screen and (max-width: 640px) {
+  .element {
+    width: 100%;
+  }
 }

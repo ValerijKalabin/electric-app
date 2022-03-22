@@ -44,9 +44,9 @@ export const isButtonSubmitVisible = (elementName) => {
 };
 
 export const getLabelPower = (elementName) => {
-  if (elementName === 'auto-switch') return 'Номинальная сила тока';
-  if (elementName === 'lamp') return 'Потребляемая мощность';
-  if (elementName === 'socket') return 'Мощность вероятных потребителей';
+  if (elementName === 'auto-switch') return 'Номинальная сила тока (A)';
+  if (elementName === 'lamp') return 'Потребляемая мощность (Bт)';
+  if (elementName === 'socket') return 'Мощность вероятных потребителей (Вт)';
   return '';
 };
 
