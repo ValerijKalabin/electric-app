@@ -9,25 +9,22 @@
   cursor: pointer;
 }
 
-.gray {
+.socket .gray {
   stroke: #bbbbbb;
 }
 
-.yellow {
+.socket .yellow {
   stroke: #d5d832;
 }
 
-.gray:hover {
+.socket:hover .gray {
   fill: #bbbbbb;
 }
 
-.yellow:hover {
+.socket:hover .yellow {
   fill: #d5d832;
 }
 
-.gray:hover line {
-  stroke: #111111;
-}
-.yellow:hover line {
+.socket:hover line {
   stroke: #111111;
 }

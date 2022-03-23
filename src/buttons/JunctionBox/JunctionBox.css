@@ -19,11 +19,19 @@
   height: 29px;
 }
 
-.gray {
+.box.gray {
   border-color: #bbbbbb;
 }
 
-.yellow {
+.box.yellow {
+  border-color: #d5d832;
+}
+
+.box__inner.gray {
+  border-color: #bbbbbb;
+}
+
+.box__inner.yellow {
   border-color: #d5d832;
 }
 

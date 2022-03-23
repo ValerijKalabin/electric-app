@@ -16,7 +16,7 @@ function AutoSwitch({ listName, onClickButton }) {
   return (
     <button
       type="button"
-      className={`text ${getElementButtonColor(listName)}`}
+      className={`auto-switch ${getElementButtonColor(listName)}`}
       onClick={ handleClick }
     >
       A

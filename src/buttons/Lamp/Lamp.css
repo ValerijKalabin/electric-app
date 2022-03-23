@@ -9,25 +9,22 @@
   cursor: pointer;
 }
 
-.gray {
+.lamp .gray {
   stroke: #bbbbbb;
 }
 
-.yellow {
+.lamp .yellow {
   stroke: #d5d832;
 }
 
-.gray:hover {
+.lamp:hover .gray {
   fill: #bbbbbb;
 }
 
-.yellow:hover {
+.lamp:hover .yellow {
   fill: #d5d832;
 }
 
-.gray:hover line {
-  stroke: #111111;
-}
-.yellow:hover line {
+.lamp:hover line {
   stroke: #111111;
 }

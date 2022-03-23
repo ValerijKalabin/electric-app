@@ -79,5 +79,5 @@ export const isFormValid = ({ elementName, nameValidity, numberValidity, powerVa
   if (elementName === 'lamp') return nameValidity && powerValidity;
   if (elementName === 'socket') return nameValidity && numberValidity && powerValidity;
   if (elementName === 'switch') return nameValidity && numberValidity;
-  return '';
+  return false;
 };

@@ -1,9 +1,4 @@
-.auto-switch {
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 52px;
-  text-align: center;
-  color: red;
+.search {
   background-color: transparent;
   box-sizing: border-box;
   width: 60px;
@@ -16,22 +11,30 @@
   cursor: pointer;
 }
 
-.auto-switch.gray {
-  color: #bbbbbb;
+.search.gray {
   border-color: #bbbbbb;
 }
 
-.auto-switch.yellow {
-  color: #d5d832;
+.search.yellow {
   border-color: #d5d832;
 }
 
-.auto-switch:hover.gray {
-  color: #111111;
+.bi-search.gray {
+  fill: #bbbbbb;
+}
+
+.bi-search.yellow {
+  fill: #d5d832;
+}
+
+.search:hover.gray {
   background-color: #bbbbbb;
 }
 
-.auto-switch:hover.yellow {
-  color: #111111;
+.search:hover.yellow {
   background-color: #d5d832;
+}
+
+.search:hover .bi-search {
+  fill: #111111;
 }
