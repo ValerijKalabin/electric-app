@@ -1,7 +1,7 @@
 import { getActionButtonColor } from '../../utils/color';
 import './Delete.css';
 
-function Delete({ listName='actions', onClickButton }) {
+function Delete({ listName, onClickButton }) {
 
   function handleClick() {
     onClickButton({

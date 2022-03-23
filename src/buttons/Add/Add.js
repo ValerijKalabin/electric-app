@@ -1,7 +1,7 @@
 import { getActionButtonColor } from '../../utils/color';
 import './Add.css';
 
-function Add({ listName='actions', onClickButton }) {
+function Add({ listName, onClickButton }) {
 
   function handleClick() {
     onClickButton({

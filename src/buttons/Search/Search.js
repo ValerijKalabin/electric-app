@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { getActionButtonColor } from '../../utils/color';
 import './Search.css';
 
-function Search({ listName='actions', onClickButton }) {
+function Search({ listName, onClickButton }) {
   const navigate = useNavigate();
 
   function handleClick() {
