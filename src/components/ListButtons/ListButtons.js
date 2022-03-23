@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
+import Add from '../../buttons/Add/Add';
 import AutoSwitch from '../../buttons/AutoSwitch/AutoSwitch';
-import Help from '../../buttons/Help/Help';
+import Change from '../../buttons/Change/Change';
+import Delete from '../../buttons/Delete/Delete';
 import JunctionBox from '../../buttons/JunctionBox/JunctionBox';
 import Lamp from '../../buttons/Lamp/Lamp';
+import Search from '../../buttons/Search/Search';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
 import './ListButtons.css';
@@ -77,11 +80,47 @@ function ListButtons({ listState, onClickButton }) {
         { listState === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Help listName="buttons" onClickButton={onClickButton} />
+              <Add listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
-                Посмотреть назначение кнопок
+                Добавить в схему новый элемент
+              </p>
+            </div>
+          </li>
+        }
+        { listState === "actions" &&
+          <li className="buttons__item">
+            <div className="buttons__container">
+              <Change listName="buttons" onClickButton={onClickButton} />
+            </div>
+            <div className="buttons__label">
+              <p className="buttons__text">
+                Изменить параметры текущего элемента схемы
+              </p>
+            </div>
+          </li>
+        }
+        { listState === "actions" &&
+          <li className="buttons__item">
+            <div className="buttons__container">
+              <Delete listName="buttons" onClickButton={onClickButton} />
+            </div>
+            <div className="buttons__label">
+              <p className="buttons__text">
+                Удалить текущий элемент из схемы
+              </p>
+            </div>
+          </li>
+        }
+        { listState === "actions" &&
+          <li className="buttons__item">
+            <div className="buttons__container">
+              <Search listName="buttons" onClickButton={onClickButton} />
+            </div>
+            <div className="buttons__label">
+              <p className="buttons__text">
+                Найти элемент схемы по названию в списке элементов
               </p>
             </div>
           </li>

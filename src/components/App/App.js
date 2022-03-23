@@ -24,7 +24,7 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Manual />} />
-        <Route path='/scheme' element={<Scheme onClickButton={handleClickButton} />} />
+        <Route path='/scheme' element={<Scheme elementName={elementName} onClickButton={handleClickButton} />} />
         <Route path='/list' element={<List />} />
         <Route path='/buttons' element={<ListButtons listState={buttonsListState} onClickButton={handleClickButton} />} />
         <Route path='/element' element={<ElementSetting elementName={elementName} />} />

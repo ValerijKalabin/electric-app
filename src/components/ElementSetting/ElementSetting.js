@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as element from '../../utils/element';
 import './ElementSetting.css';
 
@@ -17,6 +17,7 @@ function ElementSetting({ elementName }) {
   const [powerValidity, setPowerValidity] = useState(false);
 
   const formValidity = { elementName, nameValidity, numberValidity, powerValidity };
+  const navigate = useNavigate();
 
   function handleChangeInputName(event) {
     setNameValue(event.target.value);
@@ -38,7 +39,7 @@ function ElementSetting({ elementName }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    alert(`${nameValue}, ${numberValue}, ${powerValue}`);
+    navigate("/scheme");
   }
 
   return (
