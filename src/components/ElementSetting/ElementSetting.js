@@ -16,7 +16,7 @@ function ElementSetting({ elementName }) {
   const [powerError, setPowerError] = useState('');
   const [powerValidity, setPowerValidity] = useState(false);
 
-  const isDisabledButtonSubmit = !nameValidity || !numberValidity || !powerValidity;
+  const formValidity = { elementName, nameValidity, numberValidity, powerValidity };
 
   function handleChangeInputName(event) {
     setNameValue(event.target.value);
@@ -111,10 +111,10 @@ function ElementSetting({ elementName }) {
         <div className="element__buttons">
           { element.isButtonSubmitVisible(elementName) &&
             <button
-              className={ `element__submit ${ isDisabledButtonSubmit ? 'element__submit_disabled' : '' }` }
+              className={ `element__submit ${ !element.isFormValid(formValidity) ? 'element__submit_disabled' : '' }` }
               type="submit"
               form="element"
-              disabled={isDisabledButtonSubmit}
+              disabled={ !element.isFormValid(formValidity) }
             >
               Ok
             </button>

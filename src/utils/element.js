@@ -72,3 +72,12 @@ export const getInputPowerExplanation = (elementName) => {
   if (elementName === 'socket') return 'Укажите мощность потребителей, которые планируется подключать к розеткам.';
   return '';
 };
+
+export const isFormValid = ({ elementName, nameValidity, numberValidity, powerValidity }) => {
+  if (elementName === 'auto-switch') return nameValidity && numberValidity && powerValidity;
+  if (elementName === 'junction-box') return nameValidity;
+  if (elementName === 'lamp') return nameValidity && powerValidity;
+  if (elementName === 'socket') return nameValidity && numberValidity && powerValidity;
+  if (elementName === 'switch') return nameValidity && numberValidity;
+  return '';
+};
