@@ -81,3 +81,13 @@ export const isFormValid = ({ buttonName, nameValidity, numberValidity, powerVal
   if (buttonName === 'switch') return nameValidity && numberValidity;
   return false;
 };
+
+export const startElement = {
+  id: `a-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+  name: 'help',
+  type: 'action',
+  listName: 'elements',
+  description: '',
+  number: '',
+  power: ''
+};

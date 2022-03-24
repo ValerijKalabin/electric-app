@@ -1,6 +1,7 @@
 import './App.css';
 import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import { startElement } from '../../utils/element';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -13,15 +14,7 @@ import ElementSetting from '../ElementSetting/ElementSetting';
 function App() {
   const [buttonListType, setButtonListType] = useState('');
   const [currentButton, setCurrentButton] = useState({});
-  const [schemeElementList, setSchemeElementList] = useState([{
-    id: `a-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
-    name: 'help',
-    type: 'action',
-    listName: 'elements',
-    description: '',
-    number: '',
-    power: ''
-  }]);
+  const [schemeElementList, setSchemeElementList] = useState([startElement]);
   const navigate = useNavigate();
 
   function handleClickButton(button) {
