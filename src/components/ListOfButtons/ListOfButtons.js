@@ -8,9 +8,10 @@ import Lamp from '../../buttons/Lamp/Lamp';
 import Search from '../../buttons/Search/Search';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
-import './ListButtons.css';
+import './ListOfButtons.css';
 
-function ListButtons({ listType, onClickButton }) {
+
+function ListOfButtons({ listType, onClickButton }) {
   return (
     <main className="buttons">
       <h1 className="buttons__title">
@@ -131,4 +132,4 @@ function ListButtons({ listType, onClickButton }) {
   );
 }
 
-export default ListButtons;
+export default ListOfButtons;

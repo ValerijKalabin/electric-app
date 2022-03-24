@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import * as element from '../../utils/element';
 import './ElementSetting.css';
 
-function ElementSetting({ elementName }) {
+function ElementSetting({ buttonName, onSubmitForm }) {
   const [nameValue, setNameValue] = useState('');
   const [nameError, setNameError] = useState('');
   const [nameValidity, setNameValidity] = useState(false);
@@ -16,7 +16,7 @@ function ElementSetting({ elementName }) {
   const [powerError, setPowerError] = useState('');
   const [powerValidity, setPowerValidity] = useState(false);
 
-  const formValidity = { elementName, nameValidity, numberValidity, powerValidity };
+  const formValidity = { buttonName, nameValidity, numberValidity, powerValidity };
   const navigate = useNavigate();
 
   function handleChangeInputName(event) {
@@ -39,19 +39,20 @@ function ElementSetting({ elementName }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    onSubmitForm(buttonName);
     navigate("/scheme");
   }
 
   return (
     <main className="element">
-      <h1 className="element__title">{element.getElementTitle(elementName)}</h1>
+      <h1 className="element__title">{element.getElementTitle(buttonName)}</h1>
       <form
         className="element__form"
         name="element"
         id="element"
         onSubmit={handleSubmit}
       >
-        { element.isInputNameVisible(elementName) &&
+        { element.isInputNameVisible(buttonName) &&
           <div className="element__container">
             <label className="element__label" htmlFor="name">Наименование</label>
             <input
@@ -66,11 +67,11 @@ function ElementSetting({ elementName }) {
               onChange={handleChangeInputName}
             />
             <span className={ `element__explanation ${ nameValue ? 'element__explanation_error' : '' }` }>
-              { nameValue ? nameError : element.getInputNameExplanation(elementName) }
+              { nameValue ? nameError : element.getInputNameExplanation(buttonName) }
             </span>
           </div>
         }
-        { element.isInputNumberVisible(elementName) &&
+        { element.isInputNumberVisible(buttonName) &&
           <div className="element__container">
             <label className="element__label" htmlFor="number">Количество</label>
             <input
@@ -86,13 +87,13 @@ function ElementSetting({ elementName }) {
               onChange={handleChangeInputNumber}
             />
             <span className={ `element__explanation ${ numberValue ? 'element__explanation_error' : '' }` }>
-              { numberValue ? numberError : element.getInputNumberExplanation(elementName) }
+              { numberValue ? numberError : element.getInputNumberExplanation(buttonName) }
             </span>
           </div>
         }
-        { element.isInputPowerVisible(elementName) &&
+        { element.isInputPowerVisible(buttonName) &&
           <div className="element__container">
-            <label className="element__label" htmlFor="power">{ element.getLabelPower(elementName) }</label>
+            <label className="element__label" htmlFor="power">{ element.getLabelPower(buttonName) }</label>
             <input
               className="element__input"
               type="number"
@@ -105,12 +106,12 @@ function ElementSetting({ elementName }) {
               onChange={handleChangeInputPower}
             />
             <span className={ `element__explanation ${ powerValue ? 'element__explanation_error' : '' }` }>
-              { powerValue ? powerError : element.getInputPowerExplanation(elementName) }
+              { powerValue ? powerError : element.getInputPowerExplanation(buttonName) }
             </span>
           </div>
         }
         <div className="element__buttons">
-          { element.isButtonSubmitVisible(elementName) &&
+          { element.isButtonSubmitVisible(buttonName) &&
             <button
               className={ `element__submit ${ !element.isFormValid(formValidity) ? 'element__submit_disabled' : '' }` }
               type="submit"

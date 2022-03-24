@@ -4,9 +4,10 @@ import JunctionBox from '../../buttons/JunctionBox/JunctionBox';
 import Lamp from '../../buttons/Lamp/Lamp';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
-import './ListElements.css';
+import './ListOfElements.css';
 
-function ListElements({ onClickButton }) {
+
+function ListOfElements({ onClickButton }) {
   return (
     <ul className="elements">
       <li className="elements__item elements__item_help">
@@ -31,4 +32,4 @@ function ListElements({ onClickButton }) {
   );
 }
 
-export default ListElements;
+export default ListOfElements;

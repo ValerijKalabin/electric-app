@@ -8,9 +8,10 @@ import Lamp from '../../buttons/Lamp/Lamp';
 import Search from '../../buttons/Search/Search';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
-import './ListActions.css';
+import './ListOfActions.css';
 
-function ListActions({ elementName, onClickButton }) {
+
+function ListOfActions({ elementName, onClickButton }) {
   return (
     <ul className="actions">
       { elementName === 'auto-switch' &&
@@ -57,4 +58,4 @@ function ListActions({ elementName, onClickButton }) {
   );
 }
 
-export default ListActions;
+export default ListOfActions;
