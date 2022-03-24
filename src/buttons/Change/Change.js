@@ -9,7 +9,9 @@ function Change({ listName, onClickButton }) {
     navigate("/element");
     onClickButton({
       listName: listName,
-      buttonName: 'change'
+      buttonName: 'change',
+      buttonType: 'action',
+      buttonID: 'a-' + (new Date().getTime()) + '-r-' + Math.floor(Math.random() * 1000000)
     });
   }
 

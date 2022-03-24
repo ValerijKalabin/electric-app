@@ -9,7 +9,9 @@ function Lamp({ listName, onClickButton }) {
     navigate("/element");
     onClickButton({
       listName: listName,
-      buttonName: 'lamp'
+      buttonName: 'lamp',
+      buttonType: 'element',
+      buttonID: 'e-' + (new Date().getTime()) + '-r-' + Math.floor(Math.random() * 1000000)
     });
   }
 

@@ -9,7 +9,9 @@ function JunctionBox({ listName, onClickButton }) {
     navigate("/element");
     onClickButton({
       listName: listName,
-      buttonName: 'junction-box'
+      buttonName: 'junction-box',
+      buttonType: 'element',
+      buttonID: 'e-' + (new Date().getTime()) + '-r-' + Math.floor(Math.random() * 1000000)
     });
   }
 

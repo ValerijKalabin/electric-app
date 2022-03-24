@@ -11,12 +11,16 @@ import ElementSetting from '../ElementSetting/ElementSetting';
 
 
 function App() {
-  const [buttonsListState, setButtonsListState] = useState('');
+  const [buttonListType, setButtonListType] = useState('');
   const [elementName, setElementName] = useState('');
 
-  function handleClickButton({ listName, buttonName }) {
-    setButtonsListState(listName);
-    setElementName(buttonName);
+  function handleClickButton({ listName, buttonName, buttonType }) {
+    if (buttonName === 'help') {
+      setButtonListType(listName);
+    }
+    if (buttonType === 'element') {
+      setElementName(buttonName);
+    }
   }
 
   return (
@@ -26,7 +30,7 @@ function App() {
         <Route path='/' element={<Manual />} />
         <Route path='/scheme' element={<Scheme elementName={elementName} onClickButton={handleClickButton} />} />
         <Route path='/list' element={<List />} />
-        <Route path='/buttons' element={<ListButtons listState={buttonsListState} onClickButton={handleClickButton} />} />
+        <Route path='/buttons' element={<ListButtons listType={buttonListType} onClickButton={handleClickButton} />} />
         <Route path='/element' element={<ElementSetting elementName={elementName} />} />
       </Routes>
       <Footer />

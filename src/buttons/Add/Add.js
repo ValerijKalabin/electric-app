@@ -6,7 +6,9 @@ function Add({ listName, onClickButton }) {
   function handleClick() {
     onClickButton({
       listName: listName,
-      buttonName: 'add'
+      buttonName: 'add',
+      buttonType: 'action',
+      buttonID: 'a-' + (new Date().getTime()) + '-r-' + Math.floor(Math.random() * 1000000)
     });
   }
 

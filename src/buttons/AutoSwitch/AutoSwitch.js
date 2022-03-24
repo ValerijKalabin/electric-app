@@ -9,7 +9,9 @@ function AutoSwitch({ listName, onClickButton }) {
     navigate("/element");
     onClickButton({
       listName: listName,
-      buttonName: 'auto-switch'
+      buttonName: 'auto-switch',
+      buttonType: 'element',
+      buttonID: 'e-' + (new Date().getTime()) + '-r-' + Math.floor(Math.random() * 1000000)
     });
   }
 

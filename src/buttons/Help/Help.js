@@ -9,7 +9,9 @@ function Help({ listName, onClickButton }) {
     navigate("/buttons");
     onClickButton({
       listName: listName,
-      buttonName: 'help'
+      buttonName: 'help',
+      buttonType: 'action',
+      buttonID: 'a-' + (new Date().getTime()) + '-r-' + Math.floor(Math.random() * 1000000)
     });
   }
 

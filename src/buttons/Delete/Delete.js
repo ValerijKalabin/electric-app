@@ -6,7 +6,9 @@ function Delete({ listName, onClickButton }) {
   function handleClick() {
     onClickButton({
       listName: listName,
-      buttonName: 'delete'
+      buttonName: 'delete',
+      buttonType: 'action',
+      buttonID: 'a-' + (new Date().getTime()) + '-r-' + Math.floor(Math.random() * 1000000)
     });
   }
 

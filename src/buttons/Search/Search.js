@@ -9,7 +9,9 @@ function Search({ listName, onClickButton }) {
     navigate("/search");
     onClickButton({
       listName: listName,
-      buttonName: 'search'
+      buttonName: 'search',
+      buttonType: 'action',
+      buttonID: 'a-' + (new Date().getTime()) + '-r-' + Math.floor(Math.random() * 1000000)
     });
   }
 

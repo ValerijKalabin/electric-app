@@ -6,7 +6,7 @@ function Scheme({ elementName, onClickButton }) {
   return (
     <main className="scheme">
       { !elementName && <ListElements onClickButton={onClickButton} /> }
-      { !!elementName && <ListActions onClickButton={onClickButton} /> }
+      { !!elementName && <ListActions elementName={elementName} onClickButton={onClickButton} /> }
     </main>
   );
 }

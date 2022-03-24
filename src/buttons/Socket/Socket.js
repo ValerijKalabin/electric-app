@@ -9,7 +9,9 @@ function Socket({ listName, onClickButton }) {
     navigate("/element");
     onClickButton({
       listName: listName,
-      buttonName: 'socket'
+      buttonName: 'socket',
+      buttonType: 'element',
+      buttonID: 'e-' + (new Date().getTime()) + '-r-' + Math.floor(Math.random() * 1000000)
     });
   }
 
