@@ -1,17 +1,13 @@
-import { useNavigate } from 'react-router-dom';
 import { getActionButtonColor } from '../../utils/color';
 import './Change.css';
 
 function Change({ listName, onClickButton }) {
-  const navigate = useNavigate();
-
   function handleClick() {
-    navigate("/element");
     onClickButton({
-      listName: listName,
-      buttonName: 'change',
-      buttonType: 'action',
-      buttonID: 'a-' + (new Date().getTime()) + '-r-' + Math.floor(Math.random() * 1000000)
+      id: `a-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+      name: 'change',
+      type: 'action',
+      listName: 'actions'
     });
   }
 

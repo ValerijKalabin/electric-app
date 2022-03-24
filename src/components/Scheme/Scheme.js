@@ -2,11 +2,17 @@ import ListOfActions from '../ListOfActions/ListOfActions';
 import ListOfElements from '../ListOfElements/ListOfElements';
 import './Scheme.css';
 
-function Scheme({ elementName, onClickButton }) {
+function Scheme({ elementList, onClickButton }) {
   return (
     <main className="scheme">
-      { !elementName && <ListOfElements onClickButton={onClickButton} /> }
-      { !!elementName && <ListOfActions elementName={elementName} onClickButton={onClickButton} /> }
+      <ul className="scheme__list">
+        {elementList.map((element) => (
+          <li className="scheme__item" key={element.id}>
+            { element.listName === 'elements' && <ListOfElements onClickButton={onClickButton} /> }
+            { element.listName === 'actions' && <ListOfActions elementName={element.name} onClickButton={onClickButton} /> }
+          </li>
+        ))}
+      </ul>
     </main>
   );
 }

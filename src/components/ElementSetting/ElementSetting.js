@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as element from '../../utils/element';
 import './ElementSetting.css';
 
-function ElementSetting({ buttonName, onSubmitForm }) {
+function ElementSetting({ button, onSubmitForm }) {
   const [nameValue, setNameValue] = useState('');
   const [nameError, setNameError] = useState('');
   const [nameValidity, setNameValidity] = useState(false);
@@ -16,8 +16,12 @@ function ElementSetting({ buttonName, onSubmitForm }) {
   const [powerError, setPowerError] = useState('');
   const [powerValidity, setPowerValidity] = useState(false);
 
-  const formValidity = { buttonName, nameValidity, numberValidity, powerValidity };
-  const navigate = useNavigate();
+  const formValidity = {
+    buttonName: button.name,
+    nameValidity,
+    numberValidity,
+    powerValidity
+  };
 
   function handleChangeInputName(event) {
     setNameValue(event.target.value);
@@ -39,20 +43,27 @@ function ElementSetting({ buttonName, onSubmitForm }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    onSubmitForm(buttonName);
-    navigate("/scheme");
+    onSubmitForm({
+      id: button.id,
+      name: button.name,
+      type: button.type,
+      listName: button.listName,
+      description: nameValue,
+      number: numberValue,
+      power: powerValue
+    });
   }
 
   return (
     <main className="element">
-      <h1 className="element__title">{element.getElementTitle(buttonName)}</h1>
+      <h1 className="element__title">{element.getElementTitle(button.name)}</h1>
       <form
         className="element__form"
         name="element"
         id="element"
         onSubmit={handleSubmit}
       >
-        { element.isInputNameVisible(buttonName) &&
+        { element.isInputNameVisible(button.name) &&
           <div className="element__container">
             <label className="element__label" htmlFor="name">Наименование</label>
             <input
@@ -67,11 +78,11 @@ function ElementSetting({ buttonName, onSubmitForm }) {
               onChange={handleChangeInputName}
             />
             <span className={ `element__explanation ${ nameValue ? 'element__explanation_error' : '' }` }>
-              { nameValue ? nameError : element.getInputNameExplanation(buttonName) }
+              { nameValue ? nameError : element.getInputNameExplanation(button.name) }
             </span>
           </div>
         }
-        { element.isInputNumberVisible(buttonName) &&
+        { element.isInputNumberVisible(button.name) &&
           <div className="element__container">
             <label className="element__label" htmlFor="number">Количество</label>
             <input
@@ -87,13 +98,13 @@ function ElementSetting({ buttonName, onSubmitForm }) {
               onChange={handleChangeInputNumber}
             />
             <span className={ `element__explanation ${ numberValue ? 'element__explanation_error' : '' }` }>
-              { numberValue ? numberError : element.getInputNumberExplanation(buttonName) }
+              { numberValue ? numberError : element.getInputNumberExplanation(button.name) }
             </span>
           </div>
         }
-        { element.isInputPowerVisible(buttonName) &&
+        { element.isInputPowerVisible(button.name) &&
           <div className="element__container">
-            <label className="element__label" htmlFor="power">{ element.getLabelPower(buttonName) }</label>
+            <label className="element__label" htmlFor="power">{ element.getLabelPower(button.name) }</label>
             <input
               className="element__input"
               type="number"
@@ -106,12 +117,12 @@ function ElementSetting({ buttonName, onSubmitForm }) {
               onChange={handleChangeInputPower}
             />
             <span className={ `element__explanation ${ powerValue ? 'element__explanation_error' : '' }` }>
-              { powerValue ? powerError : element.getInputPowerExplanation(buttonName) }
+              { powerValue ? powerError : element.getInputPowerExplanation(button.name) }
             </span>
           </div>
         }
         <div className="element__buttons">
-          { element.isButtonSubmitVisible(buttonName) &&
+          { element.isButtonSubmitVisible(button.name) &&
             <button
               className={ `element__submit ${ !element.isFormValid(formValidity) ? 'element__submit_disabled' : '' }` }
               type="submit"

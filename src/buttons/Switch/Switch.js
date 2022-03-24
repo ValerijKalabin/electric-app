@@ -1,17 +1,13 @@
-import { useNavigate } from 'react-router-dom';
 import { getElementButtonColor } from '../../utils/color';
 import './Switch.css';
 
 function Switch({ listName, onClickButton }) {
-  const navigate = useNavigate();
-
   function handleClick() {
-    navigate("/element");
     onClickButton({
-      listName: listName,
-      buttonName: 'switch',
-      buttonType: 'element',
-      buttonID: 'e-' + (new Date().getTime()) + '-r-' + Math.floor(Math.random() * 1000000)
+      id: `e-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+      name: 'switch',
+      type: 'element',
+      listName: 'actions'
     });
   }
 

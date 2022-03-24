@@ -1,6 +1,6 @@
 import './App.css';
 import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -12,20 +12,32 @@ import ElementSetting from '../ElementSetting/ElementSetting';
 
 function App() {
   const [buttonListType, setButtonListType] = useState('');
-  const [currentButtonName, setCurrentButtonName] = useState('');
-  const [currentElementName, setCurrentElementName] = useState('');
+  const [currentButton, setCurrentButton] = useState({});
+  const [schemeElementList, setSchemeElementList] = useState([{
+    id: `a-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+    name: 'help',
+    type: 'action',
+    listName: 'elements',
+    description: '',
+    number: '',
+    power: ''
+  }]);
+  const navigate = useNavigate();
 
-  function handleClickButton({ listName, buttonName, buttonType }) {
-    if (buttonName === 'help') {
-      setButtonListType(listName);
+  function handleClickButton(button) {
+    if (button.name === 'help') {
+      setButtonListType(button.listName);
+      navigate("/buttons");
     }
-    if (buttonType === 'element') {
-      setCurrentButtonName(buttonName);
+    if (button.type === 'element') {
+      setCurrentButton(button);
+      navigate("/element");
     }
   }
 
-  function handleSubmitFormSetting(buttonName) {
-    setCurrentElementName(buttonName);
+  function handleSubmitFormSetting(currentElement) {
+    setSchemeElementList([...schemeElementList, currentElement]);
+    navigate("/scheme");
   }
 
   return (
@@ -33,10 +45,10 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Manual />} />
-        <Route path='/scheme' element={<Scheme elementName={currentElementName} onClickButton={handleClickButton} />} />
+        <Route path='/scheme' element={<Scheme elementList={schemeElementList} onClickButton={handleClickButton} />} />
         <Route path='/list' element={<List />} />
         <Route path='/buttons' element={<ListOfButtons listType={buttonListType} onClickButton={handleClickButton} />} />
-        <Route path='/element' element={<ElementSetting buttonName={currentButtonName} onSubmitForm={handleSubmitFormSetting} />} />
+        <Route path='/element' element={<ElementSetting button={currentButton} onSubmitForm={handleSubmitFormSetting} />} />
       </Routes>
       <Footer />
     </div>
