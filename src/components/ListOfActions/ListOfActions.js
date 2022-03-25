@@ -16,43 +16,43 @@ function ListOfActions({ elementName, onClickButton }) {
     <ul className="actions">
       { elementName === 'auto-switch' &&
         <li className="actions__item actions__item_element">
-          <AutoSwitch listName="actions" onClickButton={onClickButton} />
+          <AutoSwitch id='' listName="actions" onClickButton={onClickButton} />
         </li>
       }
       { elementName === 'junction-box' &&
         <li className="actions__item actions__item_element">
-          <JunctionBox listName="actions" onClickButton={onClickButton} />
+          <JunctionBox id='' listName="actions" onClickButton={onClickButton} />
         </li>
       }
       { elementName === 'lamp' &&
         <li className="actions__item actions__item_element">
-          <Lamp listName="actions" onClickButton={onClickButton} />
+          <Lamp id='' listName="actions" onClickButton={onClickButton} />
         </li>
       }
       { elementName === 'socket' &&
         <li className="actions__item actions__item_element">
-          <Socket listName="actions" onClickButton={onClickButton} />
+          <Socket id='' listName="actions" onClickButton={onClickButton} />
         </li>
       }
       { elementName === 'switch' &&
         <li className="actions__item actions__item_element">
-          <Switch listName="actions" onClickButton={onClickButton} />
+          <Switch id='' listName="actions" onClickButton={onClickButton} />
         </li>
       }
       <li className="actions__item actions__item_add">
-        <Add listName="actions" onClickButton={onClickButton} />
+        <Add id='' listName="actions" onClickButton={onClickButton} />
       </li>
       <li className="actions__item actions__item_change">
-        <Change listName="actions" onClickButton={onClickButton} />
+        <Change id='' listName="actions" onClickButton={onClickButton} />
       </li>
       <li className="actions__item actions__item_delete">
-        <Delete listName="actions" onClickButton={onClickButton} />
+        <Delete id='' listName="actions" onClickButton={onClickButton} />
       </li>
       <li className="actions__item actions__item_help">
-        <Help listName="actions" onClickButton={onClickButton} />
+        <Help id='' listName="actions" onClickButton={onClickButton} />
       </li>
       <li className="actions__item actions__item_search">
-        <Search listName="actions" onClickButton={onClickButton} />
+        <Search id='' listName="actions" onClickButton={onClickButton} />
       </li>
     </ul>
   );

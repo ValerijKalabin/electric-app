@@ -11,22 +11,22 @@ function ListOfElements({ onClickButton }) {
   return (
     <ul className="elements">
       <li className="elements__item elements__item_help">
-        <Help listName="elements" onClickButton={onClickButton} />
+        <Help id='' listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_auto-switch">
-        <AutoSwitch listName="elements" onClickButton={onClickButton} />
+        <AutoSwitch id='' listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_junction-box">
-        <JunctionBox listName="elements" onClickButton={onClickButton} />
+        <JunctionBox id='' listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_lamp">
-        <Lamp listName="elements" onClickButton={onClickButton} />
+        <Lamp id='' listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_socket">
-        <Socket listName="elements" onClickButton={onClickButton} />
+        <Socket id='' listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_switch">
-        <Switch listName="elements" onClickButton={onClickButton} />
+        <Switch id='' listName="elements" onClickButton={onClickButton} />
       </li>
     </ul>
   );

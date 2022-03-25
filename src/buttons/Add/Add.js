@@ -1,13 +1,13 @@
 import { getActionButtonColor } from '../../utils/color';
 import './Add.css';
 
-function Add({ listName, onClickButton }) {
+function Add({ id, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
-      id: `a-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+      id,
       name: 'add',
       type: 'action',
-      listName: 'elements'
+      listName
     });
   }
 

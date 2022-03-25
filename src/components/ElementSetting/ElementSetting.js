@@ -44,10 +44,10 @@ function ElementSetting({ button, onSubmitForm }) {
   function handleSubmit(event) {
     event.preventDefault();
     onSubmitForm({
-      id: button.id,
+      id: `a-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
       name: button.name,
       type: button.type,
-      listName: button.listName,
+      listName: 'actions',
       description: nameValue,
       number: numberValue,
       power: powerValue

@@ -1,13 +1,13 @@
 import { getElementButtonColor } from '../../utils/color';
 import './AutoSwitch.css';
 
-function AutoSwitch({ listName, onClickButton }) {
+function AutoSwitch({ id, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
-      id: `e-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+      id,
       name: 'auto-switch',
       type: 'element',
-      listName: 'actions'
+      listName
     });
   }
 

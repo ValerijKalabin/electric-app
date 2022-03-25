@@ -1,13 +1,13 @@
 import { getElementButtonColor } from '../../utils/color';
 import './JunctionBox.css';
 
-function JunctionBox({ listName, onClickButton }) {
+function JunctionBox({ id, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
-      id: `e-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+      id,
       name: 'junction-box',
       type: 'element',
-      listName: 'actions'
+      listName
     });
   }
 

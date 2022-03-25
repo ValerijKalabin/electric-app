@@ -31,17 +31,25 @@ function App() {
       navigate("/buttons");
     }
     if (button.type === 'element') {
-      setCurrentButton(button);
-      navigate("/element");
+      if (button.listName !== 'nolist') {
+        setCurrentButton(button);
+        navigate("/element");
+      }
+      if (button.listName === 'nolist') {
+        const currentElementList = [...schemeElementList];
+        currentElementList.forEach((element) => element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist');
+        setSchemeElementList(currentElementList);
+      }
     }
   }
 
   function handleSubmitFormSetting(currentElement) {
-    if (schemeElementList[0].name === 'help') {
-      schemeElementList.pop();
+    const currentElementList = [...schemeElementList];
+    if (currentElementList[0].name === 'help') {
+      currentElementList.pop();
     }
-    schemeElementList.map((schemeElement) => schemeElement.listName = 'nolist');
-    setSchemeElementList([...schemeElementList, currentElement]);
+    currentElementList.forEach((element) => element.listName = 'nolist');
+    setSchemeElementList([...currentElementList, currentElement]);
     navigate("/scheme");
   }
 

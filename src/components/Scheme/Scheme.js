@@ -13,13 +13,27 @@ function Scheme({ elementList, onClickButton }) {
       <ul className="scheme__list">
         {elementList.map((element) => (
           <li className="scheme__item" key={element.id}>
-            { element.listName === 'elements' && <ListOfElements onClickButton={onClickButton} /> }
-            { element.listName === 'actions' && <ListOfActions elementName={element.name} onClickButton={onClickButton} /> }
-            { element.listName === 'nolist' && element.name === 'auto-switch' && <AutoSwitch listName="nolist" onClickButton={onClickButton} /> }
-            { element.listName === 'nolist' && element.name === 'junction-box' && <JunctionBox listName="nolist" onClickButton={onClickButton} /> }
-            { element.listName === 'nolist' && element.name === 'lamp' && <Lamp listName="nolist" onClickButton={onClickButton} /> }
-            { element.listName === 'nolist' && element.name === 'socket' && <Socket listName="nolist" onClickButton={onClickButton} /> }
-            { element.listName === 'nolist' && element.name === 'switch' && <Switch listName="nolist" onClickButton={onClickButton} /> }
+            { element.listName === 'elements' &&
+              <ListOfElements onClickButton={onClickButton} />
+            }
+            { element.listName === 'actions' &&
+              <ListOfActions elementName={element.name} onClickButton={onClickButton} />
+            }
+            { element.listName === 'nolist' && element.name === 'auto-switch' &&
+              <AutoSwitch id={element.id} listName="nolist" onClickButton={onClickButton} />
+            }
+            { element.listName === 'nolist' && element.name === 'junction-box' &&
+              <JunctionBox id={element.id} listName="nolist" onClickButton={onClickButton} />
+            }
+            { element.listName === 'nolist' && element.name === 'lamp' &&
+              <Lamp id={element.id} listName="nolist" onClickButton={onClickButton} />
+            }
+            { element.listName === 'nolist' && element.name === 'socket' &&
+              <Socket id={element.id} listName="nolist" onClickButton={onClickButton} />
+            }
+            { element.listName === 'nolist' && element.name === 'switch' &&
+              <Switch id={element.id} listName="nolist" onClickButton={onClickButton} />
+            }
           </li>
         ))}
       </ul>

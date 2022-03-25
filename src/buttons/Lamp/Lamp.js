@@ -1,13 +1,13 @@
 import { getElementButtonColor } from '../../utils/color';
 import './Lamp.css';
 
-function Lamp({ listName, onClickButton }) {
+function Lamp({ id, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
-      id: `e-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+      id,
       name: 'lamp',
       type: 'element',
-      listName: 'actions'
+      listName
     });
   }
 

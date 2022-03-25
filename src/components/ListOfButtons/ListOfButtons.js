@@ -21,7 +21,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <AutoSwitch listName="buttons" onClickButton={onClickButton} />
+              <AutoSwitch id='' listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -33,7 +33,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <JunctionBox listName="buttons" onClickButton={onClickButton} />
+              <JunctionBox id='' listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -45,7 +45,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Lamp listName="buttons" onClickButton={onClickButton} />
+              <Lamp id='' listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -57,7 +57,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Socket listName="buttons" onClickButton={onClickButton} />
+              <Socket id='' listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -69,7 +69,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Switch listName="buttons" onClickButton={onClickButton} />
+              <Switch id='' listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -81,7 +81,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Add listName="buttons" onClickButton={onClickButton} />
+              <Add id='' listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -93,7 +93,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Change listName="buttons" onClickButton={onClickButton} />
+              <Change id='' listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -105,7 +105,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Delete listName="buttons" onClickButton={onClickButton} />
+              <Delete id='' listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -117,7 +117,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Search listName="buttons" onClickButton={onClickButton} />
+              <Search id='' listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">

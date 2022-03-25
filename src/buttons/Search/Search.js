@@ -1,13 +1,13 @@
 import { getActionButtonColor } from '../../utils/color';
 import './Search.css';
 
-function Search({ listName, onClickButton }) {
+function Search({ id, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
-      id: `a-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+      id,
       name: 'search',
       type: 'action',
-      listName: 'actions'
+      listName
     });
   }
 

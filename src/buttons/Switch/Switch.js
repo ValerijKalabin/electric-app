@@ -1,13 +1,13 @@
 import { getElementButtonColor } from '../../utils/color';
 import './Switch.css';
 
-function Switch({ listName, onClickButton }) {
+function Switch({ id, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
-      id: `e-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+      id,
       name: 'switch',
       type: 'element',
-      listName: 'actions'
+      listName
     });
   }
 

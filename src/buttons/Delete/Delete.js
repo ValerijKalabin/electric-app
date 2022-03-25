@@ -1,13 +1,13 @@
 import { getActionButtonColor } from '../../utils/color';
 import './Delete.css';
 
-function Delete({ listName, onClickButton }) {
+function Delete({ id, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
-      id: `a-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+      id,
       name: 'delete',
       type: 'action',
-      listName: 'actions'
+      listName
     });
   }
 

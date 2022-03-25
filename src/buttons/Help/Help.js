@@ -1,13 +1,13 @@
 import { getActionButtonColor } from '../../utils/color';
 import './Help.css';
 
-function Help({ listName, onClickButton }) {
+function Help({ id, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
-      id: `a-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+      id,
       name: 'help',
       type: 'action',
-      listName: listName
+      listName
     });
   }
 

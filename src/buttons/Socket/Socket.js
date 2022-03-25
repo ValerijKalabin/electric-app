@@ -1,13 +1,13 @@
 import { getElementButtonColor } from '../../utils/color';
 import './Socket.css';
 
-function Socket({ listName, onClickButton }) {
+function Socket({ id, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
-      id: `e-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+      id,
       name: 'socket',
       type: 'element',
-      listName: 'actions'
+      listName
     });
   }
 
