@@ -16,6 +16,7 @@ function JunctionBox({ listName, onClickButton }) {
       type="button"
       className={`box ${getElementButtonColor(listName)}`}
       onClick={ handleClick }
+      disabled={ listName === 'actions' }
     >
       <div className={`box__inner ${getElementButtonColor(listName)}`} />
     </button>

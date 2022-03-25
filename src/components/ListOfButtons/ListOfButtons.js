@@ -11,11 +11,11 @@ import Switch from '../../buttons/Switch/Switch';
 import './ListOfButtons.css';
 
 
-function ListOfButtons({ listType, onClickButton }) {
+function ListOfButtons({ listType, listTitle, onClickButton }) {
   return (
     <main className="buttons">
       <h1 className="buttons__title">
-        Назначение кнопок
+        {listTitle}
       </h1>
       <ul className="buttons__list">
         { listType === "elements" &&

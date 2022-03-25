@@ -28,3 +28,19 @@
 .lamp:hover line {
   stroke: #111111;
 }
+
+.lamp:disabled {
+  cursor: default;
+}
+
+.lamp:disabled .gray {
+  fill: #bbbbbb;
+}
+
+.lamp:disabled .yellow {
+  fill: #d5d832;
+}
+
+.lamp:disabled line {
+  stroke: #111111;
+}

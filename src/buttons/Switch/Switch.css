@@ -28,3 +28,19 @@
 .switch:hover line {
   stroke: #111111;
 }
+
+.switch:disabled {
+  cursor: default;
+}
+
+.switch:disabled .gray {
+  fill: #bbbbbb;
+}
+
+.switch:disabled .yellow {
+  fill: #d5d832;
+}
+
+.switch:disabled line {
+  stroke: #111111;
+}

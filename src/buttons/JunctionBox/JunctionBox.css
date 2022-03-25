@@ -46,3 +46,17 @@
 .box:hover.yellow {
   background-color: #d5d832;
 }
+
+.box:disabled .box__inner {
+  border-color: #111111;
+}
+
+.box:disabled.gray {
+  background-color: #bbbbbb;
+  cursor: default;
+}
+
+.box:disabled.yellow {
+  background-color: #d5d832;
+  cursor: default;
+}

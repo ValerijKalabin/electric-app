@@ -28,3 +28,19 @@
 .socket:hover line {
   stroke: #111111;
 }
+
+.socket:disabled {
+  cursor: default;
+}
+
+.socket:disabled .gray {
+  fill: #bbbbbb;
+}
+
+.socket:disabled .yellow {
+  fill: #d5d832;
+}
+
+.socket:disabled line {
+  stroke: #111111;
+}

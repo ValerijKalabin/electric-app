@@ -16,6 +16,7 @@ function AutoSwitch({ listName, onClickButton }) {
       type="button"
       className={`auto-switch ${getElementButtonColor(listName)}`}
       onClick={ handleClick }
+      disabled={ listName === 'actions' }
     >
       A
     </button>
