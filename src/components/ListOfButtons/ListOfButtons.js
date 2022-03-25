@@ -11,7 +11,7 @@ import Switch from '../../buttons/Switch/Switch';
 import './ListOfButtons.css';
 
 
-function ListOfButtons({ listType, listTitle, onClickButton }) {
+function ListOfButtons({ buttonID, listType, listTitle, onClickButton }) {
   return (
     <main className="buttons">
       <h1 className="buttons__title">
@@ -21,7 +21,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <AutoSwitch id='' listName="buttons" onClickButton={onClickButton} />
+              <AutoSwitch id={buttonID} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -33,7 +33,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <JunctionBox id='' listName="buttons" onClickButton={onClickButton} />
+              <JunctionBox id={buttonID} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -45,7 +45,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Lamp id='' listName="buttons" onClickButton={onClickButton} />
+              <Lamp id={buttonID} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -57,7 +57,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Socket id='' listName="buttons" onClickButton={onClickButton} />
+              <Socket id={buttonID} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -69,7 +69,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Switch id='' listName="buttons" onClickButton={onClickButton} />
+              <Switch id={buttonID} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -81,7 +81,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Add id='' listName="buttons" onClickButton={onClickButton} />
+              <Add id={buttonID} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -93,7 +93,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Change id='' listName="buttons" onClickButton={onClickButton} />
+              <Change id={buttonID} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -105,7 +105,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Delete id='' listName="buttons" onClickButton={onClickButton} />
+              <Delete id={buttonID} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -117,7 +117,7 @@ function ListOfButtons({ listType, listTitle, onClickButton }) {
         { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Search id='' listName="buttons" onClickButton={onClickButton} />
+              <Search id={buttonID} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">

@@ -17,7 +17,7 @@ function Scheme({ elementList, onClickButton }) {
               <ListOfElements onClickButton={onClickButton} />
             }
             { element.listName === 'actions' &&
-              <ListOfActions elementName={element.name} onClickButton={onClickButton} />
+              <ListOfActions elementID={element.id} elementName={element.name} onClickButton={onClickButton} />
             }
             { element.listName === 'nolist' && element.name === 'auto-switch' &&
               <AutoSwitch id={element.id} listName="nolist" onClickButton={onClickButton} />

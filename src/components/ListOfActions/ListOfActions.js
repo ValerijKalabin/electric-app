@@ -11,48 +11,48 @@ import Switch from '../../buttons/Switch/Switch';
 import './ListOfActions.css';
 
 
-function ListOfActions({ elementName, onClickButton }) {
+function ListOfActions({ elementID, elementName, onClickButton }) {
   return (
     <ul className="actions">
       { elementName === 'auto-switch' &&
         <li className="actions__item actions__item_element">
-          <AutoSwitch id='' listName="actions" onClickButton={onClickButton} />
+          <AutoSwitch id={elementID} listName="actions" onClickButton={onClickButton} />
         </li>
       }
       { elementName === 'junction-box' &&
         <li className="actions__item actions__item_element">
-          <JunctionBox id='' listName="actions" onClickButton={onClickButton} />
+          <JunctionBox id={elementID} listName="actions" onClickButton={onClickButton} />
         </li>
       }
       { elementName === 'lamp' &&
         <li className="actions__item actions__item_element">
-          <Lamp id='' listName="actions" onClickButton={onClickButton} />
+          <Lamp id={elementID} listName="actions" onClickButton={onClickButton} />
         </li>
       }
       { elementName === 'socket' &&
         <li className="actions__item actions__item_element">
-          <Socket id='' listName="actions" onClickButton={onClickButton} />
+          <Socket id={elementID} listName="actions" onClickButton={onClickButton} />
         </li>
       }
       { elementName === 'switch' &&
         <li className="actions__item actions__item_element">
-          <Switch id='' listName="actions" onClickButton={onClickButton} />
+          <Switch id={elementID} listName="actions" onClickButton={onClickButton} />
         </li>
       }
       <li className="actions__item actions__item_add">
-        <Add id='' listName="actions" onClickButton={onClickButton} />
+        <Add id={elementID} listName="actions" onClickButton={onClickButton} />
       </li>
       <li className="actions__item actions__item_change">
-        <Change id='' listName="actions" onClickButton={onClickButton} />
+        <Change id={elementID} listName="actions" onClickButton={onClickButton} />
       </li>
       <li className="actions__item actions__item_delete">
-        <Delete id='' listName="actions" onClickButton={onClickButton} />
+        <Delete id={elementID} listName="actions" onClickButton={onClickButton} />
       </li>
       <li className="actions__item actions__item_help">
-        <Help id='' listName="actions" onClickButton={onClickButton} />
+        <Help id={elementID} listName="actions" onClickButton={onClickButton} />
       </li>
       <li className="actions__item actions__item_search">
-        <Search id='' listName="actions" onClickButton={onClickButton} />
+        <Search id={elementID} listName="actions" onClickButton={onClickButton} />
       </li>
     </ul>
   );
