@@ -2,7 +2,6 @@ import './App.css';
 import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { startElement } from '../../utils/element';
-import { defaultParameters, getExplanation } from '../../utils/buttonList';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -13,18 +12,14 @@ import ElementSetting from '../ElementSetting/ElementSetting';
 
 
 function App() {
-  const [buttonListParameters, setButtonListParameters] = useState(defaultParameters);
-  const [selectedElement, setSelectedElement] = useState(startElement);
   const [schemeElementList, setSchemeElementList] = useState([startElement]);
+  const [selectedButton, setSelectedButton] = useState({});
   const navigate = useNavigate();
 
   function handleClickButton(button) {
-    if (button.name === 'add') {
-      const currentParameters = {...buttonListParameters};
-      currentParameters.listType = 'elements';
-      currentParameters.listTitle = 'Следующий элемент';
-      currentParameters.listExplanation = getExplanation(selectedElement.name);
-      setButtonListParameters(currentParameters);
+    setSelectedButton(button);
+
+    if (button.name === 'add' || button.name === 'help') {
       navigate("/buttons");
     }
 
@@ -37,36 +32,22 @@ function App() {
       navigate("/scheme");
     }
 
-    if (button.name === 'help') {
-      const currentParameters = {...buttonListParameters};
-      currentParameters.listType = button.listName;
-      currentParameters.listTitle = 'Назначение кнопок';
-      currentParameters.listExplanation = '';
-      setButtonListParameters(currentParameters);
-      navigate("/buttons");
-    }
-
     if (button.type === 'element') {
-      setSelectedElement(button);
-      if (button.listName !== 'nolist') {
-        navigate("/element");
-      }
       if (button.listName === 'nolist') {
         const currentElementList = [...schemeElementList];
         currentElementList.forEach((element) => element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist');
         setSchemeElementList(currentElementList);
       }
+      if (button.listName !== 'nolist') {
+        navigate("/element");
+      }
     }
   }
 
   function handleSubmitFormSetting(currentElement) {
-    const currentElementList = [...schemeElementList];
-    if (currentElementList[0].name === 'help') {
-      currentElementList.pop();
-    }
+    const currentElementList = schemeElementList.filter((element) => element.type === 'element');
     currentElementList.forEach((element) => element.listName = 'nolist');
     setSchemeElementList([...currentElementList, currentElement]);
-    setSelectedElement(currentElement);
     navigate("/scheme");
   }
 
@@ -81,12 +62,12 @@ function App() {
         />} />
         <Route path='/list' element={<List />} />
         <Route path='/element' element={<ElementSetting
-          button={selectedElement}
+          button={selectedButton}
           onSubmitForm={handleSubmitFormSetting}
         />} />
         <Route path='/buttons' element={<ListOfButtons
-          buttonID={selectedElement.id}
-          parameters={buttonListParameters}
+          button={selectedButton}
+          elementList={schemeElementList}
           onClickButton={handleClickButton}
         />} />
       </Routes>

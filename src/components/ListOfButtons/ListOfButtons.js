@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { startElement } from '../../utils/element';
+import { getListType, getListTitle, getListExplanation } from '../../utils/buttonList';
 import Add from '../../buttons/Add/Add';
 import AutoSwitch from '../../buttons/AutoSwitch/AutoSwitch';
 import Change from '../../buttons/Change/Change';
@@ -12,19 +14,22 @@ import './ListOfButtons.css';
 
 
 function ListOfButtons({
-  buttonID,
-  parameters,
+  button,
+  elementList,
   onClickButton
 }) {
+  const selectedElement = elementList.find((element) => element.listName === 'actions') || startElement;
+  const listType = getListType(button);
+
   return (
     <main className="buttons">
-      <h1 className="buttons__title">{parameters.listTitle}</h1>
-      { !!parameters.listExplanation && <p className="buttons__explanation">{parameters.listExplanation}</p>}
+      <h1 className="buttons__title">{getListTitle(button)}</h1>
+      { button.name === 'add' && <p className="buttons__explanation">{getListExplanation(selectedElement)}</p>}
       <ul className="buttons__list">
-        { parameters.listType === "elements" &&
+        { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <AutoSwitch id={buttonID} listName="buttons" onClickButton={onClickButton} />
+              <AutoSwitch id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -33,10 +38,10 @@ function ListOfButtons({
             </div>
           </li>
         }
-        { parameters.listType === "elements" &&
+        { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <JunctionBox id={buttonID} listName="buttons" onClickButton={onClickButton} />
+              <JunctionBox id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -45,10 +50,10 @@ function ListOfButtons({
             </div>
           </li>
         }
-        { parameters.listType === "elements" &&
+        { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Lamp id={buttonID} listName="buttons" onClickButton={onClickButton} />
+              <Lamp id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -57,10 +62,10 @@ function ListOfButtons({
             </div>
           </li>
         }
-        { parameters.listType === "elements" &&
+        { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Socket id={buttonID} listName="buttons" onClickButton={onClickButton} />
+              <Socket id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -69,10 +74,10 @@ function ListOfButtons({
             </div>
           </li>
         }
-        { parameters.listType === "elements" &&
+        { listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Switch id={buttonID} listName="buttons" onClickButton={onClickButton} />
+              <Switch id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -81,10 +86,10 @@ function ListOfButtons({
             </div>
           </li>
         }
-        { parameters.listType === "actions" &&
+        { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Add id={buttonID} listName="buttons" onClickButton={onClickButton} />
+              <Add id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -93,10 +98,10 @@ function ListOfButtons({
             </div>
           </li>
         }
-        { parameters.listType === "actions" &&
+        { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Change id={buttonID} listName="buttons" onClickButton={onClickButton} />
+              <Change id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -105,10 +110,10 @@ function ListOfButtons({
             </div>
           </li>
         }
-        { parameters.listType === "actions" &&
+        { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Delete id={buttonID} listName="buttons" onClickButton={onClickButton} />
+              <Delete id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
@@ -117,10 +122,10 @@ function ListOfButtons({
             </div>
           </li>
         }
-        { parameters.listType === "actions" &&
+        { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Search id={buttonID} listName="buttons" onClickButton={onClickButton} />
+              <Search id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
