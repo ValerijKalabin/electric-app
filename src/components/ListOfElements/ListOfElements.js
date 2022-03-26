@@ -7,26 +7,26 @@ import Switch from '../../buttons/Switch/Switch';
 import './ListOfElements.css';
 
 
-function ListOfElements({ onClickButton }) {
+function ListOfElements({ elementID, onClickButton }) {
   return (
     <ul className="elements">
       <li className="elements__item elements__item_help">
-        <Help id='' listName="elements" onClickButton={onClickButton} />
+        <Help id={elementID} listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_auto-switch">
-        <AutoSwitch id='' listName="elements" onClickButton={onClickButton} />
+        <AutoSwitch id={elementID} listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_junction-box">
-        <JunctionBox id='' listName="elements" onClickButton={onClickButton} />
+        <JunctionBox id={elementID} listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_lamp">
-        <Lamp id='' listName="elements" onClickButton={onClickButton} />
+        <Lamp id={elementID} listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_socket">
-        <Socket id='' listName="elements" onClickButton={onClickButton} />
+        <Socket id={elementID} listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="elements__item elements__item_switch">
-        <Switch id='' listName="elements" onClickButton={onClickButton} />
+        <Switch id={elementID} listName="elements" onClickButton={onClickButton} />
       </li>
     </ul>
   );

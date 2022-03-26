@@ -11,14 +11,17 @@ import Switch from '../../buttons/Switch/Switch';
 import './ListOfButtons.css';
 
 
-function ListOfButtons({ buttonID, listType, listTitle, onClickButton }) {
+function ListOfButtons({
+  buttonID,
+  parameters,
+  onClickButton
+}) {
   return (
     <main className="buttons">
-      <h1 className="buttons__title">
-        {listTitle}
-      </h1>
+      <h1 className="buttons__title">{parameters.listTitle}</h1>
+      { !!parameters.listExplanation && <p className="buttons__explanation">{parameters.listExplanation}</p>}
       <ul className="buttons__list">
-        { listType === "elements" &&
+        { parameters.listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
               <AutoSwitch id={buttonID} listName="buttons" onClickButton={onClickButton} />
@@ -30,7 +33,7 @@ function ListOfButtons({ buttonID, listType, listTitle, onClickButton }) {
             </div>
           </li>
         }
-        { listType === "elements" &&
+        { parameters.listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
               <JunctionBox id={buttonID} listName="buttons" onClickButton={onClickButton} />
@@ -42,7 +45,7 @@ function ListOfButtons({ buttonID, listType, listTitle, onClickButton }) {
             </div>
           </li>
         }
-        { listType === "elements" &&
+        { parameters.listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
               <Lamp id={buttonID} listName="buttons" onClickButton={onClickButton} />
@@ -54,7 +57,7 @@ function ListOfButtons({ buttonID, listType, listTitle, onClickButton }) {
             </div>
           </li>
         }
-        { listType === "elements" &&
+        { parameters.listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
               <Socket id={buttonID} listName="buttons" onClickButton={onClickButton} />
@@ -66,7 +69,7 @@ function ListOfButtons({ buttonID, listType, listTitle, onClickButton }) {
             </div>
           </li>
         }
-        { listType === "elements" &&
+        { parameters.listType === "elements" &&
           <li className="buttons__item">
             <div className="buttons__container">
               <Switch id={buttonID} listName="buttons" onClickButton={onClickButton} />
@@ -78,7 +81,7 @@ function ListOfButtons({ buttonID, listType, listTitle, onClickButton }) {
             </div>
           </li>
         }
-        { listType === "actions" &&
+        { parameters.listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
               <Add id={buttonID} listName="buttons" onClickButton={onClickButton} />
@@ -90,7 +93,7 @@ function ListOfButtons({ buttonID, listType, listTitle, onClickButton }) {
             </div>
           </li>
         }
-        { listType === "actions" &&
+        { parameters.listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
               <Change id={buttonID} listName="buttons" onClickButton={onClickButton} />
@@ -102,7 +105,7 @@ function ListOfButtons({ buttonID, listType, listTitle, onClickButton }) {
             </div>
           </li>
         }
-        { listType === "actions" &&
+        { parameters.listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
               <Delete id={buttonID} listName="buttons" onClickButton={onClickButton} />
@@ -114,7 +117,7 @@ function ListOfButtons({ buttonID, listType, listTitle, onClickButton }) {
             </div>
           </li>
         }
-        { listType === "actions" &&
+        { parameters.listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
               <Search id={buttonID} listName="buttons" onClickButton={onClickButton} />

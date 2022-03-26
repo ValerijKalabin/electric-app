@@ -14,7 +14,7 @@ function Scheme({ elementList, onClickButton }) {
         {elementList.map((element) => (
           <li className="scheme__item" key={element.id}>
             { element.listName === 'elements' &&
-              <ListOfElements onClickButton={onClickButton} />
+              <ListOfElements elementID={element.id} onClickButton={onClickButton} />
             }
             { element.listName === 'actions' &&
               <ListOfActions elementID={element.id} elementName={element.name} onClickButton={onClickButton} />

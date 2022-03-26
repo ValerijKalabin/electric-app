@@ -83,7 +83,7 @@ export const isFormValid = ({ buttonName, nameValidity, numberValidity, powerVal
 };
 
 export const startElement = {
-  id: `a-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+  id: 'start-element',
   name: 'help',
   type: 'action',
   listName: 'elements',
