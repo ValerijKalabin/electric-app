@@ -17,9 +17,8 @@ function App() {
   const navigate = useNavigate();
 
   function handleClickButton(button) {
-    setSelectedButton(button);
-
     if (button.name === 'add' || button.name === 'help') {
+      setSelectedButton(button);
       navigate("/buttons");
     }
 
@@ -37,17 +36,20 @@ function App() {
         const currentElementList = [...schemeElementList];
         currentElementList.forEach((element) => element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist');
         setSchemeElementList(currentElementList);
+        navigate("/scheme");
       }
-      if (button.listName !== 'nolist') {
+      if (button.listName === 'elements' || button.listName === 'buttons') {
+        setSelectedButton(button);
         navigate("/element");
       }
     }
   }
 
-  function handleSubmitFormSetting(currentElement) {
+  function handleSubmitForm(currentElement) {
     const currentElementList = schemeElementList.filter((element) => element.type === 'element');
     currentElementList.forEach((element) => element.listName = 'nolist');
-    setSchemeElementList([...currentElementList, currentElement]);
+    currentElementList.push(currentElement);
+    setSchemeElementList(currentElementList);
     navigate("/scheme");
   }
 
@@ -63,7 +65,7 @@ function App() {
         <Route path='/list' element={<List />} />
         <Route path='/element' element={<ElementSetting
           button={selectedButton}
-          onSubmitForm={handleSubmitFormSetting}
+          onSubmitForm={handleSubmitForm}
         />} />
         <Route path='/buttons' element={<ListOfButtons
           button={selectedButton}
