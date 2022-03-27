@@ -61,26 +61,26 @@
 }
 
 .actions__item_add {
-  top: -120px;
+  top: -80px;
   left: 0;
 }
 
 .actions__item_change {
-  top: -37px;
-  right: -114px;
+  top: -25px;
+  right: -76px;
 }
 
 .actions__item_delete {
-  top: -37px;
-  left: -114px;
+  top: -25px;
+  left: -76px;
 }
 
 .actions__item_help {
-  bottom: -97px;
-  right: -71px;
+  bottom: -65px;
+  right: -47px;
 }
 
 .actions__item_search {
-  bottom: -97px;
-  left: -71px;
+  bottom: -65px;
+  left: -47px;
 }

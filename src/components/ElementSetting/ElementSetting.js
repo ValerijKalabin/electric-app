@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { getPagePosition, getElementPosition } from '../../utils/style';
 import * as element from '../../utils/element';
 import './ElementSetting.css';
 
-function ElementSetting({ button, onSubmitForm }) {
+function ElementSetting({ button, elementList, onSubmitForm }) {
   const [nameValue, setNameValue] = useState('');
   const [nameError, setNameError] = useState('');
   const [nameValidity, setNameValidity] = useState(false);
@@ -50,7 +51,10 @@ function ElementSetting({ button, onSubmitForm }) {
       listName: 'actions',
       description: nameValue,
       number: numberValue,
-      power: powerValue
+      power: powerValue,
+      position: getElementPosition(button, elementList),
+      pagePosition: getPagePosition(button, elementList),
+      line: []
     });
   }
 

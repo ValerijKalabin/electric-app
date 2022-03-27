@@ -89,5 +89,8 @@ export const startElement = {
   listName: 'elements',
   description: '',
   number: '',
-  power: ''
+  power: '',
+  position: { left: '50%', bottom: '50%' },
+  pagePosition: { right: '0' },
+  line: []
 };

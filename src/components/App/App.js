@@ -45,10 +45,10 @@ function App() {
     }
   }
 
-  function handleSubmitForm(currentElement) {
+  function handleSubmitForm(newElement) {
     const currentElementList = schemeElementList.filter((element) => element.type === 'element');
     currentElementList.forEach((element) => element.listName = 'nolist');
-    currentElementList.push(currentElement);
+    currentElementList.push(newElement);
     setSchemeElementList(currentElementList);
     navigate("/scheme");
   }
@@ -65,6 +65,7 @@ function App() {
         <Route path='/list' element={<List />} />
         <Route path='/element' element={<ElementSetting
           button={selectedButton}
+          elementList={schemeElementList}
           onSubmitForm={handleSubmitForm}
         />} />
         <Route path='/buttons' element={<ListOfButtons
