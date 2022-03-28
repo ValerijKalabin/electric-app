@@ -53,8 +53,7 @@ function ElementSetting({ button, elementList, onSubmitForm }) {
       number: numberValue,
       power: powerValue,
       position: getElementPosition(button, elementList),
-      pagePosition: getPagePosition(button, elementList),
-      line: []
+      pagePosition: getPagePosition(button, elementList)
     });
   }
 
