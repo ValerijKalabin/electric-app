@@ -3,9 +3,9 @@ import JunctionBox from '../../buttons/JunctionBox/JunctionBox';
 import Lamp from '../../buttons/Lamp/Lamp';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
-import { startElement } from '../../utils/element';
 import ListOfActions from '../ListOfActions/ListOfActions';
 import ListOfElements from '../ListOfElements/ListOfElements';
+import { startElement } from '../../utils/element';
 import './Scheme.css';
 
 function Scheme({ elementList, onClickButton }) {

@@ -23,7 +23,7 @@ function App() {
     }
 
     if (button.name === 'delete') {
-      const currentElementList = schemeElementList.filter((element) => element.id !== button.id);
+      const currentElementList = schemeElementList.filter((element) => element.listName !== 'actions');
       if (currentElementList.length === 0) {
         currentElementList.push(startElement);
       }
