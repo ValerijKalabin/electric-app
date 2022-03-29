@@ -10,6 +10,9 @@ import './ListOfActions.css';
 
 
 function ListOfActions({ elementID, elementName, onClickButton }) {
+  const isElementPositionBottom = elementName === 'auto-switch' || elementName === 'socket' || elementName === 'switch';
+  const bottomElementClass = isElementPositionBottom ? 'actions__item_bottom' : '';
+
   return (
     <ul className="actions">
       { elementName === 'auto-switch' &&
@@ -37,13 +40,13 @@ function ListOfActions({ elementID, elementName, onClickButton }) {
           <Switch id={elementID} listName="actions" onClickButton={onClickButton} />
         </li>
       }
-      <li className="actions__item actions__item_left">
+      <li className={`actions__item actions__item_left ${bottomElementClass}`}>
         <Left id={elementID} listName="actions" onClickButton={onClickButton} />
       </li>
-      <li className="actions__item actions__item_delete">
+      <li className={`actions__item actions__item_delete ${bottomElementClass}`}>
         <Delete id={elementID} listName="actions" onClickButton={onClickButton} />
       </li>
-      <li className="actions__item actions__item_right">
+      <li className={`actions__item actions__item_right ${bottomElementClass}`}>
         <Right id={elementID} listName="actions" onClickButton={onClickButton} />
       </li>
     </ul>

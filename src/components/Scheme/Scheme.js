@@ -7,20 +7,41 @@ import ListOfActions from '../ListOfActions/ListOfActions';
 import ListOfElements from '../ListOfElements/ListOfElements';
 import ListOfNavigation from '../ListOfNavigation/ListOfNavigation';
 import { startElement } from '../../utils/element';
-import { schemeMarkup } from '../../utils/style';
 import './Scheme.css';
 
 function Scheme({ elementList, onClickButton }) {
-  const selectedElement = elementList.find((element) => element.listName === 'actions') || startElement;
+  const lineBottom = 120;
+  const navigationBlockHeight = 60;
+  const headerFooterBlocksHeight = 170;
+
+  const activeElement = elementList.find((element) => element.listName === 'actions');
+  const deletedElement = elementList.find((element) => element.listName === 'deleted');
+  const someElement = elementList.some((element) => element.type === 'element');
+
+  const outsideHeight = someElement ? headerFooterBlocksHeight + navigationBlockHeight : headerFooterBlocksHeight;
+  const lineTop = someElement ? lineBottom + navigationBlockHeight : lineBottom;
+  const lineCenter = (document.documentElement.clientHeight - outsideHeight) / 2;
+  const selectedElement = activeElement || deletedElement || startElement;
+  
+  const elementListStyle = {
+    right: selectedElement.pagePosition.right,
+    height: `calc(100vh - ${outsideHeight}px)`
+  };
+
+  const schemeMarkup = { backgroundImage: `
+    linear-gradient(to bottom, transparent ${lineTop}px, #222 ${lineTop}px, #222 ${lineTop + 1}px, transparent ${lineTop + 1}px),
+    linear-gradient(to top, transparent ${lineCenter}px, #222 ${lineCenter}px, #222 ${lineCenter + 1}px, transparent ${lineCenter + 1}px),
+    linear-gradient(to top, transparent ${lineBottom}px, #222 ${lineBottom}px, #222 ${lineBottom + 1}px, transparent ${lineBottom + 1}px)
+  `};
 
   return (
     <main className="scheme" style={schemeMarkup}>
-      { selectedElement.listName === 'actions' &&
+      { someElement &&
         <div className="scheme__navigation">
           <ListOfNavigation elementID={selectedElement.id} onClickButton={onClickButton} />
         </div>
       }
-      <ul className="scheme__list" style={selectedElement.pagePosition}>
+      <ul className="scheme__list" style={elementListStyle}>
         { elementList.map((element) => (
           <li className="scheme__item" key={element.id} style={element.position}>
             { element.listName === 'elements' &&

@@ -107,7 +107,7 @@ function ListOfButtons({
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
-                Изменить параметры текущего элемента схемы
+                Изменить параметры элемента
               </p>
             </div>
           </li>
@@ -119,7 +119,7 @@ function ListOfButtons({
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
-                Найти элемент схемы по названию в списке элементов
+                Найти элемент по описанию
               </p>
             </div>
           </li>
@@ -131,7 +131,7 @@ function ListOfButtons({
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
-                Удалить текущий элемент из схемы
+                Удалить элемент из схемы
               </p>
             </div>
           </li>
@@ -143,7 +143,7 @@ function ListOfButtons({
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
-                Подвинуть элемент влево
+                Передвинуть элемент влево
               </p>
             </div>
           </li>
@@ -155,7 +155,7 @@ function ListOfButtons({
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
-                Подвинуть элемент вправо
+                Передвинуть элемент вправо
               </p>
             </div>
           </li>

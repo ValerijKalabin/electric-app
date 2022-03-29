@@ -1,11 +1,3 @@
-const schemeHeight = document.documentElement.clientHeight - 170;
-
-export const schemeMarkup = { backgroundImage: `
-  linear-gradient(360deg, transparent 120px, #222 120px, #222 121px, transparent 121px),
-  linear-gradient(180deg, transparent 120px, #222 120px, #222 121px, transparent 121px),
-  linear-gradient(360deg, transparent ${ schemeHeight / 2 }px, #222 ${ schemeHeight / 2 }px, #222 ${ schemeHeight / 2 + 1 }px, transparent ${ schemeHeight / 2 + 1 }px)
-`};
-
 const getPosition = (button, elementList) => {
   const activeElement = elementList.find((element) => element.listName === 'actions');
   const similarButtons = elementList.filter((element) => element.name === button.name);

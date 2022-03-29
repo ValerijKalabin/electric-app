@@ -30,6 +30,7 @@
 
 .right:disabled {
   cursor: default;
+  opacity: 0.7;
 }
 
 .right:disabled.gray {

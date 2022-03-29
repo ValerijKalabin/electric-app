@@ -30,6 +30,7 @@
 
 .delete:disabled {
   cursor: default;
+  opacity: 0.7;
 }
 
 .delete:disabled.gray {
@@ -49,5 +50,5 @@
 }
 
 .delete_active:hover {
-  opacity: 50%;
+  opacity: 0.5;
 }

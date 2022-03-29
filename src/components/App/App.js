@@ -23,18 +23,25 @@ function App() {
     }
 
     if (button.name === 'delete') {
-      const currentElementList = schemeElementList.filter((element) => element.listName !== 'actions');
-      if (currentElementList.length === 0) {
-        currentElementList.push(startElement);
+      const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
+      if (newElementList.length !== 0) {
+        const deletedElement = schemeElementList.find((element) => element.listName === 'actions');
+        deletedElement.name = 'deleted';
+        deletedElement.type = 'deleted';
+        deletedElement.listName = 'deleted';
+        newElementList.push(deletedElement);
       }
-      setSchemeElementList(currentElementList);
+      if (newElementList.length === 0) {
+        newElementList.push(startElement);
+      }
+      setSchemeElementList(newElementList);
     }
 
     if (button.type === 'element') {
       if (button.listName === 'nolist') {
-        const currentElementList = [...schemeElementList];
-        currentElementList.forEach((element) => element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist');
-        setSchemeElementList(currentElementList);
+        const newElementList = schemeElementList.filter((element) => element.type === 'element');
+        newElementList.forEach((element) => element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist');
+        setSchemeElementList(newElementList);
         navigate("/scheme");
       }
       if (button.listName === 'elements' || button.listName === 'buttons') {
@@ -45,10 +52,10 @@ function App() {
   }
 
   function handleSubmitForm(newElement) {
-    const currentElementList = schemeElementList.filter((element) => element.type === 'element');
-    currentElementList.forEach((element) => element.listName = 'nolist');
-    currentElementList.push(newElement);
-    setSchemeElementList(currentElementList);
+    const newElementList = schemeElementList.filter((element) => element.type === 'element');
+    newElementList.forEach((element) => element.listName = 'nolist');
+    newElementList.push(newElement);
+    setSchemeElementList(newElementList);
     navigate("/scheme");
   }
 
