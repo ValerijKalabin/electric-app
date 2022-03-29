@@ -28,7 +28,6 @@ function App() {
         currentElementList.push(startElement);
       }
       setSchemeElementList(currentElementList);
-      navigate("/scheme");
     }
 
     if (button.type === 'element') {

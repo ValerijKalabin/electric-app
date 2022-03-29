@@ -1,11 +1,9 @@
-import Add from '../../buttons/Add/Add';
+import Left from '../../buttons/Left/Left';
 import AutoSwitch from '../../buttons/AutoSwitch/AutoSwitch';
-import Change from '../../buttons/Change/Change';
 import Delete from '../../buttons/Delete/Delete';
-import Help from '../../buttons/Help/Help';
+import Right from '../../buttons/Right/Right';
 import JunctionBox from '../../buttons/JunctionBox/JunctionBox';
 import Lamp from '../../buttons/Lamp/Lamp';
-import Search from '../../buttons/Search/Search';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
 import './ListOfActions.css';
@@ -39,20 +37,14 @@ function ListOfActions({ elementID, elementName, onClickButton }) {
           <Switch id={elementID} listName="actions" onClickButton={onClickButton} />
         </li>
       }
-      <li className="actions__item actions__item_add">
-        <Add id={elementID} listName="actions" onClickButton={onClickButton} />
-      </li>
-      <li className="actions__item actions__item_change">
-        <Change id={elementID} listName="actions" onClickButton={onClickButton} />
+      <li className="actions__item actions__item_left">
+        <Left id={elementID} listName="actions" onClickButton={onClickButton} />
       </li>
       <li className="actions__item actions__item_delete">
         <Delete id={elementID} listName="actions" onClickButton={onClickButton} />
       </li>
-      <li className="actions__item actions__item_help">
-        <Help id={elementID} listName="actions" onClickButton={onClickButton} />
-      </li>
-      <li className="actions__item actions__item_search">
-        <Search id={elementID} listName="actions" onClickButton={onClickButton} />
+      <li className="actions__item actions__item_right">
+        <Right id={elementID} listName="actions" onClickButton={onClickButton} />
       </li>
     </ul>
   );

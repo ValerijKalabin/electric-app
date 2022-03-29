@@ -5,6 +5,7 @@ import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
 import ListOfActions from '../ListOfActions/ListOfActions';
 import ListOfElements from '../ListOfElements/ListOfElements';
+import ListOfNavigation from '../ListOfNavigation/ListOfNavigation';
 import { startElement } from '../../utils/element';
 import { schemeMarkup } from '../../utils/style';
 import './Scheme.css';
@@ -14,6 +15,11 @@ function Scheme({ elementList, onClickButton }) {
 
   return (
     <main className="scheme" style={schemeMarkup}>
+      { selectedElement.listName === 'actions' &&
+        <div className="scheme__navigation">
+          <ListOfNavigation elementID={selectedElement.id} onClickButton={onClickButton} />
+        </div>
+      }
       <ul className="scheme__list" style={selectedElement.pagePosition}>
         { elementList.map((element) => (
           <li className="scheme__item" key={element.id} style={element.position}>

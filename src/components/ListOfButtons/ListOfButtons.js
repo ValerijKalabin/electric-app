@@ -7,6 +7,8 @@ import Change from '../../buttons/Change/Change';
 import Delete from '../../buttons/Delete/Delete';
 import JunctionBox from '../../buttons/JunctionBox/JunctionBox';
 import Lamp from '../../buttons/Lamp/Lamp';
+import Left from '../../buttons/Left/Left';
+import Right from '../../buttons/Right/Right';
 import Search from '../../buttons/Search/Search';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
@@ -113,6 +115,18 @@ function ListOfButtons({
         { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
+              <Search id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
+            </div>
+            <div className="buttons__label">
+              <p className="buttons__text">
+                Найти элемент схемы по названию в списке элементов
+              </p>
+            </div>
+          </li>
+        }
+        { listType === "actions" &&
+          <li className="buttons__item">
+            <div className="buttons__container">
               <Delete id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
@@ -125,11 +139,23 @@ function ListOfButtons({
         { listType === "actions" &&
           <li className="buttons__item">
             <div className="buttons__container">
-              <Search id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
+              <Left id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
-                Найти элемент схемы по названию в списке элементов
+                Подвинуть элемент влево
+              </p>
+            </div>
+          </li>
+        }
+        { listType === "actions" &&
+          <li className="buttons__item">
+            <div className="buttons__container">
+              <Right id={selectedElement.id} listName="buttons" onClickButton={onClickButton} />
+            </div>
+            <div className="buttons__label">
+              <p className="buttons__text">
+                Подвинуть элемент вправо
               </p>
             </div>
           </li>

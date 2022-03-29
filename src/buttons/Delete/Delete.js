@@ -14,7 +14,8 @@ function Delete({ id, listName, onClickButton }) {
   return (
     <button
       type="button"
-      className={`delete ${getActionButtonColor(listName)}`}
+      className={`delete ${getActionButtonColor(listName)} ${listName === 'actions' ? 'delete_active' : ''}`}
+      disabled={listName === 'buttons'}
       onClick={ handleClick }
     >
       <svg className={`bi bi-trash ${getActionButtonColor(listName)}`} xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" viewBox="0 0 16 16">

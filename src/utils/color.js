@@ -1,6 +1,6 @@
 export const getActionButtonColor = (listName) => {
   if (listName === 'elements') return 'gray';
-  if (listName === 'actions' || listName === 'buttons') return 'yellow';
+  if (listName === 'actions' || listName === 'buttons' || listName === 'navigation') return 'yellow';
   return '';
 };
 

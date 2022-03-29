@@ -17,7 +17,7 @@ const getPosition = (button, elementList) => {
       return positionOfActiveElement;
     }
     while (positionsOfSimilarButtons.includes(position)) {
-      position = position + 240;
+      position = position + 180;
     }
   }
   return position;

@@ -1,4 +1,4 @@
-.change {
+.left {
   display: block;
   background-color: transparent;
   box-sizing: border-box;
@@ -12,30 +12,42 @@
   cursor: pointer;
 }
 
-.change.gray {
+.left.gray {
   border-color: #bbbbbb;
 }
 
-.change.yellow {
+.left.yellow {
   border-color: #d5d832;
 }
 
-.bi-gear.gray {
+.bi-caret-left.gray {
   fill: #bbbbbb;
 }
 
-.bi-gear.yellow {
+.bi-caret-left.yellow {
   fill: #d5d832;
 }
 
-.change:hover.gray {
+.left:disabled {
+  cursor: default;
+}
+
+.left:disabled.gray {
   background-color: #bbbbbb;
 }
 
-.change:hover.yellow {
+.left:disabled.yellow {
   background-color: #d5d832;
 }
 
-.change:hover .bi-gear {
+.left:disabled .bi-caret-left {
   fill: #111111;
+}
+
+.left_active {
+  border: none;
+}
+
+.left_active:hover {
+  opacity: 50%;
 }

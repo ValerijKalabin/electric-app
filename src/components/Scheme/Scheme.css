@@ -35,11 +35,19 @@
   margin: 0;
 }
 
+.scheme__navigation {
+  position: relative;
+  display: block;
+  padding: 0;
+  margin: 0;
+  z-index: 5;
+}
+
 .scheme__list {
   list-style-type: none;
   display: block;
   position: relative;
-  transition: right 0.5s linear;
+  transition: right 0.3s linear;
   width: 100%;
   height: calc(100vh - 170px);
   padding: 0;
