@@ -7,8 +7,20 @@ export const schemeMarkup = { backgroundImage: `
 `};
 
 const getPosition = (button, elementList) => {
-  const elementCount = elementList.reduce((count, element) => element.name === button.name ? count = count + 1 : count, 0)
-  return elementCount * 240;
+  const activeElement = elementList.find((element) => element.listName === 'actions');
+  const similarButtons = elementList.filter((element) => element.name === button.name);
+  const positionsOfSimilarButtons = similarButtons.map((element) => parseInt(element.position.left.slice(11), 10));
+  let position = 0;
+  if (activeElement) {
+    const positionOfActiveElement = parseInt(activeElement.position.left.slice(11), 10);
+    if (!positionsOfSimilarButtons.includes(positionOfActiveElement)) {
+      return positionOfActiveElement;
+    }
+    while (positionsOfSimilarButtons.includes(position)) {
+      position = position + 240;
+    }
+  }
+  return position;
 }
 
 export const getPagePosition = (button, elementList) => {
