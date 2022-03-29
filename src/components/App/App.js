@@ -2,6 +2,7 @@ import './App.css';
 import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { startElement } from '../../utils/element';
+import { step } from '../../utils/position';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -29,15 +30,15 @@ function App() {
       const positionList = similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
       let position = parseInt(activeElement.position.left.slice(11), 10);
       if (button.name === 'left') {
-        position = position + 180;
+        position = position + step;
         while (positionList.includes(position)) {
-          position = position + 180;
+          position = position + step;
         }
       }
       if (button.name === 'right') {
-        position = position - 180;
+        position = position - step;
         while (positionList.includes(position)) {
-          position = position - 180;
+          position = position - step;
         }
       }
       if (activeElement.position.top) {

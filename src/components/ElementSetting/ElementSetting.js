@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getPagePosition, getElementPosition } from '../../utils/style';
+import { step, getElementPosition } from '../../utils/position';
 import * as element from '../../utils/element';
 import './ElementSetting.css';
 
@@ -16,6 +16,21 @@ function ElementSetting({ button, elementList, onSubmitForm }) {
   const [powerValue, setPowerValue] = useState('');
   const [powerError, setPowerError] = useState('');
   const [powerValidity, setPowerValidity] = useState(false);
+
+  const activeElement = elementList.find((element) => element.listName === 'actions');
+  const deletedElement = elementList.find((element) => element.listName === 'deleted');
+  const selectedElement = activeElement || deletedElement;
+
+  const similarElementList = elementList.filter((element) => element.name === button.name);
+  const positionList = similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
+  
+  let position = 0;
+  if (selectedElement) {
+    position = parseInt(selectedElement.position.left.slice(11), 10);
+  }
+  while (positionList.includes(position)) {
+    position = position + step;
+  }
 
   const formValidity = {
     buttonName: button.name,
@@ -52,8 +67,8 @@ function ElementSetting({ button, elementList, onSubmitForm }) {
       description: nameValue,
       number: numberValue,
       power: powerValue,
-      position: getElementPosition(button, elementList),
-      pagePosition: getPagePosition(button, elementList)
+      position: getElementPosition(position, button.name),
+      pagePosition: {right: `${position}px`}
     });
   }
 
