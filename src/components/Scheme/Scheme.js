@@ -22,7 +22,7 @@ function Scheme({ elementList, onClickButton }) {
   const lineTop = someElement ? lineBottom + navigationBlockHeight : lineBottom;
   const lineCenter = (document.documentElement.clientHeight - outsideHeight) / 2;
   const selectedElement = activeElement || deletedElement || startElement;
-  
+
   const elementListStyle = {
     right: selectedElement.pagePosition.right,
     height: `calc(100vh - ${outsideHeight}px)`
@@ -67,6 +67,14 @@ function Scheme({ elementList, onClickButton }) {
             }
           </li>
         )) }
+        { someElement &&
+          <li className="scheme__mark">
+            <svg className="scheme__image" width="40" height="20" fill="transparent" stroke="#d5d832" strokeWidth="2" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" x2="40" y1="18" y2="18" />
+              <line x1="19" x2="19" y1="0" y2="18" />
+            </svg>
+          </li>
+        }
       </ul>
     </main>
   );

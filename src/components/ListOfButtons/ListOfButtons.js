@@ -143,7 +143,7 @@ function ListOfButtons({
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
-                Передвинуть элемент влево
+                Передвинуть страницу влево, выделенный элемент останется на месте
               </p>
             </div>
           </li>
@@ -155,7 +155,7 @@ function ListOfButtons({
             </div>
             <div className="buttons__label">
               <p className="buttons__text">
-                Передвинуть элемент вправо
+                Передвинуть страницу вправо, выделенный элемент останется на месте
               </p>
             </div>
           </li>

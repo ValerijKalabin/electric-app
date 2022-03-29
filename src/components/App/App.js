@@ -22,6 +22,34 @@ function App() {
       navigate("/buttons");
     }
 
+    if (button.name === 'left' || button.name === 'right') {
+      const activeElement = schemeElementList.find((element) => element.listName === 'actions');
+      const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
+      const similarElementList = schemeElementList.filter((element) => element.name === activeElement.name);
+      const positionList = similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
+      let position = parseInt(activeElement.position.left.slice(11), 10);
+      if (button.name === 'left') {
+        position = position + 180;
+        while (positionList.includes(position)) {
+          position = position + 180;
+        }
+      }
+      if (button.name === 'right') {
+        position = position - 180;
+        while (positionList.includes(position)) {
+          position = position - 180;
+        }
+      }
+      if (activeElement.position.top) {
+        activeElement.position = { left: `calc(50% + ${position}px)`, top: activeElement.position.top };
+      }
+      if (activeElement.position.bottom) {
+        activeElement.position = { left: `calc(50% + ${position}px)`, bottom: activeElement.position.bottom };
+      }
+      activeElement.pagePosition = { right: `${position}px`, transition: 'right 0.3s linear' };
+      setSchemeElementList([...newElementList, activeElement]);
+    }
+
     if (button.name === 'delete') {
       const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
       if (newElementList.length !== 0) {

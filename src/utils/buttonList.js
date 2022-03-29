@@ -16,5 +16,5 @@ export const getListExplanation = (element) => {
   if (element.name === 'lamp') return 'Текущий элемент - светильник. Добавьте следующий...';
   if (element.name === 'socket') return 'Текущий элемент - блок розеток. Добавьте следующий...';
   if (element.name === 'switch') return 'Текущий элемент - блок выключателей. Добавьте следующий...';
-  return 'Элемент схемы не выбран';
+  return 'Текущий элемент не выбран';
 }
