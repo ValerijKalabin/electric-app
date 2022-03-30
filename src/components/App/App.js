@@ -68,7 +68,6 @@ function App() {
         const newElementList = schemeElementList.filter((element) => element.type === 'element');
         newElementList.forEach((element) => element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist');
         setSchemeElementList(newElementList);
-        navigate("/scheme");
       }
       if (button.listName === 'elements' || button.listName === 'buttons') {
         setSelectedButton(button);
@@ -80,8 +79,7 @@ function App() {
   function handleSubmitForm(newElement) {
     const newElementList = schemeElementList.filter((element) => element.type === 'element');
     newElementList.forEach((element) => element.listName = 'nolist');
-    newElementList.push(newElement);
-    setSchemeElementList(newElementList);
+    setSchemeElementList([...newElementList, newElement]);
     navigate("/scheme");
   }
 
