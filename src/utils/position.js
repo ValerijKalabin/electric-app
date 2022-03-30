@@ -1,13 +1,13 @@
 export const step = 180;
 
-export const getElementPosition = (position, buttonName) => {
-  if (buttonName === 'lamp') {
+export const getElementPosition = (position, name) => {
+  if (name === 'lamp') {
     return { left: `calc(50% + ${position}px)`, top: '60px' };
   }
-  if (buttonName === 'junction-box') {
+  if (name === 'junction-box') {
     return { left: `calc(50% + ${position}px)`, bottom: '50%' };
   }
-  if (buttonName === 'auto-switch' || buttonName === 'socket' || buttonName === 'switch') {
+  if (name === 'auto-switch' || name === 'socket' || name === 'switch') {
     return { left: `calc(50% + ${position}px)`, bottom: '120px' };
   }
 }

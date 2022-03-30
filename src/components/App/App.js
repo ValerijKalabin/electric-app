@@ -2,7 +2,7 @@ import './App.css';
 import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { startElement } from '../../utils/element';
-import { step } from '../../utils/position';
+import { getElementPosition, step } from '../../utils/position';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -28,26 +28,22 @@ function App() {
       const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
       const similarElementList = schemeElementList.filter((element) => element.name === activeElement.name);
       const positionList = similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
+
       let position = parseInt(activeElement.position.left.slice(11), 10);
       if (button.name === 'left') {
-        position = position + step;
-        while (positionList.includes(position)) {
-          position = position + step;
-        }
-      }
-      if (button.name === 'right') {
         position = position - step;
         while (positionList.includes(position)) {
           position = position - step;
         }
       }
-      if (activeElement.position.top) {
-        activeElement.position = { left: `calc(50% + ${position}px)`, top: activeElement.position.top };
+      if (button.name === 'right') {
+        position = position + step;
+        while (positionList.includes(position)) {
+          position = position + step;
+        }
       }
-      if (activeElement.position.bottom) {
-        activeElement.position = { left: `calc(50% + ${position}px)`, bottom: activeElement.position.bottom };
-      }
-      activeElement.pagePosition = { right: `${position}px`, transition: 'right 0.3s linear' };
+      activeElement.position = getElementPosition(position, activeElement.name);
+      activeElement.pagePosition = position;
       setSchemeElementList([...newElementList, activeElement]);
     }
 
@@ -55,6 +51,7 @@ function App() {
       const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
       if (newElementList.length !== 0) {
         const deletedElement = schemeElementList.find((element) => element.listName === 'actions');
+        deletedElement.id = 'not-element';
         deletedElement.name = 'deleted';
         deletedElement.type = 'deleted';
         deletedElement.listName = 'deleted';

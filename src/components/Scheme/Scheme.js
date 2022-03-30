@@ -16,15 +16,15 @@ function Scheme({ elementList, onClickButton }) {
 
   const activeElement = elementList.find((element) => element.listName === 'actions');
   const deletedElement = elementList.find((element) => element.listName === 'deleted');
-  const someElement = elementList.some((element) => element.type === 'element');
+  const selectedElement = activeElement || deletedElement || startElement;
 
+  const someElement = elementList.some((element) => element.type === 'element');
   const outsideHeight = someElement ? headerFooterBlocksHeight + navigationBlockHeight : headerFooterBlocksHeight;
   const lineTop = someElement ? lineBottom + navigationBlockHeight : lineBottom;
   const lineCenter = (document.documentElement.clientHeight - outsideHeight) / 2;
-  const selectedElement = activeElement || deletedElement || startElement;
 
   const elementListStyle = {
-    right: selectedElement.pagePosition.right,
+    right: `${selectedElement.pagePosition}px`,
     height: `calc(100vh - ${outsideHeight}px)`
   };
 

@@ -83,14 +83,13 @@ export const isFormValid = ({ buttonName, nameValidity, numberValidity, powerVal
 };
 
 export const startElement = {
-  id: 'start-element',
+  id: 'not-element',
   name: 'help',
   type: 'action',
   listName: 'elements',
   description: '',
   number: '',
   power: '',
-  position: { left: '50%', bottom: '50%' },
-  pagePosition: { right: '0' },
-  line: []
+  position: { left: 'calc(50% + 0px)', bottom: '50%' },
+  pagePosition: 0
 };

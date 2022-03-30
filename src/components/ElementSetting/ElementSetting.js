@@ -19,15 +19,12 @@ function ElementSetting({ button, elementList, onSubmitForm }) {
 
   const activeElement = elementList.find((element) => element.listName === 'actions');
   const deletedElement = elementList.find((element) => element.listName === 'deleted');
-  const selectedElement = activeElement || deletedElement;
+  const selectedElement = activeElement || deletedElement || element.startElement;
 
   const similarElementList = elementList.filter((element) => element.name === button.name);
   const positionList = similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
-  
-  let position = 0;
-  if (selectedElement) {
-    position = parseInt(selectedElement.position.left.slice(11), 10);
-  }
+
+  let position = parseInt(selectedElement.position.left.slice(11), 10);
   while (positionList.includes(position)) {
     position = position + step;
   }
@@ -68,7 +65,7 @@ function ElementSetting({ button, elementList, onSubmitForm }) {
       number: numberValue,
       power: powerValue,
       position: getElementPosition(position, button.name),
-      pagePosition: {right: `${position}px`}
+      pagePosition: position
     });
   }
 
