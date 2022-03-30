@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4a5e90f9.css",
+    "main.js": "/static/js/main.4314445c.js",
+    "static/js/787.d1f09bd2.chunk.js": "/static/js/787.d1f09bd2.chunk.js",
+    "static/media/electrician.png": "/static/media/electrician.6ad6dc0acba7520bf3af.png",
+    "index.html": "/index.html",
+    "main.4a5e90f9.css.map": "/static/css/main.4a5e90f9.css.map",
+    "main.4314445c.js.map": "/static/js/main.4314445c.js.map",
+    "787.d1f09bd2.chunk.js.map": "/static/js/787.d1f09bd2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4a5e90f9.css",
+    "static/js/main.4314445c.js"
+  ]
+}
