@@ -6,10 +6,11 @@
 }
 
 .footer__copyright {
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 44px;
-  text-transform: uppercase;
+  line-height: 34px;
+  letter-spacing: 2px;
+  text-transform: lowercase;
   text-decoration: none;
   text-align: center;
   color: #bbbbbb;

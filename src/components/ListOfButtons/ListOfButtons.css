@@ -1,13 +1,13 @@
 .buttons {
-  max-width: 680px;
-  padding: 40px 20px;
+  max-width: 450px;
+  padding: 20px 10px;
   margin: 0;
 }
 
 .buttons__title {
-  font-size: 28px;
-  font-weight: 600;
-  line-height: 32px;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
   text-transform: uppercase;
   text-align: center;
   color: #bbbbbb;
@@ -17,20 +17,20 @@
 }
 
 .buttons__explanation {
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 400;
-  line-height: 24px;
+  line-height: 14px;
   text-align: center;
   color: #bbbbbb;
   width: 100%;
-  padding: 10px 0 0;
+  padding: 5px 0 0;
   margin: 0;
 }
 
 .buttons__list {
   list-style-type: none;
-  padding: 40px 0 0;
-  margin: 0 0 42px;
+  padding: 20px 0 0;
+  margin: 0 0 21px;
 }
 
 .buttons__item {
@@ -38,15 +38,15 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
+  padding: 5px 0;
   margin: 0;
 }
 
 .buttons__container {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   padding: 0;
-  margin: 0 20px 0 0;
+  margin: 0 10px 0 0;
 }
 
 .buttons__label {
@@ -57,16 +57,16 @@
   background-color: #bbbbbb;
   box-sizing: border-box;
   width: 100%;
-  min-height: 60px;
-  border-radius: 30px;
-  padding: 0 20px;
+  min-height: 40px;
+  border-radius: 20px;
+  padding: 0 10px;
   margin: 0;
 }
 
 .buttons__text {
-  font-size: 20px;
+  font-size: 12px;
   font-weight: 400;
-  line-height: 24px;
+  line-height: 14px;
   text-align: center;
   color: #111111;
   width: 100%;
@@ -76,17 +76,17 @@
 
 .buttons__return {
   display: block;
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 40px;
+  line-height: 26px;
   text-transform: uppercase;
   text-decoration: none;
   text-align: center;
   color: #bbbbbb;
   background-color: #111111;
   border: 2px solid #bbbbbb;
-  border-radius: 22px;
-  width: 160px;
+  border-radius: 15px;
+  width: 100px;
   padding: 0;
   margin: 0 auto;
 }

@@ -38,8 +38,8 @@
   list-style-type: none;
   display: block;
   position: relative;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   margin: 0;
   animation: rotation 30s linear infinite running;
@@ -48,8 +48,8 @@
 .elements__item {
   display: block;
   position: absolute;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   margin: 0;
   animation: opposite-rotation 30s linear infinite running;
@@ -61,26 +61,26 @@
 }
 
 .elements__item_lamp {
-  top: -120px;
+  top: -80px;
   left: 0;
 }
 
 .elements__item_junction-box {
-  top: -37px;
-  right: -114px;
+  top: -25px;
+  right: -76px;
 }
 
 .elements__item_auto-switch {
-  top: -37px;
-  left: -114px;
+  top: -25px;
+  left: -76px;
 }
 
 .elements__item_switch {
-  bottom: -97px;
-  right: -71px;
+  bottom: -65px;
+  right: -47px;
 }
 
 .elements__item_socket {
-  bottom: -97px;
-  left: -71px;
+  bottom: -65px;
+  left: -47px;
 }

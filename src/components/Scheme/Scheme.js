@@ -10,9 +10,9 @@ import { startElement } from '../../utils/element';
 import './Scheme.css';
 
 function Scheme({ elementList, onClickButton }) {
-  const lineBottom = 120;
-  const navigationBlockHeight = 60;
-  const headerFooterBlocksHeight = 170;
+  const lineBottom = 80;
+  const navigationBlockHeight = 40;
+  const headerFooterBlocksHeight = 130;
 
   const activeElement = elementList.find((element) => element.listName === 'actions');
   const deletedElement = elementList.find((element) => element.listName === 'deleted');
@@ -69,9 +69,9 @@ function Scheme({ elementList, onClickButton }) {
         )) }
         { someElement &&
           <li className="scheme__mark">
-            <svg className="scheme__image" width="40" height="20" fill="transparent" stroke="#d5d832" strokeWidth="2" xmlns="http://www.w3.org/2000/svg">
-              <line x1="0" x2="40" y1="18" y2="18" />
-              <line x1="19" x2="19" y1="0" y2="18" />
+            <svg className="scheme__image" width="30" height="15" fill="transparent" stroke="#d5d832" strokeWidth="2" xmlns="http://www.w3.org/2000/svg">
+              <line x1="0" x2="30" y1="14" y2="14" />
+              <line x1="15" x2="15" y1="0" y2="15" />
             </svg>
           </li>
         }

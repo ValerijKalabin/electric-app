@@ -3,8 +3,9 @@ import './Help.css';
 
 function Help({ id, listName, onClickButton }) {
   const elementListStyle = {
-    border: '4px solid #bbb',
-    borderRadius: '30px'
+    lineHeight: '34px',
+    border: '3px solid #bbb',
+    borderRadius: '20px'
   };
 
   function handleClick() {

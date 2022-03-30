@@ -18,10 +18,10 @@ function Lamp({ id, listName, onClickButton }) {
       onClick={ handleClick }
       disabled={ listName === 'actions' }
     >
-      <svg className={getElementButtonColor(listName)} width="60" height="60" fill="transparent" stroke="red" strokeWidth="4" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="30" cy="30" r="26" />
-        <line x1="11" x2="49" y1="49" y2="11" />
-        <line x1="11" x2="49" y1="11" y2="49" />
+      <svg className={getElementButtonColor(listName)} width="40" height="40" fill="transparent" stroke="red" strokeWidth="3" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="17" />
+        <line x1="7" x2="33" y1="33" y2="7" />
+        <line x1="7" x2="33" y1="7" y2="33" />
       </svg>
     </button>
   );
