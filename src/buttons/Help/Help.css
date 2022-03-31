@@ -18,6 +18,12 @@
   cursor: pointer;
 }
 
+.help_start {
+  line-height: 34px;
+  border-width: 3px;
+  border-radius: 20px;
+}
+
 .help.gray {
   color: #bbbbbb;
   border-color: #bbbbbb;

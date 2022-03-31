@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { step, getElementPosition } from '../../utils/position';
 import * as element from '../../utils/element';
@@ -17,24 +17,7 @@ function ElementSetting({ button, elementList, onSubmitForm }) {
   const [powerError, setPowerError] = useState('');
   const [powerValidity, setPowerValidity] = useState(false);
 
-  const activeElement = elementList.find((element) => element.listName === 'actions');
-  const deletedElement = elementList.find((element) => element.listName === 'deleted');
-  const selectedElement = activeElement || deletedElement || element.startElement;
-
-  const similarElementList = elementList.filter((element) => element.name === button.name);
-  const positionList = similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
-
-  let position = parseInt(selectedElement.position.left.slice(11), 10);
-  while (positionList.includes(position)) {
-    position = position + step;
-  }
-
-  const formValidity = {
-    buttonName: button.name,
-    nameValidity,
-    numberValidity,
-    powerValidity
-  };
+  const [position, setPosition] = useState(0);
 
   function handleChangeInputName(event) {
     setNameValue(event.target.value);
@@ -68,6 +51,21 @@ function ElementSetting({ button, elementList, onSubmitForm }) {
       pagePosition: position
     });
   }
+
+  useEffect(() => {
+    const activeElement = elementList.find((element) => element.listName === 'actions');
+    const deletedElement = elementList.find((element) => element.listName === 'deleted');
+    const selectedElement = activeElement || deletedElement || element.startElement;
+
+    const similarElementList = elementList.filter((element) => element.name === button.name);
+    const positionList = similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
+
+    let pos = parseInt(selectedElement.position.left.slice(11), 10);
+    while (positionList.includes(pos)) {
+      pos = pos + step;
+    }
+    setPosition(pos);
+  }, [ button, elementList ]);
 
   return (
     <main className="element">
@@ -139,10 +137,10 @@ function ElementSetting({ button, elementList, onSubmitForm }) {
         <div className="element__buttons">
           { element.isButtonSubmitVisible(button.name) &&
             <button
-              className={ `element__submit ${ !element.isFormValid(formValidity) ? 'element__submit_disabled' : '' }` }
+              className={ `element__submit ${ !element.isFormValid(button, nameValidity, numberValidity, powerValidity) ? 'element__submit_disabled' : '' }` }
               type="submit"
               form="element"
-              disabled={ !element.isFormValid(formValidity) }
+              disabled={ !element.isFormValid(button, nameValidity, numberValidity, powerValidity) }
             >
               Ok
             </button>

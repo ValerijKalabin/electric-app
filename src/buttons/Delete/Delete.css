@@ -30,7 +30,6 @@
 
 .delete:disabled {
   cursor: default;
-  opacity: 0.7;
 }
 
 .delete:disabled.gray {

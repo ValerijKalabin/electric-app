@@ -73,12 +73,12 @@ export const getInputPowerExplanation = (buttonName) => {
   return '';
 };
 
-export const isFormValid = ({ buttonName, nameValidity, numberValidity, powerValidity }) => {
-  if (buttonName === 'auto-switch') return nameValidity && numberValidity && powerValidity;
-  if (buttonName === 'junction-box') return nameValidity;
-  if (buttonName === 'lamp') return nameValidity && powerValidity;
-  if (buttonName === 'socket') return nameValidity && numberValidity && powerValidity;
-  if (buttonName === 'switch') return nameValidity && numberValidity;
+export const isFormValid = (button, nameValidity, numberValidity, powerValidity) => {
+  if (button.name === 'auto-switch') return nameValidity && numberValidity && powerValidity;
+  if (button.name === 'junction-box') return nameValidity;
+  if (button.name === 'lamp') return nameValidity && powerValidity;
+  if (button.name === 'socket') return nameValidity && numberValidity && powerValidity;
+  if (button.name === 'switch') return nameValidity && numberValidity;
   return false;
 };
 

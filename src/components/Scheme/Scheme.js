@@ -6,33 +6,39 @@ import Switch from '../../buttons/Switch/Switch';
 import ListOfActions from '../ListOfActions/ListOfActions';
 import ListOfElements from '../ListOfElements/ListOfElements';
 import ListOfNavigation from '../ListOfNavigation/ListOfNavigation';
+import { useEffect, useState } from 'react';
 import { startElement } from '../../utils/element';
+import { lineBottom, navigationBlockHeight, headerFooterBlocksHeight } from '../../utils/position';
 import './Scheme.css';
 
 function Scheme({ elementList, onClickButton }) {
-  const lineBottom = 80;
-  const navigationBlockHeight = 40;
-  const headerFooterBlocksHeight = 130;
+  const [someElement, setSomeElement] = useState(false);
+  const [selectedElement, setSelectedElement] = useState({});
+  const [elementListStyle, setElementListStyle] = useState({});
+  const [schemeMarkup, setSchemeMarkup] = useState({});
 
-  const activeElement = elementList.find((element) => element.listName === 'actions');
-  const deletedElement = elementList.find((element) => element.listName === 'deleted');
-  const selectedElement = activeElement || deletedElement || startElement;
+  useEffect(() => {
+    const activeElement = elementList.find((element) => element.listName === 'actions');
+    const deletedElement = elementList.find((element) => element.listName === 'deleted');
+    const selectedElement = activeElement || deletedElement || startElement;
 
-  const someElement = elementList.some((element) => element.type === 'element');
-  const outsideHeight = someElement ? headerFooterBlocksHeight + navigationBlockHeight : headerFooterBlocksHeight;
-  const lineTop = someElement ? lineBottom + navigationBlockHeight : lineBottom;
-  const lineCenter = (document.documentElement.clientHeight - outsideHeight) / 2;
+    const someElement = elementList.some((element) => element.type === 'element');
+    const outsideHeight = someElement ? headerFooterBlocksHeight + navigationBlockHeight : headerFooterBlocksHeight;
+    const lineTop = someElement ? lineBottom + navigationBlockHeight : lineBottom;
+    const lineCenter = (document.documentElement.scrollHeight - outsideHeight) / 2;
 
-  const elementListStyle = {
-    right: `${selectedElement.pagePosition}px`,
-    height: `calc(100vh - ${outsideHeight}px)`
-  };
-
-  const schemeMarkup = { backgroundImage: `
-    linear-gradient(to bottom, transparent ${lineTop}px, #222 ${lineTop}px, #222 ${lineTop + 1}px, transparent ${lineTop + 1}px),
-    linear-gradient(to top, transparent ${lineCenter}px, #222 ${lineCenter}px, #222 ${lineCenter + 1}px, transparent ${lineCenter + 1}px),
-    linear-gradient(to top, transparent ${lineBottom}px, #222 ${lineBottom}px, #222 ${lineBottom + 1}px, transparent ${lineBottom + 1}px)
-  `};
+    setSomeElement(someElement);
+    setSelectedElement(selectedElement);
+    setElementListStyle({
+      right: `${selectedElement.pagePosition}px`,
+      height: `calc(100vh - ${outsideHeight}px)`
+    });
+    setSchemeMarkup({ backgroundImage: `
+      linear-gradient(to bottom, transparent ${lineTop}px, #222 ${lineTop}px, #222 ${lineTop + 1}px, transparent ${lineTop + 1}px),
+      linear-gradient(to top, transparent ${lineCenter}px, #222 ${lineCenter}px, #222 ${lineCenter + 1}px, transparent ${lineCenter + 1}px),
+      linear-gradient(to top, transparent ${lineBottom}px, #222 ${lineBottom}px, #222 ${lineBottom + 1}px, transparent ${lineBottom + 1}px)
+    `});
+  }, [ elementList ]);
 
   return (
     <main className="scheme" style={schemeMarkup}>

@@ -30,7 +30,6 @@
 
 .left:disabled {
   cursor: default;
-  opacity: 0.7;
 }
 
 .left:disabled.gray {
@@ -49,6 +48,6 @@
   border: none;
 }
 
-.left_active:hover {
+.left_active:active {
   opacity: 50%;
 }

@@ -1,10 +1,22 @@
 .list {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   box-sizing: border-box;
   width: 100%;
-  padding: 20px 10px;
+  padding: 60px 10px;
   margin: 0;
+}
+
+.list__size {
+  font-size: 16px;
+  line-height: 20px;
+  color: #bbb;
+  padding: 30px 0 0;
+  margin: 0;
+}
+
+.list__size + .list__size {
+  padding: 0 0 30px;
 }

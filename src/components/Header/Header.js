@@ -1,8 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 
-<NavLink className={(navData) => navData.isActive ? "active" : "" } to="/profile" />
-
 function Header() {
   return (
     <header className="header">

@@ -12,6 +12,7 @@ import Right from '../../buttons/Right/Right';
 import Search from '../../buttons/Search/Search';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
+import { useEffect, useState } from 'react';
 import './ListOfButtons.css';
 
 
@@ -20,8 +21,15 @@ function ListOfButtons({
   elementList,
   onClickButton
 }) {
-  const selectedElement = elementList.find((element) => element.listName === 'actions') || startElement;
-  const listType = getListType(button);
+  const [listType, setlistType] = useState('');
+  const [selectedElement, setSelectedElement] = useState({});
+
+  useEffect(() => {
+    const currentType = getListType(button);
+    const currentElement = elementList.find((element) => element.listName === 'actions') || startElement;
+    setlistType(currentType);
+    setSelectedElement(currentElement);
+  }, [ button, elementList ]);
 
   return (
     <main className="buttons">

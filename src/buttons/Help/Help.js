@@ -2,12 +2,6 @@ import { getActionButtonColor } from '../../utils/color';
 import './Help.css';
 
 function Help({ id, listName, onClickButton }) {
-  const elementListStyle = {
-    lineHeight: '34px',
-    border: '3px solid #bbb',
-    borderRadius: '20px'
-  };
-
   function handleClick() {
     onClickButton({
       id,
@@ -20,9 +14,8 @@ function Help({ id, listName, onClickButton }) {
   return (
     <button
       type="button"
-      className={`help ${getActionButtonColor(listName)}`}
+      className={`help ${getActionButtonColor(listName)} ${listName === 'elements' ? 'help_start' : ''}`}
       onClick={ handleClick }
-      style={ listName === 'elements' ? elementListStyle : {} }
     >
       ?
     </button>

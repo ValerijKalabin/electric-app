@@ -1,4 +1,7 @@
 export const step = 120;
+export const lineBottom = 80;
+export const navigationBlockHeight = 40;
+export const headerFooterBlocksHeight = 130;
 
 export const getElementPosition = (position, name) => {
   if (name === 'lamp') {
