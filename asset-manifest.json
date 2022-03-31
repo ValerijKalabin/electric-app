@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/electric-app/static/css/main.acc789a6.css",
-    "main.js": "/electric-app/static/js/main.2052ff1d.js",
-    "static/js/787.d1f09bd2.chunk.js": "/electric-app/static/js/787.d1f09bd2.chunk.js",
-    "static/media/electrician.png": "/electric-app/static/media/electrician.6ad6dc0acba7520bf3af.png",
-    "index.html": "/electric-app/index.html",
-    "main.acc789a6.css.map": "/electric-app/static/css/main.acc789a6.css.map",
-    "main.2052ff1d.js.map": "/electric-app/static/js/main.2052ff1d.js.map",
-    "787.d1f09bd2.chunk.js.map": "/electric-app/static/js/787.d1f09bd2.chunk.js.map"
+    "main.css": "./static/css/main.acc789a6.css",
+    "main.js": "./static/js/main.ca5a7b08.js",
+    "static/js/787.d1f09bd2.chunk.js": "./static/js/787.d1f09bd2.chunk.js",
+    "static/media/electrician.png": "./static/media/electrician.6ad6dc0acba7520bf3af.png",
+    "index.html": "./index.html",
+    "main.acc789a6.css.map": "./static/css/main.acc789a6.css.map",
+    "main.ca5a7b08.js.map": "./static/js/main.ca5a7b08.js.map",
+    "787.d1f09bd2.chunk.js.map": "./static/js/787.d1f09bd2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.acc789a6.css",
-    "static/js/main.2052ff1d.js"
+    "static/js/main.ca5a7b08.js"
   ]
 }
