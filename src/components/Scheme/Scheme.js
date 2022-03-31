@@ -6,18 +6,18 @@ import Switch from '../../buttons/Switch/Switch';
 import ListOfActions from '../ListOfActions/ListOfActions';
 import ListOfElements from '../ListOfElements/ListOfElements';
 import ListOfNavigation from '../ListOfNavigation/ListOfNavigation';
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { startElement } from '../../utils/element';
 import { lineBottom, navigationBlockHeight, headerFooterBlocksHeight } from '../../utils/position';
 import './Scheme.css';
 
-function Scheme({ elementList, onClickButton }) {
+function Scheme({ pageHeight, elementList, onClickButton }) {
   const [someElement, setSomeElement] = useState(false);
   const [selectedElement, setSelectedElement] = useState({});
   const [elementListStyle, setElementListStyle] = useState({});
   const [schemeMarkup, setSchemeMarkup] = useState({});
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const activeElement = elementList.find((element) => element.listName === 'actions');
     const deletedElement = elementList.find((element) => element.listName === 'deleted');
     const selectedElement = activeElement || deletedElement || startElement;
@@ -25,7 +25,7 @@ function Scheme({ elementList, onClickButton }) {
     const someElement = elementList.some((element) => element.type === 'element');
     const outsideHeight = someElement ? headerFooterBlocksHeight + navigationBlockHeight : headerFooterBlocksHeight;
     const lineTop = someElement ? lineBottom + navigationBlockHeight : lineBottom;
-    const lineCenter = (document.documentElement.scrollHeight - outsideHeight) / 2;
+    const lineCenter = (pageHeight - outsideHeight) / 2;
 
     setSomeElement(someElement);
     setSelectedElement(selectedElement);
@@ -38,7 +38,7 @@ function Scheme({ elementList, onClickButton }) {
       linear-gradient(to top, transparent ${lineCenter}px, #222 ${lineCenter}px, #222 ${lineCenter + 1}px, transparent ${lineCenter + 1}px),
       linear-gradient(to top, transparent ${lineBottom}px, #222 ${lineBottom}px, #222 ${lineBottom + 1}px, transparent ${lineBottom + 1}px)
     `});
-  }, [ elementList ]);
+  }, [ pageHeight, elementList ]);
 
   return (
     <main className="scheme" style={schemeMarkup}>

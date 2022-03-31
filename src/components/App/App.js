@@ -1,8 +1,9 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { startElement } from '../../utils/element';
 import { getElementPosition, step } from '../../utils/position';
+import { getListType } from '../../utils/buttonList';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -14,12 +15,18 @@ import ElementSetting from '../ElementSetting/ElementSetting';
 
 function App() {
   const [schemeElementList, setSchemeElementList] = useState([startElement]);
+  const [selectedElement, setSelectedElement] = useState({});
   const [selectedButton, setSelectedButton] = useState({});
+  const [buttonListType, setButtonListType] = useState('');
+  const [pageHeight, setPageHeight] = useState(0);
   const navigate = useNavigate();
 
   function handleClickButton(button) {
     if (button.name === 'add' || button.name === 'help') {
+      const activeElement = schemeElementList.find((element) => element.listName === 'actions') || startElement;
       setSelectedButton(button);
+      setSelectedElement(activeElement);
+      setButtonListType(getListType(button));
       navigate("/buttons");
     }
 
@@ -83,12 +90,17 @@ function App() {
     navigate("/scheme");
   }
 
+  useEffect(() => {
+    setPageHeight(document.documentElement.scrollHeight);
+  }, []);
+
   return (
     <div className="app">
       <Header />
       <Routes>
         <Route path='/' element={<Manual />} />
         <Route path='/scheme' element={<Scheme
+          pageHeight={pageHeight}
           elementList={schemeElementList}
           onClickButton={handleClickButton}
         />} />
@@ -100,7 +112,8 @@ function App() {
         />} />
         <Route path='/buttons' element={<ListOfButtons
           button={selectedButton}
-          elementList={schemeElementList}
+          listType={buttonListType}
+          selectedElement={selectedElement}
           onClickButton={handleClickButton}
         />} />
       </Routes>

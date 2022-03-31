@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { startElement } from '../../utils/element';
-import { getListType, getListTitle, getListExplanation } from '../../utils/buttonList';
+import { getListTitle, getListExplanation } from '../../utils/buttonList';
 import Add from '../../buttons/Add/Add';
 import AutoSwitch from '../../buttons/AutoSwitch/AutoSwitch';
 import Change from '../../buttons/Change/Change';
@@ -12,25 +11,15 @@ import Right from '../../buttons/Right/Right';
 import Search from '../../buttons/Search/Search';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
-import { useEffect, useState } from 'react';
 import './ListOfButtons.css';
 
 
 function ListOfButtons({
   button,
-  elementList,
+  listType,
+  selectedElement,
   onClickButton
 }) {
-  const [listType, setlistType] = useState('');
-  const [selectedElement, setSelectedElement] = useState({});
-
-  useEffect(() => {
-    const currentType = getListType(button);
-    const currentElement = elementList.find((element) => element.listName === 'actions') || startElement;
-    setlistType(currentType);
-    setSelectedElement(currentElement);
-  }, [ button, elementList ]);
-
   return (
     <main className="buttons">
       <h1 className="buttons__title">{getListTitle(button)}</h1>
