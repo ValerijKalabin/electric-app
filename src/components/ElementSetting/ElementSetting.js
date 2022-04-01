@@ -1,10 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { step, getElementPosition } from '../../utils/position';
+import { getElementPosition } from '../../utils/position';
 import * as element from '../../utils/element';
 import './ElementSetting.css';
 
-function ElementSetting({ button, elementList, onSubmitForm }) {
+function ElementSetting({
+  button,
+  position,
+  onSubmitForm
+}) {
   const [nameValue, setNameValue] = useState('');
   const [nameError, setNameError] = useState('');
   const [nameValidity, setNameValidity] = useState(false);
@@ -16,8 +20,6 @@ function ElementSetting({ button, elementList, onSubmitForm }) {
   const [powerValue, setPowerValue] = useState('');
   const [powerError, setPowerError] = useState('');
   const [powerValidity, setPowerValidity] = useState(false);
-
-  const [position, setPosition] = useState(0);
 
   function handleChangeInputName(event) {
     setNameValue(event.target.value);
@@ -51,21 +53,6 @@ function ElementSetting({ button, elementList, onSubmitForm }) {
       pagePosition: position
     });
   }
-
-  useEffect(() => {
-    const activeElement = elementList.find((element) => element.listName === 'actions');
-    const deletedElement = elementList.find((element) => element.listName === 'deleted');
-    const selectedElement = activeElement || deletedElement || element.startElement;
-
-    const similarElementList = elementList.filter((element) => element.name === button.name);
-    const positionList = similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
-
-    let pos = parseInt(selectedElement.position.left.slice(11), 10);
-    while (positionList.includes(pos)) {
-      pos = pos + step;
-    }
-    setPosition(pos);
-  }, [ button, elementList ]);
 
   return (
     <main className="element">

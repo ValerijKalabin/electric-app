@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { startElement } from '../../utils/element';
-import { getElementPosition, step } from '../../utils/position';
+import { getElementPosition, getItemPos, getPosList, step } from '../../utils/position';
 import { getListType } from '../../utils/buttonList';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
@@ -16,6 +16,7 @@ import ElementSetting from '../ElementSetting/ElementSetting';
 function App() {
   const [schemeElementList, setSchemeElementList] = useState([startElement]);
   const [selectedElement, setSelectedElement] = useState(startElement);
+  const [newElementPosition, setNewElementPosition] = useState(0);
   const [someElement, setSomeElement] = useState(false);
   const [selectedButton, setSelectedButton] = useState({});
   const [buttonListType, setButtonListType] = useState('');
@@ -32,24 +33,22 @@ function App() {
     if (button.name === 'left' || button.name === 'right') {
       const activeElement = schemeElementList.find((element) => element.listName === 'actions');
       const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
-      const similarElementList = schemeElementList.filter((element) => element.name === activeElement.name);
-      const positionList = similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
-
-      let position = parseInt(activeElement.position.left.slice(11), 10);
+      const posList = getPosList(activeElement, newElementList);
+      let pos = getItemPos(activeElement);
       if (button.name === 'left') {
-        position = position - step;
-        while (positionList.includes(position)) {
-          position = position - step;
+        pos = pos - step;
+        while (posList.includes(pos)) {
+          pos = pos - step;
         }
       }
       if (button.name === 'right') {
-        position = position + step;
-        while (positionList.includes(position)) {
-          position = position + step;
+        pos = pos + step;
+        while (posList.includes(pos)) {
+          pos = pos + step;
         }
       }
-      activeElement.position = getElementPosition(position, activeElement.name);
-      activeElement.pagePosition = position;
+      activeElement.position = getElementPosition(pos, activeElement.name);
+      activeElement.pagePosition = pos;
       setSchemeElementList([...newElementList, activeElement]);
       setSelectedElement(activeElement);
     }
@@ -74,11 +73,17 @@ function App() {
       if (button.listName === 'nolist') {
         const newElementList = schemeElementList.filter((element) => element.type === 'element');
         newElementList.forEach((element) => element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist');
-        const activeElement = schemeElementList.find((element) => element.listName === 'actions');
+        const activeElement = newElementList.find((element) => element.listName === 'actions');
         setSchemeElementList(newElementList);
         setSelectedElement(activeElement);
       }
       if (button.listName === 'elements' || button.listName === 'buttons') {
+        const posList = getPosList(button, schemeElementList);
+        let pos = getItemPos(selectedElement);
+        while (posList.includes(pos)) {
+          pos = pos + step;
+        }
+        setNewElementPosition(pos);
         setSelectedButton(button);
         navigate("/element");
       }
@@ -113,7 +118,7 @@ function App() {
         <Route path='/list' element={<List />} />
         <Route path='/element' element={<ElementSetting
           button={selectedButton}
-          elementList={schemeElementList}
+          position={newElementPosition}
           onSubmitForm={handleSubmitForm}
         />} />
         <Route path='/buttons' element={<ListOfButtons

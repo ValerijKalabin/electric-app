@@ -32,3 +32,15 @@ export const getSchemeMarkup = (pageHeight, someElement) => {
     linear-gradient(to top, transparent ${lineBottom}px, #222 ${lineBottom}px, #222 ${lineBottom + 1}px, transparent ${lineBottom + 1}px)
   `}
 }
+
+export const getItemPos = (activeItem) => parseInt(activeItem.position.left.slice(11), 10);
+
+export const getPosList = (currentItem, elementList) => {
+  const similarElementList = elementList.filter((element) => {
+    if (currentItem.name === 'auto-switch' || currentItem.name === 'socket' || currentItem.name === 'switch') {
+      return element.name === 'auto-switch' || element.name === 'socket' || element.name === 'switch';
+    }
+    return element.name === currentItem.name;
+  });
+  return similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
+}
