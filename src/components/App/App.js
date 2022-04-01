@@ -15,7 +15,8 @@ import ElementSetting from '../ElementSetting/ElementSetting';
 
 function App() {
   const [schemeElementList, setSchemeElementList] = useState([startElement]);
-  const [selectedElement, setSelectedElement] = useState({});
+  const [selectedElement, setSelectedElement] = useState(startElement);
+  const [someElement, setSomeElement] = useState(false);
   const [selectedButton, setSelectedButton] = useState({});
   const [buttonListType, setButtonListType] = useState('');
   const [pageHeight, setPageHeight] = useState(0);
@@ -23,9 +24,7 @@ function App() {
 
   function handleClickButton(button) {
     if (button.name === 'add' || button.name === 'help') {
-      const activeElement = schemeElementList.find((element) => element.listName === 'actions') || startElement;
       setSelectedButton(button);
-      setSelectedElement(activeElement);
       setButtonListType(getListType(button));
       navigate("/buttons");
     }
@@ -52,6 +51,7 @@ function App() {
       activeElement.position = getElementPosition(position, activeElement.name);
       activeElement.pagePosition = position;
       setSchemeElementList([...newElementList, activeElement]);
+      setSelectedElement(activeElement);
     }
 
     if (button.name === 'delete') {
@@ -60,12 +60,12 @@ function App() {
         const deletedElement = schemeElementList.find((element) => element.listName === 'actions');
         deletedElement.id = 'not-element';
         deletedElement.name = 'deleted';
-        deletedElement.type = 'deleted';
-        deletedElement.listName = 'deleted';
-        newElementList.push(deletedElement);
+        setSelectedElement(deletedElement);
       }
       if (newElementList.length === 0) {
         newElementList.push(startElement);
+        setSelectedElement(startElement);
+        setSomeElement(false);
       }
       setSchemeElementList(newElementList);
     }
@@ -74,7 +74,9 @@ function App() {
       if (button.listName === 'nolist') {
         const newElementList = schemeElementList.filter((element) => element.type === 'element');
         newElementList.forEach((element) => element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist');
+        const activeElement = schemeElementList.find((element) => element.listName === 'actions');
         setSchemeElementList(newElementList);
+        setSelectedElement(activeElement);
       }
       if (button.listName === 'elements' || button.listName === 'buttons') {
         setSelectedButton(button);
@@ -87,6 +89,8 @@ function App() {
     const newElementList = schemeElementList.filter((element) => element.type === 'element');
     newElementList.forEach((element) => element.listName = 'nolist');
     setSchemeElementList([...newElementList, newElement]);
+    setSelectedElement(newElement);
+    setSomeElement(true);
     navigate("/scheme");
   }
 
@@ -101,6 +105,8 @@ function App() {
         <Route path='/' element={<Manual />} />
         <Route path='/scheme' element={<Scheme
           pageHeight={pageHeight}
+          selectedElement={selectedElement}
+          someElement={someElement}
           elementList={schemeElementList}
           onClickButton={handleClickButton}
         />} />

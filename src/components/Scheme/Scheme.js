@@ -6,48 +6,24 @@ import Switch from '../../buttons/Switch/Switch';
 import ListOfActions from '../ListOfActions/ListOfActions';
 import ListOfElements from '../ListOfElements/ListOfElements';
 import ListOfNavigation from '../ListOfNavigation/ListOfNavigation';
-import { useLayoutEffect, useState } from 'react';
-import { startElement } from '../../utils/element';
-import { lineBottom, navigationBlockHeight, headerFooterBlocksHeight } from '../../utils/position';
+import { getSchemeMarkup, getSchemeHeight } from '../../utils/position';
 import './Scheme.css';
 
-function Scheme({ pageHeight, elementList, onClickButton }) {
-  const [someElement, setSomeElement] = useState(false);
-  const [selectedElement, setSelectedElement] = useState({});
-  const [elementListStyle, setElementListStyle] = useState({});
-  const [schemeMarkup, setSchemeMarkup] = useState({});
-
-  useLayoutEffect(() => {
-    const activeElement = elementList.find((element) => element.listName === 'actions');
-    const deletedElement = elementList.find((element) => element.listName === 'deleted');
-    const selectedElement = activeElement || deletedElement || startElement;
-
-    const someElement = elementList.some((element) => element.type === 'element');
-    const outsideHeight = someElement ? headerFooterBlocksHeight + navigationBlockHeight : headerFooterBlocksHeight;
-    const lineTop = someElement ? lineBottom + navigationBlockHeight : lineBottom;
-    const lineCenter = (pageHeight - outsideHeight) / 2;
-
-    setSomeElement(someElement);
-    setSelectedElement(selectedElement);
-    setElementListStyle({
-      right: `${selectedElement.pagePosition}px`,
-      height: `calc(100vh - ${outsideHeight}px)`
-    });
-    setSchemeMarkup({ backgroundImage: `
-      linear-gradient(to bottom, transparent ${lineTop}px, #222 ${lineTop}px, #222 ${lineTop + 1}px, transparent ${lineTop + 1}px),
-      linear-gradient(to top, transparent ${lineCenter}px, #222 ${lineCenter}px, #222 ${lineCenter + 1}px, transparent ${lineCenter + 1}px),
-      linear-gradient(to top, transparent ${lineBottom}px, #222 ${lineBottom}px, #222 ${lineBottom + 1}px, transparent ${lineBottom + 1}px)
-    `});
-  }, [ pageHeight, elementList ]);
-
+function Scheme({
+  pageHeight,
+  selectedElement,
+  someElement,
+  elementList,
+  onClickButton
+}) {
   return (
-    <main className="scheme" style={schemeMarkup}>
+    <main className="scheme" style={ getSchemeMarkup(pageHeight, someElement) }>
       { someElement &&
         <div className="scheme__navigation">
           <ListOfNavigation elementID={selectedElement.id} onClickButton={onClickButton} />
         </div>
       }
-      <ul className="scheme__list" style={elementListStyle}>
+      <ul className="scheme__list" style={{ right: `${selectedElement.pagePosition}px`, height: getSchemeHeight(someElement) }}>
         { elementList.map((element) => (
           <li className="scheme__item" key={element.id} style={element.position}>
             { element.listName === 'elements' &&
