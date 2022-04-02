@@ -22,6 +22,15 @@ export const getPosList = (currentItem, elementList) => {
   return similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
 }
 
+export const getPosListForNewElement = (currentItem, elementList) => {
+  const positionOfElements = getPosList(currentItem, elementList);
+  positionOfElements.forEach((pos) => {
+    positionOfElements.push(pos - step);
+    positionOfElements.push(pos + step);
+  });
+  return positionOfElements;
+}
+
 export const getElementPosition = (position, buttonName) => {
   if (buttonName === 'lamp') {
     return { left: `calc(50% + ${position}px)`, top: '39px' };
@@ -32,4 +41,9 @@ export const getElementPosition = (position, buttonName) => {
   if (buttonName === 'auto-switch' || buttonName === 'socket' || buttonName === 'switch') {
     return { left: `calc(50% + ${position}px)`, bottom: '75px' };
   }
+}
+
+export const getActionItemModifier = (elementName) => {
+  if (elementName === 'auto-switch' || elementName === 'socket' || elementName === 'switch') return 'actions__item_bottom';
+  return '';
 }

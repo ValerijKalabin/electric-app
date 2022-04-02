@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import { getElementPosition, getItemPos, getPosList, step } from '../../utils/position';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { getElementPosition, getItemPos, getPosList, getPosListForNewElement, step } from '../../utils/position';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -15,7 +15,9 @@ function App() {
   const [schemeElementList, setSchemeElementList] = useState([]);
   const [selectedElement, setSelectedElement] = useState({});
   const [pageHeight, setPageHeight] = useState(0);
+  const [isAllNavigationVisible, setNavigationVisibility] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   function handleClickButton(button) {
     if (button.name === 'help' || button.name === 'add') {
@@ -53,33 +55,38 @@ function App() {
         deletedElement.name = 'deleted';
         setSelectedElement(deletedElement);
       }
+      if (newElementList.length === 0) {
+        setSelectedElement({});
+      }
       setSchemeElementList(newElementList);
     }
 
     if (button.type === 'element') {
+      const newElementList = [...schemeElementList];
       if (button.listName === 'nolist') {
-        const newElementList = schemeElementList.filter((element) => element.type === 'element');
         newElementList.forEach((element) => element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist');
         const activeElement = newElementList.find((element) => element.listName === 'actions');
         setSchemeElementList(newElementList);
         setSelectedElement(activeElement);
       }
       if (button.listName === 'elements') {
-        const posList = getPosList(button, schemeElementList);
+        const posList = getPosListForNewElement(button, newElementList);
         let pos = getItemPos(selectedElement);
         while (posList.includes(pos)) {
           pos = pos + step;
         }
         const newElement = {
-          id: `a-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+          id: `e-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
           name: button.name,
           type: button.type,
           listName: 'actions',
           position: getElementPosition(pos, button.name),
           pagePosition: pos
         };
-        setSchemeElementList([...schemeElementList, newElement]);
+        newElementList.forEach((element) => element.listName = 'nolist');
+        setSchemeElementList([...newElementList, newElement]);
         setSelectedElement(newElement);
+        console.log(newElement.id)
         navigate("/scheme");
       }
     }
@@ -89,9 +96,20 @@ function App() {
     setPageHeight(document.documentElement.scrollHeight);
   }, []);
 
+  useEffect(() => {
+    if (location.pathname === '/scheme' || location.pathname === '/hints' || location.pathname === '/elements') {
+      setNavigationVisibility(true);
+    } else {
+      setNavigationVisibility(false);
+    }
+  }, [location]);
+
   return (
     <div className="app">
-      <Header elementList={schemeElementList} />
+      <Header
+        elementList={schemeElementList}
+        isAllNavigationVisible={isAllNavigationVisible}
+      />
       <Routes>
         <Route path='/' element={<Manual />} />
         <Route path='/scheme' element={<Scheme

@@ -6,7 +6,7 @@ import JunctionBox from '../../buttons/JunctionBox/JunctionBox';
 import Lamp from '../../buttons/Lamp/Lamp';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
-import { getActionItemModifier } from '../../utils/button';
+import { getActionItemModifier } from '../../utils/position';
 import './ListOfActions.css';
 
 

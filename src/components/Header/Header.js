@@ -1,12 +1,16 @@
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 
-function Header({ elementList }) {
+function Header({ elementList, isAllNavigationVisible }) {
   return (
     <header className="header">
       <nav className="header__navigation">
         <ul className="header__list">
-          <li className={`header__item header__item_hints ${!!elementList.length ? 'header__item_visible' : ''}`}>
+          <li className={`
+            header__item
+            header__item_hints
+            ${!!elementList.length && isAllNavigationVisible ? 'header__item_visible' : ''}
+          `}>
             <NavLink
               to="/hints"
               className={
@@ -56,7 +60,11 @@ function Header({ elementList }) {
               Список
             </NavLink>
           </li>
-          <li className={`header__item header__item_elements ${!!elementList.length ? 'header__item_visible' : ''}`}>
+          <li className={`
+            header__item
+            header__item_elements
+            ${!!elementList.length && isAllNavigationVisible ? 'header__item_visible' : ''}
+          `}>
             <NavLink
               to="/elements"
               className={
