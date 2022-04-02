@@ -19,78 +19,96 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
+
+  function createElement(button, elements) {
+    const posList = getPosListForNewElement(button, elements);
+    let pos = getItemPos(selectedElement);
+    while (posList.includes(pos)) {
+      pos = pos + step;
+    }
+    const newElement = {
+      id: `e-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+      name: button.name,
+      type: button.type,
+      listName: 'actions',
+      position: getElementPosition(pos, button.name),
+      pagePosition: pos
+    };
+    elements.forEach((element) => element.listName = 'nolist');
+    setSchemeElementList([...elements, newElement]);
+    setSelectedElement(newElement);
+  }
+
+
+  function relocationElement(button) {
+    const activeElement = schemeElementList.find((element) => element.listName === 'actions');
+    const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
+    const posList = getPosList(activeElement, newElementList);
+    let pos = getItemPos(activeElement);
+    if (button.name === 'left') {
+      pos = pos - step;
+      while (posList.includes(pos)) {
+        pos = pos - step;
+      }
+    }
+    if (button.name === 'right') {
+      pos = pos + step;
+      while (posList.includes(pos)) {
+        pos = pos + step;
+      }
+    }
+    activeElement.position = getElementPosition(pos, activeElement.name);
+    activeElement.pagePosition = pos;
+    setSchemeElementList([...newElementList, activeElement]);
+    setSelectedElement(activeElement);
+  }
+
+
+  function selectingElement(button, elements) {
+    elements.forEach((element) => element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist');
+    const activeElement = elements.find((element) => element.listName === 'actions');
+    setSchemeElementList(elements);
+    setSelectedElement(activeElement);
+  }
+
+
+  function deleteElement() {
+    const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
+    if (newElementList.length !== 0) {
+      const deletedElement = schemeElementList.find((element) => element.listName === 'actions');
+      deletedElement.id = 'not-element';
+      deletedElement.name = 'deleted';
+      setSelectedElement(deletedElement);
+    }
+    if (newElementList.length === 0) {
+      setSelectedElement({});
+    }
+    setSchemeElementList(newElementList);
+  }
+
+
   function handleClickButton(button) {
     if (button.name === 'help' || button.name === 'add') {
       navigate("/elements");
     }
-
     if (button.name === 'left' || button.name === 'right') {
-      const activeElement = schemeElementList.find((element) => element.listName === 'actions');
-      const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
-      const posList = getPosList(activeElement, newElementList);
-      let pos = getItemPos(activeElement);
-      if (button.name === 'left') {
-        pos = pos - step;
-        while (posList.includes(pos)) {
-          pos = pos - step;
-        }
-      }
-      if (button.name === 'right') {
-        pos = pos + step;
-        while (posList.includes(pos)) {
-          pos = pos + step;
-        }
-      }
-      activeElement.position = getElementPosition(pos, activeElement.name);
-      activeElement.pagePosition = pos;
-      setSchemeElementList([...newElementList, activeElement]);
-      setSelectedElement(activeElement);
+      relocationElement(button);
     }
-
     if (button.name === 'delete') {
-      const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
-      if (newElementList.length !== 0) {
-        const deletedElement = schemeElementList.find((element) => element.listName === 'actions');
-        deletedElement.id = 'not-element';
-        deletedElement.name = 'deleted';
-        setSelectedElement(deletedElement);
-      }
-      if (newElementList.length === 0) {
-        setSelectedElement({});
-      }
-      setSchemeElementList(newElementList);
+      deleteElement();
     }
-
     if (button.type === 'element') {
       const newElementList = [...schemeElementList];
       if (button.listName === 'nolist') {
-        newElementList.forEach((element) => element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist');
-        const activeElement = newElementList.find((element) => element.listName === 'actions');
-        setSchemeElementList(newElementList);
-        setSelectedElement(activeElement);
+        selectingElement(button, newElementList);
       }
       if (button.listName === 'elements') {
-        const posList = getPosListForNewElement(button, newElementList);
-        let pos = getItemPos(selectedElement);
-        while (posList.includes(pos)) {
-          pos = pos + step;
-        }
-        const newElement = {
-          id: `e-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
-          name: button.name,
-          type: button.type,
-          listName: 'actions',
-          position: getElementPosition(pos, button.name),
-          pagePosition: pos
-        };
-        newElementList.forEach((element) => element.listName = 'nolist');
-        setSchemeElementList([...newElementList, newElement]);
-        setSelectedElement(newElement);
-        console.log(newElement.id)
-        navigate("/scheme");
+        createElement(button, newElementList);
+        navigate('/scheme');
       }
     }
   }
+
 
   useEffect(() => {
     setPageHeight(document.documentElement.scrollHeight);
@@ -103,6 +121,7 @@ function App() {
       setNavigationVisibility(false);
     }
   }, [location]);
+  
 
   return (
     <div className="app">
