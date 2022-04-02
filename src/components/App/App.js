@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { startElement } from '../../utils/element';
 import { getElementPosition, getItemPos, getPosList, step } from '../../utils/position';
-import { getListType } from '../../utils/buttonList';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -11,6 +10,7 @@ import List from '../List/List';
 import Footer from '../Footer/Footer';
 import ListOfButtons from '../ListOfButtons/ListOfButtons';
 import ElementSetting from '../ElementSetting/ElementSetting';
+import ListOfHints from '../ListOfHints/ListOfHints';
 
 
 function App() {
@@ -19,15 +19,12 @@ function App() {
   const [newElementPosition, setNewElementPosition] = useState(0);
   const [someElement, setSomeElement] = useState(false);
   const [selectedButton, setSelectedButton] = useState({});
-  const [buttonListType, setButtonListType] = useState('');
   const [pageHeight, setPageHeight] = useState(0);
   const navigate = useNavigate();
 
   function handleClickButton(button) {
-    if (button.name === 'add' || button.name === 'help') {
-      setSelectedButton(button);
-      setButtonListType(getListType(button));
-      navigate("/buttons");
+    if (button.name === 'help') {
+      navigate("/hints");
     }
 
     if (button.name === 'left' || button.name === 'right') {
@@ -77,7 +74,7 @@ function App() {
         setSchemeElementList(newElementList);
         setSelectedElement(activeElement);
       }
-      if (button.listName === 'elements' || button.listName === 'buttons') {
+      if (button.listName === 'elements' || button.listName === 'hints') {
         const posList = getPosList(button, schemeElementList);
         let pos = getItemPos(selectedElement);
         while (posList.includes(pos)) {
@@ -123,7 +120,11 @@ function App() {
         />} />
         <Route path='/buttons' element={<ListOfButtons
           button={selectedButton}
-          listType={buttonListType}
+          selectedElement={selectedElement}
+          onClickButton={handleClickButton}
+        />} />
+        <Route path='/hints' element={<ListOfHints
+          someElement={someElement}
           selectedElement={selectedElement}
           onClickButton={handleClickButton}
         />} />

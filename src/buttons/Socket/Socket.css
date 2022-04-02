@@ -1,47 +1,50 @@
 .socket {
   background-color: transparent;
-  width: 40px;
-  height: 40px;
-  border: none;
+  box-sizing: border-box;
+  width: 36px;
+  height: 36px;
+  border: 2px solid red;
+  border-radius: 50%;
   outline: none;
   padding: 0;
   margin: 0;
-  overflow: hidden;
   cursor: pointer;
+  overflow: hidden;
 }
 
-.socket .gray {
+.socket.gray {
+  border-color: #bbbbbb;
+}
+
+.socket.yellow {
+  border-color: #d5d832;
+}
+
+.socket.gray .socket__image {
   stroke: #bbbbbb;
 }
 
-.socket .yellow {
+.socket.yellow .socket__image {
   stroke: #d5d832;
 }
 
-.socket:hover .gray {
-  fill: #bbbbbb;
+.socket:hover.gray {
+  background-color: #bbbbbb;
 }
 
-.socket:hover .yellow {
-  fill: #d5d832;
+.socket:hover.yellow {
+  background-color: #d5d832;
 }
 
-.socket:hover line {
+.socket:hover .socket__image {
   stroke: #111111;
 }
 
 .socket:disabled {
   cursor: default;
+  background-color: #bbbbbb;
 }
 
-.socket:disabled .gray {
-  fill: #bbbbbb;
-}
-
-.socket:disabled .yellow {
-  fill: #d5d832;
-}
-
-.socket:disabled line {
+.socket:disabled .socket__image {
   stroke: #111111;
 }

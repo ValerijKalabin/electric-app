@@ -1,12 +1,23 @@
 .lamp {
   background-color: transparent;
-  width: 40px;
-  height: 40px;
-  border: none;
+  box-sizing: border-box;
+  width: 36px;
+  height: 36px;
+  border: 2px solid red;
+  border-radius: 50%;
   outline: none;
   padding: 0;
   margin: 0;
   cursor: pointer;
+  overflow: hidden;
+}
+
+.lamp.gray {
+  border-color: #bbbbbb;
+}
+
+.lamp.yellow {
+  border-color: #d5d832;
 }
 
 .lamp .gray {
@@ -15,6 +26,14 @@
 
 .lamp .yellow {
   stroke: #d5d832;
+}
+
+.lamp:hover.gray {
+  background: #bbbbbb;
+}
+
+.lamp:hover.yellow {
+  background: #d5d832;
 }
 
 .lamp:hover .gray {
@@ -39,6 +58,14 @@
 
 .lamp:disabled .yellow {
   fill: #d5d832;
+}
+
+.lamp:disabled.gray {
+  background: #bbbbbb;
+}
+
+.lamp:disabled.yellow {
+  background: #d5d832;
 }
 
 .lamp:disabled line {

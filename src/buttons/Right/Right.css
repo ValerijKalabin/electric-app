@@ -2,52 +2,20 @@
   display: block;
   background-color: transparent;
   box-sizing: border-box;
-  width: 40px;
-  height: 40px;
-  border: 2px solid red;
-  border-radius: 15px;
+  width: 36px;
+  height: 36px;
+  border: none;
   padding: 6px;
   margin: 0;
   outline: none;
   cursor: pointer;
 }
 
-.right.gray {
-  border-color: #bbbbbb;
-}
-
-.right.yellow {
-  border-color: #d5d832;
-}
-
-.bi-caret-right.gray {
-  fill: #bbbbbb;
-}
-
-.bi-caret-right.yellow {
-  fill: #d5d832;
+.right:active {
+  opacity: 0.5;
 }
 
 .right:disabled {
   cursor: default;
-}
-
-.right:disabled.gray {
-  background-color: #bbbbbb;
-}
-
-.right:disabled.yellow {
-  background-color: #d5d832;
-}
-
-.right:disabled .bi-caret-right {
-  fill: #111111;
-}
-
-.right_active {
-  border: none;
-}
-
-.right_active:active {
-  opacity: 50%;
+  opacity: 1;
 }

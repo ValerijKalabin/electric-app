@@ -35,14 +35,6 @@
   margin: 0;
 }
 
-.scheme__navigation {
-  position: relative;
-  display: block;
-  padding: 0;
-  margin: 0;
-  z-index: 5;
-}
-
 .scheme__list {
   list-style-type: none;
   display: block;

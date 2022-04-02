@@ -2,44 +2,22 @@
   display: block;
   font-size: 24px;
   font-weight: 500;
-  line-height: 36px;
+  line-height: 32px;
   text-align: center;
-  text-decoration: none;
-  color: red;
+  color: #bbbbbb;
   background-color: transparent;
   box-sizing: border-box;
-  width: 40px;
-  height: 40px;
-  border: 2px solid red;
-  border-radius: 15px;
+  width: 36px;
+  height: 36px;
+  border: 2px solid #bbbbbb;
+  border-radius: 50%;
   padding: 0;
   margin: 0;
   outline: none;
   cursor: pointer;
 }
 
-.help_start {
-  line-height: 34px;
-  border-width: 3px;
-  border-radius: 20px;
-}
-
-.help.gray {
-  color: #bbbbbb;
-  border-color: #bbbbbb;
-}
-
-.help.yellow {
-  color: #d5d832;
-  border-color: #d5d832;
-}
-
-.help:hover.gray {
+.help:hover {
   color: #111111;
   background-color: #bbbbbb;
-}
-
-.help:hover.yellow {
-  color: #111111;
-  background-color: #d5d832;
 }

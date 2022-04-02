@@ -1,4 +1,4 @@
-.switch {
+.cable {
   background-color: transparent;
   box-sizing: border-box;
   width: 36px;
@@ -12,39 +12,47 @@
   overflow: hidden;
 }
 
-.switch.gray {
+.cable.gray {
   border-color: #bbbbbb;
 }
 
-.switch.yellow {
+.cable.yellow {
   border-color: #d5d832;
 }
 
-.switch.gray .switch__image {
+.cable .gray {
   stroke: #bbbbbb;
 }
 
-.switch.yellow .switch__image {
+.cable .yellow {
   stroke: #d5d832;
 }
 
-.switch:hover.gray {
+.cable:hover.gray {
   background-color: #bbbbbb;
 }
 
-.switch:hover.yellow {
+.cable:hover.yellow {
   background-color: #d5d832;
 }
 
-.switch:hover .switch__image {
+.cable:hover line {
   stroke: #111111;
 }
 
-.switch:disabled {
-  cursor: default;
-  background-color: #bbbbbb;
+.cable:hover circle {
+  stroke: #111111;
 }
 
-.switch:disabled .switch__image {
+.cable:disabled {
+  cursor: default;
+  background: #bbbbbb;
+}
+
+.cable:disabled .gray {
+  stroke: #111111;
+}
+
+.cable:disabled .yellow {
   stroke: #111111;
 }

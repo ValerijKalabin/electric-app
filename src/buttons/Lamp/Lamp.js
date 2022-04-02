@@ -14,14 +14,13 @@ function Lamp({ id, listName, onClickButton }) {
   return (
     <button
       type="button"
-      className="lamp"
+      className={`lamp ${getElementButtonColor(listName)}`}
       onClick={ handleClick }
       disabled={ listName === 'actions' }
     >
-      <svg className={getElementButtonColor(listName)} width="40" height="40" fill="transparent" stroke="red" strokeWidth="3" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="17" />
-        <line x1="7" x2="33" y1="33" y2="7" />
-        <line x1="7" x2="33" y1="7" y2="33" />
+      <svg className={getElementButtonColor(listName)} width="32" height="32" fill="transparent" stroke="red" strokeWidth="2" xmlns="http://www.w3.org/2000/svg">
+        <line x1="4" x2="28" y1="4" y2="28" />
+        <line x1="4" x2="28" y1="28" y2="4" />
       </svg>
     </button>
   );

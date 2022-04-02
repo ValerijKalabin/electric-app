@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { getListTitle, getListExplanation } from '../../utils/buttonList';
 import Add from '../../buttons/Add/Add';
 import AutoSwitch from '../../buttons/AutoSwitch/AutoSwitch';
 import Change from '../../buttons/Change/Change';
@@ -22,8 +21,8 @@ function ListOfButtons({
 }) {
   return (
     <main className="buttons">
-      <h1 className="buttons__title">{getListTitle(button)}</h1>
-      { button.name === 'add' && <p className="buttons__explanation">{getListExplanation(selectedElement)}</p>}
+      <h1 className="buttons__title">QW</h1>
+      { button.name === 'add' && <p className="buttons__explanation">qw</p>}
       <ul className="buttons__list">
         { listType === "elements" &&
           <li className="buttons__item">

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Cable from '../../buttons/Cable/Cable';
 import './List.css';
 
 function List() {
@@ -20,6 +21,7 @@ function List() {
       </svg>
       <p className="list__size">scrollWidth: {scrollWidth}px</p>
       <p className="list__size">scrollHeight: {scrollHeight}px</p>
+      <Cable listName={'elements'} />
     </main>
   );
 }

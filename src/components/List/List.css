@@ -18,5 +18,5 @@
 }
 
 .list__size + .list__size {
-  padding: 0;
+  padding: 0 0 30px;
 }

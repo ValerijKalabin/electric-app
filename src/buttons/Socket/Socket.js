@@ -14,18 +14,17 @@ function Socket({ id, listName, onClickButton }) {
   return (
     <button
       type="button"
-      className="socket"
+      className={`socket ${getElementButtonColor(listName)}`}
       onClick={ handleClick }
       disabled={ listName === 'actions' }
     >
-      <svg className={getElementButtonColor(listName)} width="40" height="40" fill="transparent" stroke="red" strokeWidth="3" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="17" />
-        <line x1="2" x2="19" y1="20" y2="20" />
-        <line x1="29" x2="38" y1="20" y2="20" />
-        <line x1="19" x2="12" y1="21" y2="14" />
-        <line x1="19" x2="12" y1="19" y2="26" />
-        <line x1="22" x2="29" y1="14" y2="21" />
-        <line x1="22" x2="29" y1="26" y2="19" />
+      <svg className="socket__image" width="32" height="32" fill="transparent" stroke="red" strokeWidth="2" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" x2="15" y1="16" y2="16" />
+        <line x1="24" x2="32" y1="16" y2="16" />
+        <line x1="16" x2="8" y1="17" y2="9" />
+        <line x1="16" x2="8" y1="15" y2="23" />
+        <line x1="16" x2="24" y1="9" y2="17" />
+        <line x1="16" x2="24" y1="23" y2="15" />
       </svg>
     </button>
   );

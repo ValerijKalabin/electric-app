@@ -1,4 +1,3 @@
-import { getActionButtonColor } from '../../utils/color';
 import './Help.css';
 
 function Help({ id, listName, onClickButton }) {
@@ -14,7 +13,7 @@ function Help({ id, listName, onClickButton }) {
   return (
     <button
       type="button"
-      className={`help ${getActionButtonColor(listName)} ${listName === 'elements' ? 'help_start' : ''}`}
+      className="help"
       onClick={ handleClick }
     >
       ?
