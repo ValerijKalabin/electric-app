@@ -1,30 +1,24 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { startElement } from '../../utils/element';
 import { getElementPosition, getItemPos, getPosList, step } from '../../utils/position';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
 import List from '../List/List';
 import Footer from '../Footer/Footer';
-import ListOfButtons from '../ListOfButtons/ListOfButtons';
-import ElementSetting from '../ElementSetting/ElementSetting';
-import ListOfHints from '../ListOfHints/ListOfHints';
+import ListOfElements from '../ListOfElements/ListOfElements';
 
 
 function App() {
   const [schemeElementList, setSchemeElementList] = useState([]);
-  const [selectedElement, setSelectedElement] = useState(startElement);
-  const [newElementPosition, setNewElementPosition] = useState(0);
-  const [someElement, setSomeElement] = useState(false);
-  const [selectedButton, setSelectedButton] = useState({});
+  const [selectedElement, setSelectedElement] = useState({});
   const [pageHeight, setPageHeight] = useState(0);
   const navigate = useNavigate();
 
   function handleClickButton(button) {
     if (button.name === 'help') {
-      navigate("/hints");
+      navigate("/elements");
     }
 
     if (button.name === 'left' || button.name === 'right') {
@@ -69,26 +63,25 @@ function App() {
         setSchemeElementList(newElementList);
         setSelectedElement(activeElement);
       }
-      if (button.listName === 'elements' || button.listName === 'hints') {
+      if (button.listName === 'elements') {
         const posList = getPosList(button, schemeElementList);
         let pos = getItemPos(selectedElement);
         while (posList.includes(pos)) {
           pos = pos + step;
         }
-        setNewElementPosition(pos);
-        setSelectedButton(button);
-        navigate("/element");
+        const newElement = {
+          id: `a-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+          name: button.name,
+          type: button.type,
+          listName: 'actions',
+          position: getElementPosition(pos, button.name),
+          pagePosition: pos
+        };
+        setSchemeElementList([...schemeElementList, newElement]);
+        setSelectedElement(newElement);
+        navigate("/scheme");
       }
     }
-  }
-
-  function handleSubmitForm(newElement) {
-    const newElementList = schemeElementList.filter((element) => element.type === 'element');
-    newElementList.forEach((element) => element.listName = 'nolist');
-    setSchemeElementList([...newElementList, newElement]);
-    setSelectedElement(newElement);
-    setSomeElement(true);
-    navigate("/scheme");
   }
 
   useEffect(() => {
@@ -107,19 +100,9 @@ function App() {
           onClickButton={handleClickButton}
         />} />
         <Route path='/list' element={<List />} />
-        <Route path='/element' element={<ElementSetting
-          button={selectedButton}
-          position={newElementPosition}
-          onSubmitForm={handleSubmitForm}
-        />} />
-        <Route path='/buttons' element={<ListOfButtons
-          button={selectedButton}
+        <Route path='/elements' element={<ListOfElements
           selectedElement={selectedElement}
-          onClickButton={handleClickButton}
-        />} />
-        <Route path='/hints' element={<ListOfHints
-          someElement={someElement}
-          selectedElement={selectedElement}
+          elementList={schemeElementList}
           onClickButton={handleClickButton}
         />} />
       </Routes>
