@@ -4,9 +4,10 @@ import Lamp from '../../buttons/Lamp/Lamp';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
 import ListOfActions from '../ListOfActions/ListOfActions';
-import ListOfElements from '../ListOfElements/ListOfElements';
+import Wheel from '../Wheel/Wheel';
 import { getSchemeMarkup, getSchemeHeight } from '../../utils/position';
 import './Scheme.css';
+
 
 function Scheme({
   pageHeight,
@@ -17,8 +18,8 @@ function Scheme({
 }) {
   return (
     <main className="scheme" style={ getSchemeMarkup(pageHeight, someElement) }>
-      <ListOfElements someElement={someElement} onClickButton={onClickButton} />
-      { someElement &&
+      { !elementList.length && <Wheel onClickButton={onClickButton} /> }
+      { !!elementList.length &&
         <ul className="scheme__list" style={{ right: `${selectedElement.pagePosition}px`, height: getSchemeHeight(someElement) }}>
           { elementList.map((element) => (
             <li className="scheme__item" key={element.id} style={element.position}>

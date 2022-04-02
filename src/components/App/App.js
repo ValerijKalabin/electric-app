@@ -14,7 +14,7 @@ import ListOfHints from '../ListOfHints/ListOfHints';
 
 
 function App() {
-  const [schemeElementList, setSchemeElementList] = useState([startElement]);
+  const [schemeElementList, setSchemeElementList] = useState([]);
   const [selectedElement, setSelectedElement] = useState(startElement);
   const [newElementPosition, setNewElementPosition] = useState(0);
   const [someElement, setSomeElement] = useState(false);

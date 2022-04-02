@@ -1,0 +1,87 @@
+@keyframes rotation {
+  from {
+      transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes opposite-rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-90deg);
+  }
+  50% {
+    transform: rotate(-180deg);
+  }
+  75% {
+    transform: rotate(-270deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+.wheel {
+  list-style-type: none;
+  position: relative;
+  display: block;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  margin: 0;
+  animation: rotation 30s linear infinite running;
+  z-index: 5;
+}
+
+.wheel__item {
+  position: absolute;
+  display: block;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  margin: 0;
+  animation: opposite-rotation 30s linear infinite running;
+}
+
+.wheel__item_help {
+  top: 0;
+  left: 0;
+}
+
+.wheel__item_lamp {
+  top: -80px;
+  left: 0;
+}
+
+.wheel__item_junction-box {
+  top: -25px;
+  right: -76px;
+}
+
+.wheel__item_auto-switch {
+  top: -25px;
+  left: -76px;
+}
+
+.wheel__item_switch {
+  bottom: -65px;
+  right: -47px;
+}
+
+.wheel__item_socket {
+  bottom: -65px;
+  left: -47px;
+}
