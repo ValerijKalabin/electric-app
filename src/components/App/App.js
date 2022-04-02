@@ -58,11 +58,6 @@ function App() {
         deletedElement.name = 'deleted';
         setSelectedElement(deletedElement);
       }
-      if (newElementList.length === 0) {
-        newElementList.push(startElement);
-        setSelectedElement(startElement);
-        setSomeElement(false);
-      }
       setSchemeElementList(newElementList);
     }
 
@@ -108,7 +103,6 @@ function App() {
         <Route path='/scheme' element={<Scheme
           pageHeight={pageHeight}
           selectedElement={selectedElement}
-          someElement={someElement}
           elementList={schemeElementList}
           onClickButton={handleClickButton}
         />} />

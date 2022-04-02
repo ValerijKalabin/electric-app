@@ -17,7 +17,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  background-image: repeating-linear-gradient(-90deg, #222, #222 1px, transparent 1px, transparent 40px);
+  background-image: repeating-linear-gradient(-90deg, #222, #222 1px, transparent 1px, transparent 36px);
   width: 50%;
   height: calc(100vh - 130px);
   padding: 0;
@@ -30,7 +30,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  background-image: repeating-linear-gradient(90deg, transparent, transparent 39px, #222 39px, #222 40px);
+  background-image: repeating-linear-gradient(90deg, transparent, transparent 35px, #222 35px, #222 36px);
   width: 50%;
   height: calc(100vh - 130px);
   padding: 0;
@@ -48,26 +48,44 @@
   margin: 0;
 }
 
+.scheme__list::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  border: 9px solid transparent;
+  border-top: 9px solid #d5d832;
+  transform: translate(-9px, 0);
+}
+
+.scheme__list::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
+  border: 9px solid transparent;
+  border-bottom: 9px solid #d5d832;
+  transform: translate(-9px, 0);
+}
+
 .scheme__item {
   display: block;
   position: absolute;
   transition: left 0.3s linear;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   padding: 0;
   margin: 0;
   transform: translate(-50%, 50%);
   z-index: 5;
-}
-
-.scheme__mark {
-  display: block;
-  position: absolute;
-  left: 50%;
-  bottom: 2px;
-  width: 30px;
-  height: 15px;
-  padding: 0;
-  margin: 0;
-  transform: translate(-50%, 0);
 }
