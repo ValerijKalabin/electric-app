@@ -1,18 +1,30 @@
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 
-function Header() {
+function Header({ elementList }) {
   return (
     <header className="header">
       <nav className="header__navigation">
         <ul className="header__list">
+          <li className={`header__item header__item_hints ${!!elementList.length ? 'header__item_visible' : ''}`}>
+            <NavLink
+              to="/hints"
+              className={
+                (navData) => navData.isActive ?
+                "header__link header__link_hints header__link_active" :
+                "header__link header__link_hints"
+              }
+            >
+              ?
+            </NavLink>
+          </li>
           <li className="header__item">
             <NavLink
               to="/scheme"
               className={
                 (navData) => navData.isActive ?
-                "header__link header__link_left header__link_active" :
-                "header__link header__link_left"
+                "header__link header__link_scheme header__link_active" :
+                "header__link header__link_scheme"
               }
             >
               Схема
@@ -37,11 +49,23 @@ function Header() {
               to="/list"
               className={
                 (navData) => navData.isActive ?
-                "header__link header__link_right header__link_active" :
-                "header__link header__link_right"
+                "header__link header__link_list header__link_active" :
+                "header__link header__link_list"
               }
             >
               Список
+            </NavLink>
+          </li>
+          <li className={`header__item header__item_elements ${!!elementList.length ? 'header__item_visible' : ''}`}>
+            <NavLink
+              to="/elements"
+              className={
+                (navData) => navData.isActive ?
+                "header__link header__link_elements header__link_active" :
+                "header__link header__link_elements"
+              }
+            >
+              +
             </NavLink>
           </li>
         </ul>

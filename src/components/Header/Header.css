@@ -1,14 +1,15 @@
 .header {
   width: 100%;
   border-bottom: 1px solid #222222;
-  padding: 12px 0;
+  padding: 0;
   margin: 0;
 }
 
 .header__navigation {
-  width: 100%;
-  padding: 0;
-  margin: 0;
+  overflow: hidden;
+  width: 360px;
+  padding: 12px 0;
+  margin: 0 auto;
 }
 
 .header__list {
@@ -23,8 +24,34 @@
 }
 
 .header__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: right 0.3s linear;
+  height: 30px;
   padding: 0;
   margin: 0;
+}
+
+.header__item_hints {
+  background: linear-gradient(to left, #d5d832, #111111);
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  width: 50px;
+  right: 50px;
+}
+
+.header__item_elements {
+  background: linear-gradient(to right, #d5d832, #111111);
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  width: 50px;
+  right: -50px;
+}
+
+.header__item_visible {
+  right: 0;
 }
 
 .header__link {
@@ -37,9 +64,11 @@
   text-decoration: none;
   text-align: center;
   color: #bbbbbb;
-  background-color: #111111;
+  background-color: transparent;
+  box-sizing: border-box;
   border: 2px solid #bbbbbb;
-  width: 100px;
+  width: 115px;
+  height: 30px;
   padding: 0;
   margin: 0;
 }
@@ -65,18 +94,60 @@
   fill: #666666;
 }
 
-.header__link_left {
+.header__link_hints {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: end;
+  color: #d5d832;
+  background-color: #111111;
+  border: none;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  width: 46px;
+  height: 26px;
+  padding-right: 15px;
+  padding-bottom: 2px;
+}
+
+.header__link_hints:hover {
+  color: #bbbbbb;
+}
+
+.header__link_scheme {
   border-right: none;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   padding-right: 13px;
+  margin-left: 15px;
 }
 
-.header__link_right {
+.header__link_list {
   border-left: none;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   padding-left: 13px;
+  margin-right: 15px;
+}
+
+.header__link_elements {
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 22px;
+  text-align: start;
+  color: #d5d832;
+  background-color: #111111;
+  border: none;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  width: 46px;
+  height: 26px;
+  padding-left: 15px;
+  padding-bottom: 4px;
+}
+
+.header__link_elements:hover {
+  color: #bbbbbb;
 }
 
 .header__link_active {
@@ -95,4 +166,9 @@
 
 .header__link_active:hover svg {
   fill: #111111;
+}
+
+.header__link_active.header__link_hints,
+.header__link_active.header__link_elements {
+  background-color: transparent;
 }

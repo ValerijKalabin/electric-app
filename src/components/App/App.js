@@ -8,6 +8,7 @@ import Scheme from '../Scheme/Scheme';
 import List from '../List/List';
 import Footer from '../Footer/Footer';
 import ListOfElements from '../ListOfElements/ListOfElements';
+import ListOfHints from '../ListOfHints/ListOfHints';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
   const navigate = useNavigate();
 
   function handleClickButton(button) {
-    if (button.name === 'help') {
+    if (button.name === 'help' || button.name === 'add') {
       navigate("/elements");
     }
 
@@ -90,7 +91,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
+      <Header elementList={schemeElementList} />
       <Routes>
         <Route path='/' element={<Manual />} />
         <Route path='/scheme' element={<Scheme
@@ -101,6 +102,11 @@ function App() {
         />} />
         <Route path='/list' element={<List />} />
         <Route path='/elements' element={<ListOfElements
+          selectedElement={selectedElement}
+          elementList={schemeElementList}
+          onClickButton={handleClickButton}
+        />} />
+        <Route path='/hints' element={<ListOfHints
           selectedElement={selectedElement}
           elementList={schemeElementList}
           onClickButton={handleClickButton}

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Add from '../../buttons/Add/Add';
 import Delete from '../../buttons/Delete/Delete';
 import Left from '../../buttons/Left/Left';
 import Right from '../../buttons/Right/Right';
@@ -13,6 +14,16 @@ function ListOfHints({
     <main className="hints">
       <h1 className="hints__title">Назначение кнопок</h1>
       <ul className="hints__list">
+        <li className="hints__item">
+          <div className="hints__container">
+            <Add id={selectedElement.id} listName="hints" onClickButton={onClickButton} />
+          </div>
+          <div className="hints__label">
+            <p className="hints__text">
+              Добавить элемент в схему
+            </p>
+          </div>
+        </li>
         <li className="hints__item">
           <div className="hints__container">
             <Delete id={selectedElement.id} listName="hints" onClickButton={onClickButton} />

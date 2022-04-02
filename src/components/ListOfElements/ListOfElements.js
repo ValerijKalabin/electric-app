@@ -15,7 +15,7 @@ function ListOfElements({
 }) {
   return (
     <main className="elements">
-      <h1 className="elements__title">Назначение кнопок</h1>
+      <h1 className="elements__title">{!elementList.length ? 'Назначение кнопок' : 'Добавить элемент'}</h1>
       <ul className="elements__list">
         <li className="elements__item">
           <div className="elements__container">

@@ -61,6 +61,7 @@
   border: 6px solid transparent;
   border-top: 6px solid #d5d832;
   transform: translate(-6px, 0);
+  z-index: 5;
 }
 
 .scheme__list::after {
@@ -76,6 +77,7 @@
   border: 6px solid transparent;
   border-bottom: 6px solid #d5d832;
   transform: translate(-6px, 0);
+  z-index: 5;
 }
 
 .scheme__item {
