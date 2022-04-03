@@ -22,7 +22,7 @@ export const getPosList = (currentItem, elementList) => {
   return similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
 }
 
-export const getPosListForNewElement = (currentItem, elementList) => {
+export const getExpandedPosList = (currentItem, elementList) => {
   const positionOfElements = getPosList(currentItem, elementList);
   positionOfElements.forEach((pos) => {
     positionOfElements.push(pos - step);

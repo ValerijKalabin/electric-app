@@ -97,7 +97,6 @@
 .header__link_hints {
   font-size: 20px;
   font-weight: 700;
-  line-height: 24px;
   text-align: end;
   color: #d5d832;
   background-color: #111111;
@@ -107,7 +106,6 @@
   width: 46px;
   height: 26px;
   padding-right: 15px;
-  padding-bottom: 2px;
 }
 
 .header__link_hints:hover {
@@ -133,7 +131,6 @@
 .header__link_elements {
   font-size: 20px;
   font-weight: 800;
-  line-height: 22px;
   text-align: start;
   color: #d5d832;
   background-color: #111111;
@@ -143,7 +140,6 @@
   width: 46px;
   height: 26px;
   padding-left: 15px;
-  padding-bottom: 4px;
 }
 
 .header__link_elements:hover {

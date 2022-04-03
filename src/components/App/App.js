@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { getElementPosition, getItemPos, getPosList, getPosListForNewElement, step } from '../../utils/position';
+import { getElementPosition, getItemPos, getPosList, getExpandedPosList, step } from '../../utils/position';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -21,7 +21,7 @@ function App() {
 
 
   function createElement(button, elements) {
-    const posList = getPosListForNewElement(button, elements);
+    const posList = getExpandedPosList(button, elements);
     let pos = getItemPos(selectedElement);
     while (posList.includes(pos)) {
       pos = pos + step;

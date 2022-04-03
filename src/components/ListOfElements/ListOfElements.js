@@ -17,6 +17,18 @@ function ListOfElements({
     <main className="elements">
       <h1 className="elements__title">{!elementList.length ? 'Назначение кнопок' : 'Добавить элемент'}</h1>
       <ul className="elements__list">
+        { elementList.length > 1 && !!selectedElement.name && selectedElement.name !== 'deleted' &&
+          <li className="elements__item">
+            <div className="elements__container">
+              <Cable id={selectedElement.id} listName="elements" onClickButton={onClickButton} />
+            </div>
+            <div className="elements__label">
+              <p className="elements__text">
+                Добавить в схему соединительный кабель
+              </p>
+            </div>
+          </li>
+        }
         <li className="elements__item">
           <div className="elements__container">
             <AutoSwitch id={selectedElement.id} listName="elements" onClickButton={onClickButton} />
@@ -67,18 +79,6 @@ function ListOfElements({
             </p>
           </div>
         </li>
-        { elementList.length > 1 &&
-          <li className="elements__item">
-            <div className="elements__container">
-              <Cable id={selectedElement.id} listName="elements" onClickButton={onClickButton} />
-            </div>
-            <div className="elements__label">
-              <p className="elements__text">
-                Добавить в схему соединительный кабель
-              </p>
-            </div>
-          </li>
-        }
       </ul>
       <Link to="/scheme" className="elements__return">Закрыть</Link>
     </main>
