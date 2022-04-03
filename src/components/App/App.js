@@ -121,7 +121,7 @@ function App() {
       setNavigationVisibility(false);
     }
   }, [location]);
-  
+
 
   return (
     <div className="app">
