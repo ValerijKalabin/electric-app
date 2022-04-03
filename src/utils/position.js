@@ -31,6 +31,34 @@ export const getExpandedPosList = (currentItem, elementList) => {
   return positionOfElements;
 }
 
+export const getNeighborList = (elementList) => {
+  const applicants = elementList.filter((element) => element.name === 'socket' || element.name === 'switch'); // refactor!!!
+  applicants.sort((element, nextElement) => element.pagePosition - nextElement.pagePosition);
+  const posList = applicants.map((element) => parseInt(element.position.left.slice(11), 10));
+  const neighborList = []; // delete!!!
+  let neighborIndex = 0; // delete!!!
+  let index = 0
+  while (index < posList.length - 1) {
+    neighborList[neighborIndex] = []; // delete!!!
+    if (posList[index] + step === posList[index + 1]) {
+      neighborList[neighborIndex].push(applicants[index]); // delete!!!
+      applicants[index].blockStatus = 'first';
+      index = index + 1;
+      while (index < posList.length && posList[index - 1] + step === posList[index]) {
+        neighborList[neighborIndex].push(applicants[index]); // delete!!!
+        applicants[index].blockStatus = 'middle';
+        index = index + 1;
+      }
+      neighborIndex = neighborIndex + 1; // delete!!!
+      index = index - 1;
+      applicants[index].blockStatus = 'last';
+    }
+    index = index + 1;
+  }
+  console.log(neighborList); // delete!!!
+  //return applicants.concat(noApplicants);
+}
+
 export const getElementPosition = (position, buttonName) => {
   if (buttonName === 'lamp') {
     return { left: `calc(50% + ${position}px)`, top: '39px' };

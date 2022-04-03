@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { getElementPosition, getItemPos, getPosList, getExpandedPosList, step } from '../../utils/position';
+import { getElementPosition, getItemPos, getPosList, getExpandedPosList, getNeighborList, step } from '../../utils/position';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -61,6 +61,7 @@ function App() {
     activeElement.pagePosition = pos;
     setSchemeElementList([...newElementList, activeElement]);
     setSelectedElement(activeElement);
+    getNeighborList(schemeElementList);
   }
 
 
