@@ -3,7 +3,7 @@
   box-sizing: border-box;
   width: 36px;
   height: 36px;
-  border: 2px solid red;
+  border: 2px solid #d5d832;
   border-radius: 50%;
   outline: none;
   padding: 0;
@@ -12,47 +12,10 @@
   overflow: hidden;
 }
 
-.cable.gray {
-  border-color: #bbbbbb;
-}
-
-.cable.yellow {
-  border-color: #d5d832;
-}
-
-.cable .gray {
-  stroke: #bbbbbb;
-}
-
-.cable .yellow {
-  stroke: #d5d832;
-}
-
-.cable:hover.gray {
-  background-color: #bbbbbb;
-}
-
-.cable:hover.yellow {
+.cable:hover {
   background-color: #d5d832;
 }
 
-.cable:hover line {
-  stroke: #111111;
-}
-
-.cable:hover circle {
-  stroke: #111111;
-}
-
-.cable:disabled {
-  cursor: default;
-  background: #bbbbbb;
-}
-
-.cable:disabled .gray {
-  stroke: #111111;
-}
-
-.cable:disabled .yellow {
+.cable:hover .cable__image {
   stroke: #111111;
 }

@@ -1,12 +1,13 @@
-import { getElementButtonColor } from '../../utils/color';
+import { notElement } from '../../utils/element';
 import './AutoSwitch.css';
 
-function AutoSwitch({ id, listName, onClickButton }) {
+function AutoSwitch({ element = notElement, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
-      id,
+      id: element.id,
       name: 'auto-switch',
       type: 'element',
+      blockStatus: element.blockStatus,
       listName
     });
   }
@@ -14,7 +15,7 @@ function AutoSwitch({ id, listName, onClickButton }) {
   return (
     <button
       type="button"
-      className={`auto-switch ${getElementButtonColor(listName)}`}
+      className={`auto-switch ${listName === 'elements' ? 'yellow' : 'gray'}`}
       onClick={ handleClick }
       disabled={ listName === 'actions' }
     >

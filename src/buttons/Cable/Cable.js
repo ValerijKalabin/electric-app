@@ -1,4 +1,3 @@
-import { getElementButtonColor } from '../../utils/color';
 import './Cable.css';
 
 function Cable({ id, listName, onClickButton }) {
@@ -6,7 +5,7 @@ function Cable({ id, listName, onClickButton }) {
     onClickButton({
       id,
       name: 'cable',
-      type: 'element',
+      type: 'action',
       listName
     });
   }
@@ -14,11 +13,10 @@ function Cable({ id, listName, onClickButton }) {
   return (
     <button
       type="button"
-      className={`cable ${getElementButtonColor(listName)}`}
+      className="cable"
       onClick={ handleClick }
-      disabled={ listName === 'actions' }
     >
-      <svg className={getElementButtonColor(listName)} width="32" height="32" fill="transparent" stroke="red" xmlns="http://www.w3.org/2000/svg">
+      <svg className="cable__image" width="32" height="32" fill="transparent" stroke="#d5d832" xmlns="http://www.w3.org/2000/svg">
         <circle cx="6" cy="16" r="2" strokeWidth="2" />
         <circle cx="26" cy="16" r="2" strokeWidth="2" />
         <line x1="8" x2="16" y1="14" y2="4" strokeWidth="1" />

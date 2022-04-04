@@ -10,42 +10,42 @@ import { getActionItemModifier } from '../../utils/position';
 import './ListOfActions.css';
 
 
-function ListOfActions({ elementID, elementName, onClickButton }) {
+function ListOfActions({ element, onClickButton }) {
   return (
     <ul className="actions">
-      { elementName === 'auto-switch' &&
+      { element.name === 'auto-switch' &&
         <li className="actions__item actions__item_element">
-          <AutoSwitch id={elementID} listName="actions" onClickButton={onClickButton} />
+          <AutoSwitch id={element.id} listName="actions" onClickButton={onClickButton} />
         </li>
       }
-      { elementName === 'junction-box' &&
+      { element.name === 'junction-box' &&
         <li className="actions__item actions__item_element">
-          <JunctionBox id={elementID} listName="actions" onClickButton={onClickButton} />
+          <JunctionBox id={element.id} listName="actions" onClickButton={onClickButton} />
         </li>
       }
-      { elementName === 'lamp' &&
+      { element.name === 'lamp' &&
         <li className="actions__item actions__item_element">
-          <Lamp id={elementID} listName="actions" onClickButton={onClickButton} />
+          <Lamp id={element.id} listName="actions" onClickButton={onClickButton} />
         </li>
       }
-      { elementName === 'socket' &&
+      { element.name === 'socket' &&
         <li className="actions__item actions__item_element">
-          <Socket id={elementID} listName="actions" onClickButton={onClickButton} />
+          <Socket id={element.id} listName="actions" onClickButton={onClickButton} />
         </li>
       }
-      { elementName === 'switch' &&
+      { element.name === 'switch' &&
         <li className="actions__item actions__item_element">
-          <Switch id={elementID} listName="actions" onClickButton={onClickButton} />
+          <Switch id={element.id} listName="actions" onClickButton={onClickButton} />
         </li>
       }
-      <li className={`actions__item actions__item_left ${getActionItemModifier(elementName)}`}>
-        <Left id={elementID} listName="actions" onClickButton={onClickButton} />
+      <li className={`actions__item actions__item_left ${getActionItemModifier(element.name)}`}>
+        <Left id={element.id} listName="actions" onClickButton={onClickButton} />
       </li>
-      <li className={`actions__item actions__item_delete ${getActionItemModifier(elementName)}`}>
-        <Delete id={elementID} listName="actions" onClickButton={onClickButton} />
+      <li className={`actions__item actions__item_delete ${getActionItemModifier(element.name)}`}>
+        <Delete id={element.id} listName="actions" onClickButton={onClickButton} />
       </li>
-      <li className={`actions__item actions__item_right ${getActionItemModifier(elementName)}`}>
-        <Right id={elementID} listName="actions" onClickButton={onClickButton} />
+      <li className={`actions__item actions__item_right ${getActionItemModifier(element.name)}`}>
+        <Right id={element.id} listName="actions" onClickButton={onClickButton} />
       </li>
     </ul>
   );

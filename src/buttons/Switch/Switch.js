@@ -1,12 +1,13 @@
-import { getElementButtonColor } from '../../utils/color';
+import { notElement } from '../../utils/element';
 import './Switch.css';
 
-function Switch({ id, listName, onClickButton }) {
+function Switch({ element = notElement, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
-      id,
+      id: element.id,
       name: 'switch',
       type: 'element',
+      blockStatus: element.blockStatus,
       listName
     });
   }
@@ -14,7 +15,7 @@ function Switch({ id, listName, onClickButton }) {
   return (
     <button
       type="button"
-      className={`switch ${getElementButtonColor(listName)}`}
+      className={`switch ${listName === 'elements' ? 'yellow' : 'gray'}`}
       onClick={ handleClick }
       disabled={ listName === 'actions' }
     >

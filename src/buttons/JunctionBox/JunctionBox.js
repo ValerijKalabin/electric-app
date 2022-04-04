@@ -1,12 +1,13 @@
-import { getElementButtonColor } from '../../utils/color';
+import { notElement } from '../../utils/element';
 import './JunctionBox.css';
 
-function JunctionBox({ id, listName, onClickButton }) {
+function JunctionBox({ element = notElement, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
-      id,
+      id: element.id,
       name: 'junction-box',
       type: 'element',
+      blockStatus: element.blockStatus,
       listName
     });
   }
@@ -14,11 +15,11 @@ function JunctionBox({ id, listName, onClickButton }) {
   return (
     <button
       type="button"
-      className={`box ${getElementButtonColor(listName)}`}
+      className={`box ${listName === 'elements' ? 'yellow' : 'gray'}`}
       onClick={ handleClick }
       disabled={ listName === 'actions' }
     >
-      <div className={`box__inner ${getElementButtonColor(listName)}`} />
+      <div className={`box__inner ${listName === 'elements' ? 'yellow' : 'gray'}`} />
     </button>
   );
 }

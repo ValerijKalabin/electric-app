@@ -23,22 +23,22 @@ function Scheme({
           { elementList.map((element) => (
             <li className="scheme__item" key={element.id} style={element.position}>
               { element.listName === 'actions' &&
-                <ListOfActions elementID={element.id} elementName={element.name} onClickButton={onClickButton} />
+                <ListOfActions element={element} onClickButton={onClickButton} />
               }
               { element.listName === 'nolist' && element.name === 'auto-switch' &&
-                <AutoSwitch id={element.id} listName="nolist" onClickButton={onClickButton} />
+                <AutoSwitch element={element} listName="nolist" onClickButton={onClickButton} />
               }
               { element.listName === 'nolist' && element.name === 'junction-box' &&
-                <JunctionBox id={element.id} listName="nolist" onClickButton={onClickButton} />
+                <JunctionBox element={element} listName="nolist" onClickButton={onClickButton} />
               }
               { element.listName === 'nolist' && element.name === 'lamp' &&
-                <Lamp id={element.id} listName="nolist" onClickButton={onClickButton} />
+                <Lamp element={element} listName="nolist" onClickButton={onClickButton} />
               }
               { element.listName === 'nolist' && element.name === 'socket' &&
-                <Socket id={element.id} listName="nolist" onClickButton={onClickButton} />
+                <Socket element={element} listName="nolist" onClickButton={onClickButton} />
               }
               { element.listName === 'nolist' && element.name === 'switch' &&
-                <Switch id={element.id} listName="nolist" onClickButton={onClickButton} />
+                <Switch element={element} listName="nolist" onClickButton={onClickButton} />
               }
             </li>
           ))}

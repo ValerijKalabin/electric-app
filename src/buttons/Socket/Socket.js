@@ -1,12 +1,13 @@
-import { getElementButtonColor } from '../../utils/color';
+import { notElement } from '../../utils/element';
 import './Socket.css';
 
-function Socket({ id, listName, onClickButton }) {
+function Socket({ element = notElement, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
-      id,
+      id: element.id,
       name: 'socket',
       type: 'element',
+      blockStatus: element.blockStatus,
       listName
     });
   }
@@ -14,7 +15,7 @@ function Socket({ id, listName, onClickButton }) {
   return (
     <button
       type="button"
-      className={`socket ${getElementButtonColor(listName)}`}
+      className={`socket ${listName === 'elements' ? 'yellow' : 'gray'}`}
       onClick={ handleClick }
       disabled={ listName === 'actions' }
     >

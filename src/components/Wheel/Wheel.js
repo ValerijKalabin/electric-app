@@ -11,22 +11,22 @@ function Wheel({ onClickButton }) {
   return (
     <ul className="wheel">
       <li className="wheel__item wheel__item_help">
-        <Help id="help" listName="elements" onClickButton={onClickButton} />
+        <Help listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="wheel__item  wheel__item_auto-switch">
-        <AutoSwitch id="auto-switch" listName="elements" onClickButton={onClickButton} />
+        <AutoSwitch listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="wheel__item  wheel__item_junction-box">
-        <JunctionBox id="junction-box" listName="elements" onClickButton={onClickButton} />
+        <JunctionBox listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="wheel__item  wheel__item_lamp">
-        <Lamp id="lamp" listName="elements" onClickButton={onClickButton} />
+        <Lamp listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="wheel__item  wheel__item_socket">
-        <Socket id="socket" listName="elements" onClickButton={onClickButton} />
+        <Socket listName="elements" onClickButton={onClickButton} />
       </li>
       <li className="wheel__item  wheel__item_switch">
-        <Switch id="switch" listName="elements" onClickButton={onClickButton} />
+        <Switch listName="elements" onClickButton={onClickButton} />
       </li>
     </ul>
   );

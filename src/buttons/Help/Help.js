@@ -1,6 +1,6 @@
 import './Help.css';
 
-function Help({ id, listName, onClickButton }) {
+function Help({ id="help", listName, onClickButton }) {
   function handleClick() {
     onClickButton({
       id,
