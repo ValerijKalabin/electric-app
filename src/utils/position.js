@@ -32,8 +32,8 @@ export const getExpandedPosList = (currentItem, elementList) => {
 }
 
 export const getNeighborList = (elementList) => {
-  const applicants = elementList.filter((element) => element.name === 'socket' || element.name === 'switch');
-  const notApplicants = elementList.filter((element) => element.name !== 'socket' && element.name !== 'switch');
+  const applicants = elementList.filter((element) => element.name === 'socket' || element.name === 'switch' || element.name === 'auto-switch');
+  const notApplicants = elementList.filter((element) => element.name !== 'socket' && element.name !== 'switch' && element.name !== 'auto-switch');
   applicants.sort((element, nextElement) => element.pagePosition - nextElement.pagePosition);
   const posList = applicants.map((element) => parseInt(element.position.left.slice(11), 10));
   let index = 0

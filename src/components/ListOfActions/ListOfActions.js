@@ -13,7 +13,12 @@ function ListOfActions({ element, onClickButton }) {
   return (
     <ul className="actions">
       { element.name === 'auto-switch' &&
-        <li className="actions__item actions__item_plase_default">
+        <li className={`
+          actions__item actions__item_plase_default
+          ${element.blockStatus === 'first' ? 'actions__item_place_first' : ''}
+          ${element.blockStatus === 'middle' ? 'actions__item_place_middle' : ''}
+          ${element.blockStatus === 'last' ? 'actions__item_place_last' : ''}
+        `}>
           <AutoSwitch id={element.id} listName="actions" onClickButton={onClickButton} />
         </li>
       }
