@@ -19,6 +19,10 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  function saveSchemeElementList(elements) {
+    const neighbors = getNeighborList(elements);
+    setSchemeElementList(neighbors);
+  }
 
   function createElement(button, elements) {
     const posList = getExpandedPosList(button, elements);
@@ -32,10 +36,11 @@ function App() {
       type: button.type,
       listName: 'actions',
       position: getElementPosition(pos, button.name),
-      pagePosition: pos
+      pagePosition: pos,
+      blockStatus: 'noblock'
     };
     elements.forEach((element) => element.listName = 'nolist');
-    setSchemeElementList([...elements, newElement]);
+    saveSchemeElementList([...elements, newElement]);
     setSelectedElement(newElement);
   }
 
@@ -59,16 +64,15 @@ function App() {
     }
     activeElement.position = getElementPosition(pos, activeElement.name);
     activeElement.pagePosition = pos;
-    setSchemeElementList([...newElementList, activeElement]);
+    saveSchemeElementList([...newElementList, activeElement]);
     setSelectedElement(activeElement);
-    getNeighborList(schemeElementList);
   }
 
 
   function selectingElement(button, elements) {
     elements.forEach((element) => element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist');
     const activeElement = elements.find((element) => element.listName === 'actions');
-    setSchemeElementList(elements);
+    saveSchemeElementList(elements);
     setSelectedElement(activeElement);
   }
 
@@ -84,7 +88,7 @@ function App() {
     if (newElementList.length === 0) {
       setSelectedElement({});
     }
-    setSchemeElementList(newElementList);
+    saveSchemeElementList(newElementList);
   }
 
 

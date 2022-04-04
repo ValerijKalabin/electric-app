@@ -1,5 +1,5 @@
 .switch {
-  background-color: transparent;
+  background-color: #111111;
   box-sizing: border-box;
   width: 36px;
   height: 36px;
@@ -12,39 +12,86 @@
   overflow: hidden;
 }
 
-.switch.gray {
-  border-color: #bbbbbb;
-}
-
-.switch.yellow {
-  border-color: #d5d832;
-}
-
-.switch.gray .switch__image {
-  stroke: #bbbbbb;
-}
-
-.switch.yellow .switch__image {
-  stroke: #d5d832;
-}
-
-.switch:hover.gray {
-  background-color: #bbbbbb;
-}
-
-.switch:hover.yellow {
-  background-color: #d5d832;
-}
-
 .switch:hover .switch__image {
   stroke: #111111;
 }
 
-.switch:disabled {
+.switch_list_elements {
+  border-color: #d5d832;
+}
+
+.switch_list_elements .switch__image {
+  stroke: #d5d832;
+}
+
+.switch_list_elements:hover {
+  background-color: #d5d832;
+}
+
+.switch_list_actions {
+  border-color: #bbbbbb;
+  background-color: #bbbbbb;
   cursor: default;
+}
+
+.switch_list_actions .switch__image {
+  stroke: #111111;
+}
+
+.switch_list_nolist {
+  border-color: #bbbbbb;
+}
+
+.switch_list_nolist .switch__image {
+  stroke: #bbbbbb;
+}
+
+.switch_list_nolist:hover {
   background-color: #bbbbbb;
 }
 
-.switch:disabled .switch__image {
-  stroke: #111111;
+.switch__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: transparent;
+  box-sizing: border-box;
+  width: 36px;
+  height: 36px;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+.switch__container_place_first {
+  justify-content: flex-end;
+  width: 42px;
+  height: 48px;
+  transform: translate(-6px, -6px);
+  border-top: 1px solid #bbbbbb;
+  border-left: 1px solid #bbbbbb;
+  border-bottom: 1px solid #bbbbbb;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.switch__container_place_middle {
+  justify-content: center;
+  width: 36px;
+  height: 48px;
+  transform: translate(0, -6px);
+  border-top: 1px solid #bbbbbb;
+  border-bottom: 1px solid #bbbbbb;
+}
+
+.switch__container_place_last {
+  justify-content: flex-start;
+  width: 42px;
+  height: 48px;
+  transform: translate(0, -6px);
+  border-top: 1px solid #bbbbbb;
+  border-right: 1px solid #bbbbbb;
+  border-bottom: 1px solid #bbbbbb;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
