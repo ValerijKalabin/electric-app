@@ -7,19 +7,23 @@ function JunctionBox({ element = notElement, listName, onClickButton }) {
       id: element.id,
       name: 'junction-box',
       type: 'element',
-      blockStatus: element.blockStatus,
       listName
     });
   }
 
   return (
     <button
+      className={`
+        box
+        ${listName === 'elements' ? 'box_list_elements' : ''}
+        ${listName === 'actions' ? 'box_list_actions' : ''}
+        ${listName === 'nolist' ? 'box_list_nolist' : ''}
+      `}
       type="button"
-      className={`box ${listName === 'elements' ? 'yellow' : 'gray'}`}
       onClick={ handleClick }
       disabled={ listName === 'actions' }
     >
-      <div className={`box__inner ${listName === 'elements' ? 'yellow' : 'gray'}`} />
+      <div className="box__inner" />
     </button>
   );
 }

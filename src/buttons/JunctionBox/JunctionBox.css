@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparent;
+  background-color: #111111;
   border: 2px solid red;
   border-radius: 50%;
   box-sizing: border-box;
@@ -14,50 +14,46 @@
 }
 
 .box__inner {
+  box-sizing: border-box;
   border: 2px solid red;
-  background-color: transparent;
-  width: 17px;
-  height: 17px;
-}
-
-.box.gray {
-  border-color: #bbbbbb;
-}
-
-.box.yellow {
-  border-color: #d5d832;
-}
-
-.box__inner.gray {
-  border-color: #bbbbbb;
-}
-
-.box__inner.yellow {
-  border-color: #d5d832;
+  width: 19px;
+  height: 19px;
 }
 
 .box:hover .box__inner {
   border-color: #111111;
 }
 
-.box:hover.gray {
-  background-color: #bbbbbb;
+.box_list_elements {
+  border-color: #d5d832;
 }
 
-.box:hover.yellow {
+.box_list_elements .box__inner {
+  border-color: #d5d832;
+}
+
+.box_list_elements:hover {
   background-color: #d5d832;
 }
 
-.box:disabled .box__inner {
+.box_list_actions {
+  border-color: #bbbbbb;
+  background-color: #bbbbbb;
+  cursor: default;
+}
+
+.box_list_actions .box__inner {
   border-color: #111111;
 }
 
-.box:disabled.gray {
-  background-color: #bbbbbb;
-  cursor: default;
+.box_list_nolist {
+  border-color: #bbbbbb;
 }
 
-.box:disabled.yellow {
-  background-color: #d5d832;
-  cursor: default;
+.box_list_nolist .box__inner {
+  border-color: #bbbbbb;
+}
+
+.box_list_nolist:hover {
+  background-color: #bbbbbb;
 }

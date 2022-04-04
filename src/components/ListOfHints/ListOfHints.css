@@ -32,10 +32,18 @@
 }
 
 .hints__container {
-  width: 36px;
   height: 36px;
   padding: 0;
   margin: 0 10px 0 0;
+}
+
+.hints__indicator {
+  font-size: 20px;
+  line-height: 36px;
+  color: #bbbbbb;
+  height: 36px;
+  padding: 0;
+  margin: 0;
 }
 
 .hints__label {
