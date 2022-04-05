@@ -1,0 +1,6 @@
+.cable__container {
+  position: relative;
+  outline: 1px solid rgb(109, 167, 95);
+  padding: 0;
+  margin: 0;
+}

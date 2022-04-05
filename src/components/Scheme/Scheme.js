@@ -1,9 +1,10 @@
 import AutoSwitch from '../../buttons/AutoSwitch/AutoSwitch';
+import CableLine from '../CableLine/CableLine';
 import JunctionBox from '../../buttons/JunctionBox/JunctionBox';
 import Lamp from '../../buttons/Lamp/Lamp';
+import ListOfActions from '../ListOfActions/ListOfActions';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
-import ListOfActions from '../ListOfActions/ListOfActions';
 import Wheel from '../Wheel/Wheel';
 import { getSchemeMarkup } from '../../utils/position';
 import './Scheme.css';
@@ -21,7 +22,11 @@ function Scheme({
       { !!elementList.length &&
         <ul className="scheme__list" style={{ right: `${selectedElement.pagePosition}px` }}>
           { elementList.map((element) => (
-            <li className="scheme__item" key={element.id} style={element.position}>
+            <li
+              className={`scheme__item ${element.name === 'cable' ? 'scheme__item_cable' : ''}`}
+              key={element.id}
+              style={element.position}
+            >
               { element.listName === 'actions' &&
                 <ListOfActions element={element} onClickButton={onClickButton} />
               }
@@ -39,6 +44,9 @@ function Scheme({
               }
               { element.listName === 'nolist' && element.name === 'switch' &&
                 <Switch element={element} listName="nolist" onClickButton={onClickButton} />
+              }
+              { element.listName === 'nolist' && element.name === 'cable' &&
+                <CableLine element={element} />
               }
             </li>
           ))}

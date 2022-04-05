@@ -53,7 +53,7 @@ function CableForm({ selectedElement, onClickButton, onSubmitForm }) {
             className={ `magnitude__submit ${ !numberValidity ? 'magnitude__submit_disabled' : '' }` }
             type="submit"
             name="confirm"
-            form="element"
+            form="magnitude"
             disabled={ !numberValidity }
           >
             Ok

@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { getElementPosition, getItemPos, getPosList, getExpandedPosList, getNeighborList, step } from '../../utils/position';
+import { getElementPosition, getItemPos, getPosList, getExpandedPosList, getNeighborList, getCableLine, step } from '../../utils/position';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -23,7 +23,7 @@ function App() {
   function saveSchemeElementList(elements) {
     const neighbors = getNeighborList(elements);
     setSchemeElementList(neighbors);
-    console.log(neighbors);
+    console.log(neighbors); // delete !!!!!!
   }
 
   function createElement(button, elements) {
@@ -40,7 +40,8 @@ function App() {
       listType: 'motion',
       position: getElementPosition(pos, button.name),
       pagePosition: pos,
-      blockStatus: 'noblock'
+      blockStatus: 'noblock',
+      cableList: []
     };
     elements.forEach((element) => element.listName = 'nolist');
     saveSchemeElementList([...elements, newElement]);
@@ -164,6 +165,32 @@ function App() {
   }
 
 
+  function handleSubmitForm(number) {
+    const newElementList = schemeElementList.filter((element) => element.listType !== 'cable-start' && element.listType !== 'cable-end');
+    const startElement = schemeElementList.find((element) => element.listType === 'cable-start');
+    const stopElement = schemeElementList.find((element) => element.listType === 'cable-end');
+    const cableLine = getCableLine(startElement, stopElement, pageHeight);
+    const newCable = {
+      id: `c-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
+      name: 'cable',
+      listName: 'nolist',
+      cableLength: number,
+      line: cableLine,
+      position: cableLine.position
+    };
+    startElement.cableList.push(newCable);
+    stopElement.cableList.push(newCable);
+    newElementList.push(startElement);
+    newElementList.push(stopElement);
+    newElementList.forEach((element) => {
+      element.listType = 'motion';
+      element.listName = 'nolist';
+    });
+    saveSchemeElementList([...newElementList, newCable]);
+    navigate('/scheme');
+  }
+
+
   useEffect(() => {
     setPageHeight(document.documentElement.scrollHeight);
   }, []);
@@ -205,6 +232,7 @@ function App() {
         <Route path='/cable' element={<CableForm
           selectedElement={selectedElement}
           onClickButton={handleClickButton}
+          onSubmitForm={handleSubmitForm}
         />} />
       </Routes>
       <Footer />

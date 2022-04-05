@@ -1,11 +1,12 @@
 export const step = 36;
+export const lineTop = 75;
 export const headerFooterBlocksHeight = 130;
 
 export const getSchemeMarkup = (pageHeight) => {
-  const lineCenterHeight = (pageHeight - headerFooterBlocksHeight) / 2;
+  const lineCenter = (pageHeight - headerFooterBlocksHeight) / 2;
   return { backgroundImage: `
     linear-gradient(to bottom, transparent 75px, #222 75px, #222 76px, transparent 76px),
-    linear-gradient(to top, transparent ${lineCenterHeight}px, #222 ${lineCenterHeight}px, #222 ${lineCenterHeight + 1}px, transparent ${lineCenterHeight + 1}px),
+    linear-gradient(to top, transparent ${lineCenter}px, #222 ${lineCenter}px, #222 ${lineCenter + 1}px, transparent ${lineCenter + 1}px),
     linear-gradient(to top, transparent 75px, #222 75px, #222 76px, transparent 76px)
   `}
 }
@@ -64,4 +65,62 @@ export const getElementPosition = (position, buttonName) => {
   if (buttonName === 'auto-switch' || buttonName === 'socket' || buttonName === 'switch') {
     return { left: `calc(50% + ${position}px)`, bottom: '75px' };
   }
+}
+
+const getY = (elementName, pageHeight) => {
+  if (elementName === 'lamp') return lineTop;
+  if (elementName === 'junction-box') return (pageHeight - headerFooterBlocksHeight) / 2;
+  return pageHeight - lineTop * 2;
+}
+
+export const getCableLine = (startElement, stopElement, pageHeight) => {
+  const xStart = parseInt(startElement.position.left.slice(11), 10);
+  const xEnd = parseInt(stopElement.position.left.slice(11), 10);
+  const yStart = getY(startElement.name, pageHeight);
+  const yEnd = getY(stopElement.name, pageHeight);
+
+  const position = xEnd >= xStart ? startElement.position : stopElement.position;
+  const width = xEnd !== xStart ? Math.abs(xEnd - xStart) : step;
+  const height = (pageHeight - headerFooterBlocksHeight) / 2 - lineTop;
+
+  let x1 = 0;
+  let x2 = 0;
+  let y1 = 0;
+  let y2 = 0;
+
+  if (xEnd === xStart) {
+    x1 = 0;
+    x2 = 0;
+    y1 = 0;
+    y2 = height;
+  }
+
+  if (yEnd === yStart) {
+    x1 = 0;
+    x2 = width - step;
+    y1 = 0;
+    y2 = 0;
+  }
+
+  if ((xEnd > xStart && yEnd > yStart) || (xEnd < xStart && yEnd < yStart)) {
+    x1 = 0;
+    x2 = width;
+    y1 = 0;
+    y2 = height;
+  } else {
+    x1 = 0;
+    x2 = width;
+    y1 = height;
+    y2 = 0;
+  }
+
+  return {
+    position,
+    width,
+    height,
+    x1,
+    x2,
+    y1,
+    y2
+  };
 }
