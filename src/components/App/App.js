@@ -7,6 +7,7 @@ import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
 import List from '../List/List';
 import Footer from '../Footer/Footer';
+import CableForm from '../CableForm/CableForm';
 import ListOfElements from '../ListOfElements/ListOfElements';
 import ListOfHints from '../ListOfHints/ListOfHints';
 
@@ -44,6 +45,7 @@ function App() {
     elements.forEach((element) => element.listName = 'nolist');
     saveSchemeElementList([...elements, newElement]);
     setSelectedElement(newElement);
+    navigate('/scheme');
   }
 
 
@@ -110,15 +112,16 @@ function App() {
 
 
   function startCable(button) {
-    const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
+    const activeElement = schemeElementList.find((element) => element.id === button.id);
     if (button.name === 'cable') {
-      const activeElement = schemeElementList.find((element) => element.listName === 'actions');
+      const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
       activeElement.listType = 'cable';
       saveSchemeElementList([...newElementList, activeElement]);
       setSelectedElement(activeElement);
+      navigate('/scheme');
     }
     if (button.name === 'cancel') {
-      const activeElement = schemeElementList.find((element) => element.id === button.id);
+      const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
       const activeElements = schemeElementList.filter((element) => element.listName === 'actions');
       activeElements.forEach((element) => {
         element.listType = 'motion';
@@ -127,6 +130,11 @@ function App() {
       activeElement.listName = 'actions';
       saveSchemeElementList([...newElementList, ...activeElements]);
       setSelectedElement(activeElement);
+      navigate('/scheme');
+    }
+    if (button.name === 'confirm') {
+      setSelectedElement(activeElement);
+      navigate('/cable');
     }
   }
 
@@ -141,9 +149,8 @@ function App() {
     if (button.name === 'delete') {
       deleteElement();
     }
-    if (button.name === 'cable' || button.name === 'cancel') {
+    if (button.name === 'cable' || button.name === 'cancel' || button.name === 'confirm') {
       startCable(button);
-      navigate('/scheme');
     }
     if (button.type === 'element') {
       const newElementList = [...schemeElementList];
@@ -152,7 +159,6 @@ function App() {
       }
       if (button.listName === 'elements') {
         createElement(button, newElementList);
-        navigate('/scheme');
       }
     }
   }
@@ -194,6 +200,10 @@ function App() {
         <Route path='/hints' element={<ListOfHints
           selectedElement={selectedElement}
           elementList={schemeElementList}
+          onClickButton={handleClickButton}
+        />} />
+        <Route path='/cable' element={<CableForm
+          selectedElement={selectedElement}
           onClickButton={handleClickButton}
         />} />
       </Routes>
