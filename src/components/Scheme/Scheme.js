@@ -27,7 +27,7 @@ function Scheme({
               key={element.id}
               style={element.position}
             >
-              { element.listName === 'actions' &&
+              { (element.listName === 'motion' || element.listName === 'cable') &&
                 <ListOfActions element={element} onClickButton={onClickButton} />
               }
               { element.listName === 'nolist' && element.name === 'auto-switch' &&

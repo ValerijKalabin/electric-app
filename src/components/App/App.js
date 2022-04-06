@@ -14,6 +14,7 @@ import ListOfHints from '../ListOfHints/ListOfHints';
 
 function App() {
   const [schemeElementList, setSchemeElementList] = useState([]);
+  const [cableElementList, setCableElementList] = useState([]);
   const [centralElement, setCentralElement] = useState({});
   const [pageHeight, setPageHeight] = useState(0);
   const [isAllNavigationVisible, setNavigationVisibility] = useState(false);
@@ -36,8 +37,7 @@ function App() {
       id: `e-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
       name: button.name,
       type: button.type,
-      listName: 'actions',
-      listType: 'motion', //delete !!!
+      listName: 'motion',
       position: getElementPosition(pos, button.name),
       pagePosition: pos,
       blockStatus: 'noblock',
@@ -51,8 +51,8 @@ function App() {
 
 
   function relocationElement(button) {
-    const activeElement = schemeElementList.find((element) => element.listName === 'actions');
-    const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
+    const activeElement = schemeElementList.find((element) => element.listName === 'motion');
+    const newElementList = schemeElementList.filter((element) => element.listName !== 'motion');
     const posList = getPosList(activeElement, newElementList);
     let pos = getItemPos(activeElement);
     if (button.name === 'left') {
@@ -75,32 +75,27 @@ function App() {
 
 
   function selectingElement(button, elements) {
-    if (centralElement.listType !== 'cable') {
-      elements.forEach((element) => {
-        element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist';
-        element.listType = 'motion';
-      });
-      const activeElement = elements.find((element) => element.listName === 'actions');
+    if (centralElement.listName !== 'cable') {
+      elements.forEach((element) => element.id === button.id ? element.listName = 'motion' : element.listName = 'nolist');
+      const activeElement = elements.find((element) => element.listName === 'motion');
       setCentralElement(activeElement);
       saveSchemeElementList(elements);
     }
-    if (centralElement.listType === 'cable') {
-      const startCableElement = elements.find((element) => element.listName === 'actions');
-      const stopCableElement = elements.find((element) => element.id === button.id);
-      const newElementList = schemeElementList.filter((element) => element.listName !== 'actions' && element.id !== button.id);
-      startCableElement.listType = 'cable-start';
-      stopCableElement.listType = 'cable-end';
-      stopCableElement.listName = 'actions';
-      setCentralElement(stopCableElement);
-      saveSchemeElementList([...newElementList, startCableElement, stopCableElement]);
+    if (centralElement.listName === 'cable') {
+      elements.forEach((element) => element.listName = 'nolist');
+      const cableElement = elements.find((element) => element.id === button.id);
+      setCableElementList([centralElement, cableElement]);
+      setCentralElement(cableElement);
+      saveSchemeElementList(elements);
+      navigate('/cable');
     }
   }
 
 
   function deleteElement() {
-    const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
+    const newElementList = schemeElementList.filter((element) => element.listName !== 'motion');
     if (newElementList.length !== 0) {
-      const deletedElement = schemeElementList.find((element) => element.listName === 'actions');
+      const deletedElement = schemeElementList.find((element) => element.listName === 'motion');
       deletedElement.id = 'not-element';
       deletedElement.name = 'deleted';
       setCentralElement(deletedElement);
@@ -113,36 +108,28 @@ function App() {
 
 
   function startCable(button) {
-    const activeElement = schemeElementList.find((element) => element.id === button.id);
     if (button.name === 'cable') {
-      const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
-      activeElement.listType = 'cable';
-      saveSchemeElementList([...newElementList, activeElement]);
-      setCentralElement(activeElement);
+      const cableElement = schemeElementList.find((element) => element.listName === 'motion');
+      const newElementList = schemeElementList.filter((element) => element.listName !== 'motion');
+      cableElement.listName = 'cable';
+      saveSchemeElementList([...newElementList, cableElement]);
+      setCentralElement(cableElement);
       navigate('/scheme');
     }
     if (button.name === 'cancel') {
-      const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
-      const activeElements = schemeElementList.filter((element) => element.listName === 'actions');
-      activeElements.forEach((element) => {
-        element.listType = 'motion';
-        element.listName = 'nolist';
-      });
-      activeElement.listName = 'actions';
-      saveSchemeElementList([...newElementList, ...activeElements]);
-      setCentralElement(activeElement);
+      const cableElement = schemeElementList.find((element) => element.id === button.id);
+      const newElementList = schemeElementList.filter((element) => element.id !== button.id);
+      cableElement.listName = 'motion';
+      saveSchemeElementList([...newElementList, cableElement]);
+      setCentralElement(cableElement);
       navigate('/scheme');
-    }
-    if (button.name === 'confirm') {
-      setCentralElement(activeElement);
-      navigate('/cable');
     }
   }
 
 
   function handleClickButton(button) {
     if (button.name === 'help' || button.name === 'add') {
-      navigate("/elements");
+      navigate('/elements');
     }
     if (button.name === 'left' || button.name === 'right') {
       relocationElement(button);
@@ -150,7 +137,7 @@ function App() {
     if (button.name === 'delete') {
       deleteElement();
     }
-    if (button.name === 'cable' || button.name === 'cancel' || button.name === 'confirm') {
+    if (button.name === 'cable' || button.name === 'cancel') {
       startCable(button);
     }
     if (button.type === 'element') {
@@ -166,31 +153,19 @@ function App() {
 
 
   function handleSubmitForm(number) {
-    const newElementList = schemeElementList.filter((element) => element.listType !== 'cable-start' && element.listType !== 'cable-end');
-    const startElement = schemeElementList.find((element) => element.listType === 'cable-start');
-    const stopElement = schemeElementList.find((element) => element.listType === 'cable-end');
-    const cable = getCable(startElement, stopElement, pageHeight);
+    const cable = getCable(cableElementList, pageHeight);
     const newElement = {
       id: `c-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
       name: 'cable',
       type: 'element',
       listName: 'nolist',
-      listType: 'static',  //delete !!!
       length: number,
       position: cable.position,
       width: cable.width,
       height: cable.height,
       line: cable.line
     };
-    startElement.cableList.push(newElement);
-    stopElement.cableList.push(newElement);
-    newElementList.push(startElement);
-    newElementList.push(stopElement);
-    newElementList.forEach((element) => {
-      element.listType = 'motion';
-      element.listName = 'nolist';
-    });
-    saveSchemeElementList([...newElementList, newElement]);
+    saveSchemeElementList([...schemeElementList, newElement]);
     navigate('/scheme');
   }
 

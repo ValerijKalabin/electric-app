@@ -1,7 +1,6 @@
 import Left from '../../buttons/Left/Left';
 import AutoSwitch from '../../buttons/AutoSwitch/AutoSwitch';
 import Cancel from '../../buttons/Cancel/Cancel';
-import Confirm from '../../buttons/Confirm/Confirm';
 import Delete from '../../buttons/Delete/Delete';
 import Right from '../../buttons/Right/Right';
 import JunctionBox from '../../buttons/JunctionBox/JunctionBox';
@@ -54,7 +53,7 @@ function ListOfActions({ element, onClickButton }) {
           <Switch id={element.id} listName="actions" onClickButton={onClickButton} />
         </li>
       }
-      { element.listType === 'motion' &&
+      { element.listName === 'motion' &&
         <li className="actions__item">
           <ul className={`
             actions__list
@@ -72,7 +71,7 @@ function ListOfActions({ element, onClickButton }) {
           </ul>
         </li>
       }
-      { element.listType === 'cable' &&
+      { element.listName === 'cable' &&
         <li className="actions__item">
           <ul className={`
             actions__list
@@ -80,42 +79,6 @@ function ListOfActions({ element, onClickButton }) {
           `}>
             <li className="actions__item">
               <p className="actions__indicator">1&rarr;2</p>
-            </li>
-            <li className="actions__item">
-              <Cancel id={element.id} listName="actions" onClickButton={onClickButton} />
-            </li>
-          </ul>
-        </li>
-      }
-      { element.listType === 'cable-start' &&
-        <li className="actions__item">
-          <ul className={`
-            actions__list
-            ${element.name === 'auto-switch' || element.name === 'socket' || element.name === 'switch' ? 'actions__list_place_top' : ''}
-          `}>
-            <li className="actions__item">
-              <Confirm id={element.id} listName="actions" onClickButton={onClickButton} />
-            </li>
-            <li className="actions__item">
-              <p className="actions__indicator">1</p>
-            </li>
-            <li className="actions__item">
-              <Cancel id={element.id} listName="actions" onClickButton={onClickButton} />
-            </li>
-          </ul>
-        </li>
-      }
-      { element.listType === 'cable-end' &&
-        <li className="actions__item">
-          <ul className={`
-            actions__list
-            ${element.name === 'auto-switch' || element.name === 'socket' || element.name === 'switch' ? 'actions__list_place_top' : ''}
-          `}>
-            <li className="actions__item">
-              <Confirm id={element.id} listName="actions" onClickButton={onClickButton} />
-            </li>
-            <li className="actions__item">
-              <p className="actions__indicator">2</p>
             </li>
             <li className="actions__item">
               <Cancel id={element.id} listName="actions" onClickButton={onClickButton} />

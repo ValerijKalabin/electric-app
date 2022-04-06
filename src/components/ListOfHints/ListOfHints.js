@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import Add from '../../buttons/Add/Add';
 import Cancel from '../../buttons/Cancel/Cancel';
 import Change from '../../buttons/Change/Change';
-import Confirm from '../../buttons/Confirm/Confirm';
 import Delete from '../../buttons/Delete/Delete';
 import Left from '../../buttons/Left/Left';
 import Right from '../../buttons/Right/Right';
@@ -16,10 +15,10 @@ function ListOfHints({
 }) {
   return (
     <main className="hints">
-      { elementList.length > 1 && !!centralElement.name && centralElement.name !== 'deleted' &&
+      { elementList.some((element) => element.listName === 'motion') &&
         <h2 className="hints__title">Индикатор</h2>
       }
-      { elementList.length > 1 && !!centralElement.name && centralElement.name !== 'deleted' &&
+      { elementList.some((element) => element.listName === 'motion') &&
         <ul className="hints__list">
           <li className="hints__item">
             <div className="hints__container">
@@ -35,7 +34,7 @@ function ListOfHints({
       }
       <h2 className="hints__title">Назначение кнопок</h2>
       <ul className="hints__list">
-        { elementList.length > 1 && !!centralElement.name && centralElement.name !== 'deleted' &&
+        { elementList.some((element) => element.listName === 'motion') &&
           <li className="hints__item">
             <div className="hints__container">
               <Cancel id={centralElement.id} listName="hints" onClickButton={onClickButton} />
@@ -47,19 +46,7 @@ function ListOfHints({
             </div>
           </li>
         }
-        { elementList.length > 1 && !!centralElement.name && centralElement.name !== 'deleted' &&
-          <li className="hints__item">
-            <div className="hints__container">
-              <Confirm id={centralElement.id} listName="hints" onClickButton={onClickButton} />
-            </div>
-            <div className="hints__label">
-              <p className="hints__text">
-                Подтвердить соединение кабелем
-              </p>
-            </div>
-          </li>
-        }
-        { elementList.length > 1 && !!centralElement.name && centralElement.name !== 'deleted' &&
+        { elementList.some((element) => element.listName === 'motion') &&
           <li className="hints__item">
             <div className="hints__container">
               <Change id={centralElement.id} listName="hints" onClickButton={onClickButton} />

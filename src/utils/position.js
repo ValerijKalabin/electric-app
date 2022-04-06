@@ -106,11 +106,11 @@ const getLine = (xStart, xEnd, yStart, yEnd, pageHeight) => {
 }
 
 
-export const getCable = (startElement, stopElement, pageHeight) => {
-  const xStart = parseInt(startElement.position.left.slice(11), 10);
-  const xEnd = parseInt(stopElement.position.left.slice(11), 10);
-  const yStart = getY(startElement.name, pageHeight);
-  const yEnd = getY(stopElement.name, pageHeight);
+export const getCable = (cableElementList, pageHeight) => {
+  const xStart = parseInt(cableElementList[0].position.left.slice(11), 10);
+  const xEnd = parseInt(cableElementList[1].position.left.slice(11), 10);
+  const yStart = getY(cableElementList[0].name, pageHeight);
+  const yEnd = getY(cableElementList[1].name, pageHeight);
 
   const position = {
     left: `calc(50% + ${xEnd < xStart ? xEnd : xStart}px)`,
