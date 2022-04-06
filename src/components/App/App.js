@@ -2,6 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { getElementPosition, getItemPos, getPosList, getExpandedPosList, getNeighborList, getCable, step } from '../../utils/position';
+import { getCableElement, getSchemeElement } from '../../utils/element';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -33,16 +34,7 @@ function App() {
     while (posList.includes(pos)) {
       pos = pos + step;
     }
-    const newElement = {
-      id: `e-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
-      name: button.name,
-      type: button.type,
-      listName: 'motion',
-      position: getElementPosition(pos, button.name),
-      pagePosition: pos,
-      blockStatus: 'noblock',
-      cableList: []
-    };
+    const newElement = getSchemeElement(button, pos);
     elements.forEach((element) => element.listName = 'nolist');
     saveSchemeElementList([...elements, newElement]);
     setCentralElement(newElement);
@@ -152,20 +144,17 @@ function App() {
   }
 
 
-  function handleSubmitForm(number) {
+  function createCable(number) {
     const cable = getCable(cableElementList, pageHeight);
-    const newElement = {
-      id: `c-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
-      name: 'cable',
-      type: 'element',
-      listName: 'nolist',
-      length: number,
-      position: cable.position,
-      width: cable.width,
-      height: cable.height,
-      line: cable.line
-    };
-    saveSchemeElementList([...schemeElementList, newElement]);
+    const newElement = getCableElement(number, cable);
+    const newElementList = [...schemeElementList];
+    newElementList.forEach((element) => {
+      if (cableElementList.some((cable) => cable.id === element.id)) {
+        element.cableList.push(newElement);
+      }
+    });
+    newElementList.push(newElement);
+    saveSchemeElementList(newElementList);
     navigate('/scheme');
   }
 
@@ -211,7 +200,7 @@ function App() {
         <Route path='/cable' element={<CableForm
           centralElement={centralElement}
           onClickButton={handleClickButton}
-          onSubmitForm={handleSubmitForm}
+          onSubmitForm={createCable}
         />} />
       </Routes>
       <Footer />
