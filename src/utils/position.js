@@ -25,6 +25,7 @@ export const getPosList = (currentItem, elementList) => {
   return similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
 }
 
+
 export const getExpandedPosList = (currentItem, elementList) => {
   const positionOfElements = getPosList(currentItem, elementList);
   positionOfElements.forEach((pos) => {
@@ -33,6 +34,7 @@ export const getExpandedPosList = (currentItem, elementList) => {
   });
   return positionOfElements;
 }
+
 
 export const getNeighborList = (elementList) => {
   const applicants = elementList.filter((element) => element.name === 'socket' || element.name === 'switch' || element.name === 'auto-switch');
@@ -57,6 +59,7 @@ export const getNeighborList = (elementList) => {
   return [...applicants, ...notApplicants];
 }
 
+
 export const getElementPosition = (position, buttonName) => {
   const lineBottom = lineTop - step;
   if (buttonName === 'lamp') {
@@ -70,19 +73,38 @@ export const getElementPosition = (position, buttonName) => {
   }
 }
 
+
 const getY = (elementName, pageHeight) => {
   if (elementName === 'lamp') return lineTop;
   if (elementName === 'junction-box') return (pageHeight - headerFooterBlocksHeight) / 2;
   return pageHeight - headerFooterBlocksHeight - lineTop;
 }
 
-const getLine = (xStart, xEnd, yStart, yEnd) => {
-  if (xEnd === xStart && yEnd !== yStart) return { x1: 0, x2: 0, y1: 0, y2: Math.abs(yEnd - yStart)};
-  if (xEnd !== xStart && yEnd === yStart) return { x1: 0, x2: Math.abs(xEnd - xStart), y1: 0, y2: 0};
-  if (xEnd > xStart && yEnd > yStart) return {x1: 0, x2: Math.abs(xEnd - xStart), y1: 0, y2: Math.abs(yEnd - yStart)};
-  if (xEnd < xStart && yEnd < yStart) return {x1: 0, x2: Math.abs(xEnd - xStart), y1: 0, y2: Math.abs(yEnd - yStart)};
-  return {x1: Math.abs(xEnd - xStart), x2: 0, y1: 0, y2: Math.abs(yEnd - yStart)};
+
+const getLine = (xStart, xEnd, yStart, yEnd, pageHeight) => {
+  const lineBottom = pageHeight - headerFooterBlocksHeight - lineTop;
+  const xMax = Math.abs(xEnd - xStart);
+  const yMax = Math.abs(yEnd - yStart);
+  if (xEnd === xStart && yEnd !== yStart) return [{ x1: 0, x2: 0, y1: 0, y2: yMax}];
+  if (xEnd !== xStart && yEnd === yStart) return [{ x1: 0, x2: xMax, y1: 0, y2: 0}];
+  if (xEnd !== xStart && yEnd !== yStart && (yStart === lineTop || yEnd === lineTop)) {
+    if ((xEnd > xStart && yEnd > yStart) || (xEnd < xStart && yEnd < yStart)) {
+      return [{x1: 0, x2: 0, y1: 0, y2: yMax / 2}, {x1: 0, x2: xMax, y1: yMax / 2, y2: yMax}];
+    }
+    if ((xEnd < xStart && yEnd > yStart) || (xEnd > xStart && yEnd < yStart)) {
+      return [{x1: xMax, x2: xMax, y1: 0, y2: yMax / 2}, {x1: xMax, x2: 0, y1: yMax / 2, y2: yMax}];
+    }
+  }
+  if (xEnd !== xStart && yEnd !== yStart && (yStart === lineBottom || yEnd === lineBottom)) {
+    if ((xEnd > xStart && yEnd > yStart) || (xEnd < xStart && yEnd < yStart)) {
+      return [{x1: 0, x2: xMax, y1: 0, y2: yMax / 2}, {x1: xMax, x2: xMax, y1: yMax / 2, y2: yMax}];
+    }
+    if ((xEnd < xStart && yEnd > yStart) || (xEnd > xStart && yEnd < yStart)) {
+      return [{x1: xMax, x2: 0, y1: 0, y2: yMax / 2}, {x1: 0, x2: 0, y1: yMax / 2, y2: yMax}];
+    }
+  }
 }
+
 
 export const getCable = (startElement, stopElement, pageHeight) => {
   const xStart = parseInt(startElement.position.left.slice(11), 10);
@@ -90,10 +112,13 @@ export const getCable = (startElement, stopElement, pageHeight) => {
   const yStart = getY(startElement.name, pageHeight);
   const yEnd = getY(stopElement.name, pageHeight);
 
-  const position = { left: `calc(50% + ${xEnd < xStart ? xEnd : xStart}px)`, top: `${yEnd < yStart ? yEnd :yStart}px` };
+  const position = {
+    left: `calc(50% + ${xEnd < xStart ? xEnd : xStart}px)`,
+    top: `${yEnd < yStart ? yEnd : yStart}px`
+  };
   const width = xEnd !== xStart ? Math.abs(xEnd - xStart) : step;
   const height = yEnd !== yStart ? Math.abs(yEnd - yStart) : step;
-  const line = getLine(xStart, xEnd, yStart, yEnd);
+  const line = getLine(xStart, xEnd, yStart, yEnd, pageHeight);
 
   return { position, width, height, line };
 }

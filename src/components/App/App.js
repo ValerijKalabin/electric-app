@@ -37,7 +37,7 @@ function App() {
       name: button.name,
       type: button.type,
       listName: 'actions',
-      listType: 'motion',
+      listType: 'motion', //delete !!!
       position: getElementPosition(pos, button.name),
       pagePosition: pos,
       blockStatus: 'noblock',
@@ -173,8 +173,10 @@ function App() {
     const newElement = {
       id: `c-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
       name: 'cable',
+      type: 'element',
       listName: 'nolist',
-      cableLength: number,
+      listType: 'static',  //delete !!!
+      length: number,
       position: cable.position,
       width: cable.width,
       height: cable.height,
