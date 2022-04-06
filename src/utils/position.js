@@ -1,13 +1,15 @@
+const headerFooterBlocksHeight = 130;
+const lineTop = 75;
+
 export const step = 36;
-export const lineTop = 75;
-export const headerFooterBlocksHeight = 130;
 
 export const getSchemeMarkup = (pageHeight) => {
   const lineCenter = (pageHeight - headerFooterBlocksHeight) / 2;
+  const lineBottom = lineTop;
   return { backgroundImage: `
-    linear-gradient(to bottom, transparent 75px, #222 75px, #222 76px, transparent 76px),
-    linear-gradient(to top, transparent ${lineCenter}px, #222 ${lineCenter}px, #222 ${lineCenter + 1}px, transparent ${lineCenter + 1}px),
-    linear-gradient(to top, transparent 75px, #222 75px, #222 76px, transparent 76px)
+    linear-gradient(to bottom, transparent ${lineTop}px, #222 ${lineTop}px, #222 ${lineTop + 1}px, transparent ${lineTop + 1}px),
+    linear-gradient(to bottom, transparent ${lineCenter}px, #222 ${lineCenter}px, #222 ${lineCenter + 1}px, transparent ${lineCenter + 1}px),
+    linear-gradient(to top, transparent ${lineBottom}px, #222 ${lineBottom}px, #222 ${lineBottom + 1}px, transparent ${lineBottom + 1}px)
   `}
 }
 
@@ -56,71 +58,42 @@ export const getNeighborList = (elementList) => {
 }
 
 export const getElementPosition = (position, buttonName) => {
+  const lineBottom = lineTop - step;
   if (buttonName === 'lamp') {
-    return { left: `calc(50% + ${position}px)`, top: '39px' };
+    return { left: `calc(50% + ${position}px)`, top: `${lineTop}px` };
   }
   if (buttonName === 'junction-box') {
-    return { left: `calc(50% + ${position}px)`, bottom: '50%' };
+    return { left: `calc(50% + ${position}px)`, top: '50%' };
   }
   if (buttonName === 'auto-switch' || buttonName === 'socket' || buttonName === 'switch') {
-    return { left: `calc(50% + ${position}px)`, bottom: '75px' };
+    return { left: `calc(50% + ${position}px)`, bottom: `${lineBottom}px` };
   }
 }
 
 const getY = (elementName, pageHeight) => {
   if (elementName === 'lamp') return lineTop;
   if (elementName === 'junction-box') return (pageHeight - headerFooterBlocksHeight) / 2;
-  return pageHeight - lineTop * 2;
+  return pageHeight - headerFooterBlocksHeight - lineTop;
 }
 
-export const getCableLine = (startElement, stopElement, pageHeight) => {
+const getLine = (xStart, xEnd, yStart, yEnd) => {
+  if (xEnd === xStart && yEnd !== yStart) return { x1: 0, x2: 0, y1: 0, y2: Math.abs(yEnd - yStart)};
+  if (xEnd !== xStart && yEnd === yStart) return { x1: 0, x2: Math.abs(xEnd - xStart), y1: 0, y2: 0};
+  if (xEnd > xStart && yEnd > yStart) return {x1: 0, x2: Math.abs(xEnd - xStart), y1: 0, y2: Math.abs(yEnd - yStart)};
+  if (xEnd < xStart && yEnd < yStart) return {x1: 0, x2: Math.abs(xEnd - xStart), y1: 0, y2: Math.abs(yEnd - yStart)};
+  return {x1: Math.abs(xEnd - xStart), x2: 0, y1: 0, y2: Math.abs(yEnd - yStart)};
+}
+
+export const getCable = (startElement, stopElement, pageHeight) => {
   const xStart = parseInt(startElement.position.left.slice(11), 10);
   const xEnd = parseInt(stopElement.position.left.slice(11), 10);
   const yStart = getY(startElement.name, pageHeight);
   const yEnd = getY(stopElement.name, pageHeight);
 
-  const position = xEnd >= xStart ? startElement.position : stopElement.position;
+  const position = { left: `calc(50% + ${xEnd < xStart ? xEnd : xStart}px)`, top: `${yEnd < yStart ? yEnd :yStart}px` };
   const width = xEnd !== xStart ? Math.abs(xEnd - xStart) : step;
-  const height = (pageHeight - headerFooterBlocksHeight) / 2 - lineTop;
+  const height = yEnd !== yStart ? Math.abs(yEnd - yStart) : step;
+  const line = getLine(xStart, xEnd, yStart, yEnd);
 
-  let x1 = 0;
-  let x2 = 0;
-  let y1 = 0;
-  let y2 = 0;
-
-  if (xEnd === xStart) {
-    x1 = 0;
-    x2 = 0;
-    y1 = 0;
-    y2 = height;
-  }
-
-  if (yEnd === yStart) {
-    x1 = 0;
-    x2 = width - step;
-    y1 = 0;
-    y2 = 0;
-  }
-
-  if ((xEnd > xStart && yEnd > yStart) || (xEnd < xStart && yEnd < yStart)) {
-    x1 = 0;
-    x2 = width;
-    y1 = 0;
-    y2 = height;
-  } else {
-    x1 = 0;
-    x2 = width;
-    y1 = height;
-    y2 = 0;
-  }
-
-  return {
-    position,
-    width,
-    height,
-    x1,
-    x2,
-    y1,
-    y2
-  };
+  return { position, width, height, line };
 }

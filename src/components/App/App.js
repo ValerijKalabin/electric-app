@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { getElementPosition, getItemPos, getPosList, getExpandedPosList, getNeighborList, getCableLine, step } from '../../utils/position';
+import { getElementPosition, getItemPos, getPosList, getExpandedPosList, getNeighborList, getCable, step } from '../../utils/position';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -169,24 +169,26 @@ function App() {
     const newElementList = schemeElementList.filter((element) => element.listType !== 'cable-start' && element.listType !== 'cable-end');
     const startElement = schemeElementList.find((element) => element.listType === 'cable-start');
     const stopElement = schemeElementList.find((element) => element.listType === 'cable-end');
-    const cableLine = getCableLine(startElement, stopElement, pageHeight);
-    const newCable = {
+    const cable = getCable(startElement, stopElement, pageHeight);
+    const newElement = {
       id: `c-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
       name: 'cable',
       listName: 'nolist',
       cableLength: number,
-      line: cableLine,
-      position: cableLine.position
+      position: cable.position,
+      width: cable.width,
+      height: cable.height,
+      line: cable.line
     };
-    startElement.cableList.push(newCable);
-    stopElement.cableList.push(newCable);
+    startElement.cableList.push(newElement);
+    stopElement.cableList.push(newElement);
     newElementList.push(startElement);
     newElementList.push(stopElement);
     newElementList.forEach((element) => {
       element.listType = 'motion';
       element.listName = 'nolist';
     });
-    saveSchemeElementList([...newElementList, newCable]);
+    saveSchemeElementList([...newElementList, newElement]);
     navigate('/scheme');
   }
 
