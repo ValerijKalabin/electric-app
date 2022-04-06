@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './CableForm.css';
 
-function CableForm({ selectedElement, onClickButton, onSubmitForm }) {
+function CableForm({ centralElement, onClickButton, onSubmitForm }) {
   const [numberValue, setNumberValue] = useState('');
   const [numberError, setNumberError] = useState('');
   const [numberValidity, setNumberValidity] = useState(false);
@@ -14,7 +14,7 @@ function CableForm({ selectedElement, onClickButton, onSubmitForm }) {
 
   function handleClickCancel() {
     onClickButton({
-      id: selectedElement.id,
+      id: centralElement.id,
       name: 'cancel'
     });
   }

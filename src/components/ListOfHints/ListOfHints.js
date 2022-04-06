@@ -10,16 +10,16 @@ import './ListOfHints.css';
 
 
 function ListOfHints({
-  selectedElement,
+  centralElement,
   elementList,
   onClickButton
 }) {
   return (
     <main className="hints">
-      { elementList.length > 1 && !!selectedElement.name && selectedElement.name !== 'deleted' &&
+      { elementList.length > 1 && !!centralElement.name && centralElement.name !== 'deleted' &&
         <h2 className="hints__title">Индикатор</h2>
       }
-      { elementList.length > 1 && !!selectedElement.name && selectedElement.name !== 'deleted' &&
+      { elementList.length > 1 && !!centralElement.name && centralElement.name !== 'deleted' &&
         <ul className="hints__list">
           <li className="hints__item">
             <div className="hints__container">
@@ -35,10 +35,10 @@ function ListOfHints({
       }
       <h2 className="hints__title">Назначение кнопок</h2>
       <ul className="hints__list">
-        { elementList.length > 1 && !!selectedElement.name && selectedElement.name !== 'deleted' &&
+        { elementList.length > 1 && !!centralElement.name && centralElement.name !== 'deleted' &&
           <li className="hints__item">
             <div className="hints__container">
-              <Cancel id={selectedElement.id} listName="hints" onClickButton={onClickButton} />
+              <Cancel id={centralElement.id} listName="hints" onClickButton={onClickButton} />
             </div>
             <div className="hints__label">
               <p className="hints__text">
@@ -47,10 +47,10 @@ function ListOfHints({
             </div>
           </li>
         }
-        { elementList.length > 1 && !!selectedElement.name && selectedElement.name !== 'deleted' &&
+        { elementList.length > 1 && !!centralElement.name && centralElement.name !== 'deleted' &&
           <li className="hints__item">
             <div className="hints__container">
-              <Confirm id={selectedElement.id} listName="hints" onClickButton={onClickButton} />
+              <Confirm id={centralElement.id} listName="hints" onClickButton={onClickButton} />
             </div>
             <div className="hints__label">
               <p className="hints__text">
@@ -59,10 +59,10 @@ function ListOfHints({
             </div>
           </li>
         }
-        { elementList.length > 1 && !!selectedElement.name && selectedElement.name !== 'deleted' &&
+        { elementList.length > 1 && !!centralElement.name && centralElement.name !== 'deleted' &&
           <li className="hints__item">
             <div className="hints__container">
-              <Change id={selectedElement.id} listName="hints" onClickButton={onClickButton} />
+              <Change id={centralElement.id} listName="hints" onClickButton={onClickButton} />
             </div>
             <div className="hints__label">
               <p className="hints__text">
@@ -73,7 +73,7 @@ function ListOfHints({
         }
         <li className="hints__item">
           <div className="hints__container">
-            <Add id={selectedElement.id} listName="hints" onClickButton={onClickButton} />
+            <Add id={centralElement.id} listName="hints" onClickButton={onClickButton} />
           </div>
           <div className="hints__label">
             <p className="hints__text">
@@ -83,7 +83,7 @@ function ListOfHints({
         </li>
         <li className="hints__item">
           <div className="hints__container">
-            <Delete id={selectedElement.id} listName="hints" onClickButton={onClickButton} />
+            <Delete id={centralElement.id} listName="hints" onClickButton={onClickButton} />
           </div>
           <div className="hints__label">
             <p className="hints__text">
@@ -93,7 +93,7 @@ function ListOfHints({
         </li>
         <li className="hints__item">
           <div className="hints__container">
-            <Left id={selectedElement.id} listName="hints" onClickButton={onClickButton} />
+            <Left id={centralElement.id} listName="hints" onClickButton={onClickButton} />
           </div>
           <div className="hints__label">
             <p className="hints__text">
@@ -103,7 +103,7 @@ function ListOfHints({
         </li>
         <li className="hints__item">
           <div className="hints__container">
-            <Right id={selectedElement.id} listName="hints" onClickButton={onClickButton} />
+            <Right id={centralElement.id} listName="hints" onClickButton={onClickButton} />
           </div>
           <div className="hints__label">
             <p className="hints__text">

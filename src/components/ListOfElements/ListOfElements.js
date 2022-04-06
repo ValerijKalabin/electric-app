@@ -9,7 +9,7 @@ import './ListOfElements.css';
 
 
 function ListOfElements({
-  selectedElement,
+  centralElement,
   elementList,
   onClickButton
 }) {
@@ -17,10 +17,10 @@ function ListOfElements({
     <main className="elements">
       <h1 className="elements__title">{!elementList.length ? 'Назначение кнопок' : 'Добавить элемент'}</h1>
       <ul className="elements__list">
-        { elementList.length > 1 && !!selectedElement.name && selectedElement.name !== 'deleted' &&
+        { elementList.length > 1 && !!centralElement.name && centralElement.name !== 'deleted' &&
           <li className="elements__item">
             <div className="elements__container">
-              <Cable id={selectedElement.id} listName="elements" onClickButton={onClickButton} />
+              <Cable id={centralElement.id} listName="elements" onClickButton={onClickButton} />
             </div>
             <div className="elements__label">
               <p className="elements__text">
@@ -31,7 +31,7 @@ function ListOfElements({
         }
         <li className="elements__item">
           <div className="elements__container">
-            <AutoSwitch id={selectedElement.id} listName="elements" onClickButton={onClickButton} />
+            <AutoSwitch id={centralElement.id} listName="elements" onClickButton={onClickButton} />
           </div>
           <div className="elements__label">
             <p className="elements__text">
@@ -41,7 +41,7 @@ function ListOfElements({
         </li>
         <li className="elements__item">
           <div className="elements__container">
-            <JunctionBox id={selectedElement.id} listName="elements" onClickButton={onClickButton} />
+            <JunctionBox id={centralElement.id} listName="elements" onClickButton={onClickButton} />
           </div>
           <div className="elements__label">
             <p className="elements__text">
@@ -51,7 +51,7 @@ function ListOfElements({
         </li>
         <li className="elements__item">
           <div className="elements__container">
-            <Lamp id={selectedElement.id} listName="elements" onClickButton={onClickButton} />
+            <Lamp id={centralElement.id} listName="elements" onClickButton={onClickButton} />
           </div>
           <div className="elements__label">
             <p className="elements__text">
@@ -61,7 +61,7 @@ function ListOfElements({
         </li>
         <li className="elements__item">
           <div className="elements__container">
-            <Socket id={selectedElement.id} listName="elements" onClickButton={onClickButton} />
+            <Socket id={centralElement.id} listName="elements" onClickButton={onClickButton} />
           </div>
           <div className="elements__label">
             <p className="elements__text">
@@ -71,7 +71,7 @@ function ListOfElements({
         </li>
         <li className="elements__item">
           <div className="elements__container">
-            <Switch id={selectedElement.id} listName="elements" onClickButton={onClickButton} />
+            <Switch id={centralElement.id} listName="elements" onClickButton={onClickButton} />
           </div>
           <div className="elements__label">
             <p className="elements__text">

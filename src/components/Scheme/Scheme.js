@@ -12,7 +12,7 @@ import './Scheme.css';
 
 function Scheme({
   pageHeight,
-  selectedElement,
+  centralElement,
   elementList,
   onClickButton
 }) {
@@ -20,7 +20,7 @@ function Scheme({
     <main className="scheme" style={ getSchemeMarkup(pageHeight) }>
       { !elementList.length && <Wheel onClickButton={onClickButton} /> }
       { !!elementList.length &&
-        <ul className="scheme__list" style={{ right: `${selectedElement.pagePosition}px` }}>
+        <ul className="scheme__list" style={{ right: `${centralElement.pagePosition}px` }}>
           { elementList.map((element) => (
             <li
               className={`scheme__item ${element.name === 'cable' ? 'scheme__item_cable' : ''}`}

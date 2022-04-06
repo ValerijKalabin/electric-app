@@ -14,7 +14,7 @@ import ListOfHints from '../ListOfHints/ListOfHints';
 
 function App() {
   const [schemeElementList, setSchemeElementList] = useState([]);
-  const [selectedElement, setSelectedElement] = useState({});
+  const [centralElement, setCentralElement] = useState({});
   const [pageHeight, setPageHeight] = useState(0);
   const [isAllNavigationVisible, setNavigationVisibility] = useState(false);
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ function App() {
 
   function createElement(button, elements) {
     const posList = getExpandedPosList(button, elements);
-    let pos = getItemPos(selectedElement);
+    let pos = getItemPos(centralElement);
     while (posList.includes(pos)) {
       pos = pos + step;
     }
@@ -45,7 +45,7 @@ function App() {
     };
     elements.forEach((element) => element.listName = 'nolist');
     saveSchemeElementList([...elements, newElement]);
-    setSelectedElement(newElement);
+    setCentralElement(newElement);
     navigate('/scheme');
   }
 
@@ -70,28 +70,28 @@ function App() {
     activeElement.position = getElementPosition(pos, activeElement.name);
     activeElement.pagePosition = pos;
     saveSchemeElementList([...newElementList, activeElement]);
-    setSelectedElement(activeElement);
+    setCentralElement(activeElement);
   }
 
 
   function selectingElement(button, elements) {
-    if (selectedElement.listType !== 'cable') {
+    if (centralElement.listType !== 'cable') {
       elements.forEach((element) => {
         element.id === button.id ? element.listName = 'actions' : element.listName = 'nolist';
         element.listType = 'motion';
       });
       const activeElement = elements.find((element) => element.listName === 'actions');
-      setSelectedElement(activeElement);
+      setCentralElement(activeElement);
       saveSchemeElementList(elements);
     }
-    if (selectedElement.listType === 'cable') {
+    if (centralElement.listType === 'cable') {
       const startCableElement = elements.find((element) => element.listName === 'actions');
       const stopCableElement = elements.find((element) => element.id === button.id);
       const newElementList = schemeElementList.filter((element) => element.listName !== 'actions' && element.id !== button.id);
       startCableElement.listType = 'cable-start';
       stopCableElement.listType = 'cable-end';
       stopCableElement.listName = 'actions';
-      setSelectedElement(stopCableElement);
+      setCentralElement(stopCableElement);
       saveSchemeElementList([...newElementList, startCableElement, stopCableElement]);
     }
   }
@@ -103,10 +103,10 @@ function App() {
       const deletedElement = schemeElementList.find((element) => element.listName === 'actions');
       deletedElement.id = 'not-element';
       deletedElement.name = 'deleted';
-      setSelectedElement(deletedElement);
+      setCentralElement(deletedElement);
     }
     if (newElementList.length === 0) {
-      setSelectedElement({});
+      setCentralElement({});
     }
     saveSchemeElementList(newElementList);
   }
@@ -118,7 +118,7 @@ function App() {
       const newElementList = schemeElementList.filter((element) => element.listName !== 'actions');
       activeElement.listType = 'cable';
       saveSchemeElementList([...newElementList, activeElement]);
-      setSelectedElement(activeElement);
+      setCentralElement(activeElement);
       navigate('/scheme');
     }
     if (button.name === 'cancel') {
@@ -130,11 +130,11 @@ function App() {
       });
       activeElement.listName = 'actions';
       saveSchemeElementList([...newElementList, ...activeElements]);
-      setSelectedElement(activeElement);
+      setCentralElement(activeElement);
       navigate('/scheme');
     }
     if (button.name === 'confirm') {
-      setSelectedElement(activeElement);
+      setCentralElement(activeElement);
       navigate('/cable');
     }
   }
@@ -218,23 +218,23 @@ function App() {
         <Route path='/' element={<Manual />} />
         <Route path='/scheme' element={<Scheme
           pageHeight={pageHeight}
-          selectedElement={selectedElement}
+          centralElement={centralElement}
           elementList={schemeElementList}
           onClickButton={handleClickButton}
         />} />
         <Route path='/list' element={<List />} />
         <Route path='/elements' element={<ListOfElements
-          selectedElement={selectedElement}
+          centralElement={centralElement}
           elementList={schemeElementList}
           onClickButton={handleClickButton}
         />} />
         <Route path='/hints' element={<ListOfHints
-          selectedElement={selectedElement}
+          centralElement={centralElement}
           elementList={schemeElementList}
           onClickButton={handleClickButton}
         />} />
         <Route path='/cable' element={<CableForm
-          selectedElement={selectedElement}
+          centralElement={centralElement}
           onClickButton={handleClickButton}
           onSubmitForm={handleSubmitForm}
         />} />
