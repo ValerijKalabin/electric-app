@@ -22,11 +22,13 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
+
   function saveSchemeElementList(elements) {
     const neighbors = getNeighborList(elements);
     setSchemeElementList(neighbors);
     console.log(neighbors); // delete !!!!!!
   }
+
 
   function createElement(button, elements) {
     const posList = getExpandedPosList(button, elements);
@@ -85,17 +87,16 @@ function App() {
 
 
   function deleteElement() {
-    const newElementList = schemeElementList.filter((element) => element.listName !== 'motion');
-    if (newElementList.length !== 0) {
-      const deletedElement = schemeElementList.find((element) => element.listName === 'motion');
-      deletedElement.id = 'not-element';
-      deletedElement.name = 'deleted';
-      setCentralElement(deletedElement);
-    }
-    if (newElementList.length === 0) {
-      setCentralElement({});
-    }
-    saveSchemeElementList(newElementList);
+    const newElementList = [...schemeElementList];
+    const deletedElement = schemeElementList.find((element) => element.listName === 'motion');
+    newElementList.forEach((element) => {
+      if (deletedElement.cableList.some((cable) => cable.id === element.id)) {
+        element.listName = 'motion';
+      }
+    });
+    const filterElementList = newElementList.filter((element) => element.listName !== 'motion');
+    setCentralElement(deletedElement);
+    saveSchemeElementList(filterElementList);
   }
 
 
