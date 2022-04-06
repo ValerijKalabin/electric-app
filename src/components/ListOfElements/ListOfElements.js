@@ -17,7 +17,7 @@ function ListOfElements({
     <main className="elements">
       <h1 className="elements__title">{!elementList.length ? 'Назначение кнопок' : 'Добавить элемент'}</h1>
       <ul className="elements__list">
-        { elementList.some((element) => element.listName === 'motion') &&
+        { elementList.length > 1 && elementList.some((element) => element.listName === 'motion') &&
           <li className="elements__item">
             <div className="elements__container">
               <Cable id={centralElement.id} listName="elements" onClickButton={onClickButton} />

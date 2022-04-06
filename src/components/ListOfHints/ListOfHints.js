@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Add from '../../buttons/Add/Add';
 import Cancel from '../../buttons/Cancel/Cancel';
 import Change from '../../buttons/Change/Change';
+import Clean from '../../buttons/Clean/Clean';
 import Delete from '../../buttons/Delete/Delete';
 import Left from '../../buttons/Left/Left';
 import Right from '../../buttons/Right/Right';
@@ -15,10 +16,10 @@ function ListOfHints({
 }) {
   return (
     <main className="hints">
-      { elementList.some((element) => element.listName === 'motion') &&
+      { elementList.length > 1 && elementList.some((element) => element.listName === 'motion') &&
         <h2 className="hints__title">Индикатор</h2>
       }
-      { elementList.some((element) => element.listName === 'motion') &&
+      { elementList.length > 1 && elementList.some((element) => element.listName === 'motion') &&
         <ul className="hints__list">
           <li className="hints__item">
             <div className="hints__container">
@@ -34,7 +35,27 @@ function ListOfHints({
       }
       <h2 className="hints__title">Назначение кнопок</h2>
       <ul className="hints__list">
-        { elementList.some((element) => element.listName === 'motion') &&
+        <li className="hints__item">
+          <div className="hints__container">
+            <Add id={centralElement.id} listName="hints" onClickButton={onClickButton} />
+          </div>
+          <div className="hints__label">
+            <p className="hints__text">
+              Добавить элемент в схему
+            </p>
+          </div>
+        </li>
+        <li className="hints__item">
+          <div className="hints__container">
+            <Clean id={centralElement.id} listName="hints" onClickButton={onClickButton} />
+          </div>
+          <div className="hints__label">
+            <p className="hints__text">
+              Начать с чистого листа
+            </p>
+          </div>
+        </li>
+        { elementList.length > 1 && elementList.some((element) => element.listName === 'motion') &&
           <li className="hints__item">
             <div className="hints__container">
               <Cancel id={centralElement.id} listName="hints" onClickButton={onClickButton} />
@@ -46,7 +67,7 @@ function ListOfHints({
             </div>
           </li>
         }
-        { elementList.some((element) => element.listName === 'motion') &&
+        { elementList.length > 1 && elementList.some((element) => element.listName === 'motion') &&
           <li className="hints__item">
             <div className="hints__container">
               <Change id={centralElement.id} listName="hints" onClickButton={onClickButton} />
@@ -58,16 +79,6 @@ function ListOfHints({
             </div>
           </li>
         }
-        <li className="hints__item">
-          <div className="hints__container">
-            <Add id={centralElement.id} listName="hints" onClickButton={onClickButton} />
-          </div>
-          <div className="hints__label">
-            <p className="hints__text">
-              Добавить элемент в схему
-            </p>
-          </div>
-        </li>
         <li className="hints__item">
           <div className="hints__container">
             <Delete id={centralElement.id} listName="hints" onClickButton={onClickButton} />

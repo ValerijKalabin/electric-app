@@ -1,0 +1,21 @@
+.clean {
+  display: block;
+  background-color: transparent;
+  box-sizing: border-box;
+  width: 36px;
+  height: 36px;
+  outline: none;
+  border: none;
+  padding: 6px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.clean:active {
+  opacity: 0.5;
+}
+
+.clean:disabled {
+  cursor: default;
+  opacity: 1;
+}

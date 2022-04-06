@@ -38,15 +38,21 @@ function App() {
     }
     const newElement = getSchemeElement(button, pos);
     elements.forEach((element) => element.listName = 'nolist');
-    saveSchemeElementList([...elements, newElement]);
     setCentralElement(newElement);
+    saveSchemeElementList([...elements, newElement]);
     navigate('/scheme');
   }
 
 
   function relocationElement(button) {
-    const activeElement = schemeElementList.find((element) => element.listName === 'motion');
-    const newElementList = schemeElementList.filter((element) => element.listName !== 'motion');
+    const newElementList = [...schemeElementList];
+    const activeElement = newElementList.find((element) => element.listName === 'motion');
+    newElementList.forEach((element) => {
+      if (activeElement.cableList.some((cable) => cable.id === element.id)) {
+        element.listName = 'motion';
+      }
+    });
+    const filterElementList = schemeElementList.filter((element) => element.listName !== 'motion');
     const posList = getPosList(activeElement, newElementList);
     let pos = getItemPos(activeElement);
     if (button.name === 'left') {
@@ -63,8 +69,8 @@ function App() {
     }
     activeElement.position = getElementPosition(pos, activeElement.name);
     activeElement.pagePosition = pos;
-    saveSchemeElementList([...newElementList, activeElement]);
     setCentralElement(activeElement);
+    saveSchemeElementList([...filterElementList, activeElement]);
   }
 
 
@@ -76,7 +82,7 @@ function App() {
       saveSchemeElementList(elements);
     }
     if (centralElement.listName === 'cable') {
-      elements.forEach((element) => element.listName = 'nolist');
+      elements.forEach((element) => element.id === button.id ? element.listName = 'motion' : element.listName = 'nolist');
       const cableElement = elements.find((element) => element.id === button.id);
       setCableElementList([centralElement, cableElement]);
       setCentralElement(cableElement);
@@ -105,16 +111,16 @@ function App() {
       const cableElement = schemeElementList.find((element) => element.listName === 'motion');
       const newElementList = schemeElementList.filter((element) => element.listName !== 'motion');
       cableElement.listName = 'cable';
-      saveSchemeElementList([...newElementList, cableElement]);
       setCentralElement(cableElement);
+      saveSchemeElementList([...newElementList, cableElement]);
       navigate('/scheme');
     }
     if (button.name === 'cancel') {
       const cableElement = schemeElementList.find((element) => element.id === button.id);
       const newElementList = schemeElementList.filter((element) => element.id !== button.id);
       cableElement.listName = 'motion';
-      saveSchemeElementList([...newElementList, cableElement]);
       setCentralElement(cableElement);
+      saveSchemeElementList([...newElementList, cableElement]);
       navigate('/scheme');
     }
   }
@@ -129,6 +135,10 @@ function App() {
     }
     if (button.name === 'delete') {
       deleteElement();
+    }
+    if (button.name === 'clean') {
+      setSchemeElementList([]);
+      navigate('/scheme');
     }
     if (button.name === 'cable' || button.name === 'cancel') {
       startCable(button);
