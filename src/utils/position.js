@@ -88,7 +88,7 @@ const getLine = (xStart, xEnd, yStart, yEnd, pageHeight) => {
   if (xEnd === xStart && yEnd !== yStart) return 'M 1 0 L 1 ' + String(yMax);
   if (xEnd !== xStart && yEnd === yStart) return 'M 0 1 L ' + String(xMax) + ' 1';
   if (xEnd !== xStart && yEnd !== yStart && (yStart === lineTop || yEnd === lineTop)) {
-    if ((xEnd > xStart && yEnd > yStart) || (xEnd < xStart && yEnd < yStart)) return 'M 1 0 L 1 ' + String(yMax * 0.3) + ' Q 1 ' + String(yMax * 0.5) + ' ' + String(xMax * 0.2) + ' ' + String(yMax * 0.6) + ' L 0 ' + String(yMax);
+    if ((xEnd > xStart && yEnd > yStart) || (xEnd < xStart && yEnd < yStart)) return 'M 1 0 L 1 ' + String(yMax * 0.3) + ' Q 1 ' + String(yMax * 0.5) + ' ' + String(xMax * 0.2) + ' ' + String(yMax * 0.6) + ' L ' + String(xMax) + ' ' + String(yMax);
     if ((xEnd < xStart && yEnd > yStart) || (xEnd > xStart && yEnd < yStart)) return 'M ' + String(xMax - 1) + ' 0 L ' + String(xMax - 1) + ' ' + String(yMax * 0.3) + ' Q ' + String(xMax - 1) + ' ' + String(yMax * 0.5) + ' ' + String(xMax * 0.8) + ' ' + String(yMax * 0.6) + ' L 0 ' + String(yMax);
   }
   if (xEnd !== xStart && yEnd !== yStart && (yStart === lineBottom || yEnd === lineBottom)) {

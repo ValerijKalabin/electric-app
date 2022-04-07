@@ -44,6 +44,24 @@ function App() {
   }
 
 
+  function selectingElement(button, elements) {
+    if (centralElement.listName !== 'cable') {
+      elements.forEach((element) => element.id === button.id ? element.listName = 'motion' : element.listName = 'nolist');
+      const activeElement = elements.find((element) => element.listName === 'motion');
+      setCentralElement(activeElement);
+      saveSchemeElementList(elements);
+    }
+    if (centralElement.listName === 'cable') {
+      elements.forEach((element) => element.id === button.id ? element.listName = 'motion' : element.listName = 'nolist');
+      const cableElement = elements.find((element) => element.listName === 'motion');
+      setCableElementList([centralElement, cableElement]);
+      setCentralElement(cableElement);
+      saveSchemeElementList(elements);
+      navigate('/cable');
+    }
+  }
+
+
   function relocationElement(button) {
     const movableElement = schemeElementList.find((element) => element.listName === 'motion');
     const filteredElementList = getFilteredList(movableElement, schemeElementList);
@@ -69,28 +87,14 @@ function App() {
   }
 
 
-  function selectingElement(button, elements) {
-    if (centralElement.listName !== 'cable') {
-      elements.forEach((element) => element.id === button.id ? element.listName = 'motion' : element.listName = 'nolist');
-      const activeElement = elements.find((element) => element.listName === 'motion');
-      setCentralElement(activeElement);
-      saveSchemeElementList(elements);
-    }
-    if (centralElement.listName === 'cable') {
-      elements.forEach((element) => element.id === button.id ? element.listName = 'motion' : element.listName = 'nolist');
-      const cableElement = elements.find((element) => element.listName === 'motion');
-      setCableElementList([centralElement, cableElement]);
-      setCentralElement(cableElement);
-      saveSchemeElementList(elements);
-      navigate('/cable');
-    }
-  }
-
-
   function deleteElement() {
     const deletedElement = schemeElementList.find((element) => element.listName === 'motion');
     const filteredElementList = getFilteredList(deletedElement, schemeElementList);
-    setCentralElement(deletedElement);
+    if (filteredElementList.length !== 0) {
+      setCentralElement(deletedElement);
+    } else {
+      setCentralElement({});
+    }
     saveSchemeElementList(filteredElementList);
   }
 
@@ -114,6 +118,7 @@ function App() {
     }
   }
 
+
   function createCable(number) {
     const cable = getCable(cableElementList, pageHeight);
     const newElement = getCableElement(number, cable, cableElementList);
@@ -134,6 +139,7 @@ function App() {
       deleteElement();
     }
     if (button.name === 'clean') {
+      setCentralElement({});
       setSchemeElementList([]);
       navigate('/scheme');
     }

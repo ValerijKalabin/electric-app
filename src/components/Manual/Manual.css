@@ -21,7 +21,7 @@
   color: #111111;
   background-color: #bbbbbb;
   width: 100%;
-  padding: 5px 0 0;
+  padding: 10px 0 0;
   margin: 0;
 }
 
@@ -39,5 +39,5 @@
 }
 
 .manual__text:last-of-type {
-  padding-bottom: 15px;
+  padding-bottom: 20px;
 }
