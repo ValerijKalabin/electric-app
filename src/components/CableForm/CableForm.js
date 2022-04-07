@@ -39,9 +39,9 @@ function CableForm({ centralElement, onClickButton, onSubmitForm }) {
           name="number"
           id="number"
           required
-          min="1"
+          min="0.5"
           max="100"
-          step="1"
+          step="0.5"
           value={numberValue}
           onChange={handleChange}
         />

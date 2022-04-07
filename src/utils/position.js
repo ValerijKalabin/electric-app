@@ -85,23 +85,15 @@ const getLine = (xStart, xEnd, yStart, yEnd, pageHeight) => {
   const lineBottom = pageHeight - headerFooterBlocksHeight - lineTop;
   const xMax = Math.abs(xEnd - xStart);
   const yMax = Math.abs(yEnd - yStart);
-  if (xEnd === xStart && yEnd !== yStart) return [{ x1: 0, x2: 0, y1: 0, y2: yMax}];
-  if (xEnd !== xStart && yEnd === yStart) return [{ x1: 0, x2: xMax, y1: 0, y2: 0}];
+  if (xEnd === xStart && yEnd !== yStart) return 'M 1 0 L 1 ' + String(yMax);
+  if (xEnd !== xStart && yEnd === yStart) return 'M 0 1 L ' + String(xMax) + ' 1';
   if (xEnd !== xStart && yEnd !== yStart && (yStart === lineTop || yEnd === lineTop)) {
-    if ((xEnd > xStart && yEnd > yStart) || (xEnd < xStart && yEnd < yStart)) {
-      return [{x1: 0, x2: 0, y1: 0, y2: yMax / 2}, {x1: 0, x2: xMax, y1: yMax / 2, y2: yMax}];
-    }
-    if ((xEnd < xStart && yEnd > yStart) || (xEnd > xStart && yEnd < yStart)) {
-      return [{x1: xMax, x2: xMax, y1: 0, y2: yMax / 2}, {x1: xMax, x2: 0, y1: yMax / 2, y2: yMax}];
-    }
+    if ((xEnd > xStart && yEnd > yStart) || (xEnd < xStart && yEnd < yStart)) return 'M 1 0 L 1 ' + String(yMax * 0.3) + ' Q 1 ' + String(yMax * 0.5) + ' ' + String(xMax * 0.2) + ' ' + String(yMax * 0.6) + ' L 0 ' + String(yMax);
+    if ((xEnd < xStart && yEnd > yStart) || (xEnd > xStart && yEnd < yStart)) return 'M ' + String(xMax - 1) + ' 0 L ' + String(xMax - 1) + ' ' + String(yMax * 0.3) + ' Q ' + String(xMax - 1) + ' ' + String(yMax * 0.5) + ' ' + String(xMax * 0.8) + ' ' + String(yMax * 0.6) + ' L 0 ' + String(yMax);
   }
   if (xEnd !== xStart && yEnd !== yStart && (yStart === lineBottom || yEnd === lineBottom)) {
-    if ((xEnd > xStart && yEnd > yStart) || (xEnd < xStart && yEnd < yStart)) {
-      return [{x1: 0, x2: xMax, y1: 0, y2: yMax / 2}, {x1: xMax, x2: xMax, y1: yMax / 2, y2: yMax}];
-    }
-    if ((xEnd < xStart && yEnd > yStart) || (xEnd > xStart && yEnd < yStart)) {
-      return [{x1: xMax, x2: 0, y1: 0, y2: yMax / 2}, {x1: 0, x2: 0, y1: yMax / 2, y2: yMax}];
-    }
+    if ((xEnd > xStart && yEnd > yStart) || (xEnd < xStart && yEnd < yStart)) return 'M ' + String(xMax - 1) + ' ' + String(yMax) + ' L ' + String(xMax - 1) + ' ' + String(yMax * 0.7) + ' Q ' + String(xMax - 1) + ' ' + String(yMax * 0.5) + ' ' + String(xMax * 0.8) + ' ' + String(yMax * 0.4) + ' L 0 0';
+    if ((xEnd < xStart && yEnd > yStart) || (xEnd > xStart && yEnd < yStart)) return 'M 1 ' + String(yMax) + ' L 1 ' + String(yMax * 0.7) + ' Q 1 ' + String(yMax * 0.5) + ' ' + String(xMax * 0.2) + ' ' + String(yMax * 0.4) + ' L ' + String(xMax - 1) + ' 0';
   }
 }
 
