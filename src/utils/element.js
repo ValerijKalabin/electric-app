@@ -24,7 +24,7 @@ export const getSchemeElement = (button, pos) => {
   };
 }
 
-export const getCableElement = (number, cable) => {
+export const getCableElement = (number, cable, cableElementList) => {
   return {
     id: `c-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
     name: 'cable',
@@ -34,7 +34,19 @@ export const getCableElement = (number, cable) => {
     position: cable.position,
     width: cable.width,
     height: cable.height,
-    line: cable.line
+    line: cable.line,
+    elementList: cableElementList
   };
+}
+
+export const getFilteredList = (element, elementList) => {
+  element.cableList.forEach((cable) => cable.listName = 'motion');
+  const filteredList = elementList.filter((element) => element.listName !== 'motion');
+  filteredList.forEach((element) => {
+    if (element.cableList) {
+      element.cableList = element.cableList.filter((cable) => cable.listName !== 'motion');
+    }
+  });
+  return filteredList;
 }
 

@@ -19,3 +19,7 @@
   cursor: default;
   opacity: 1;
 }
+
+.delete_warning svg {
+  fill: #d86932;
+}

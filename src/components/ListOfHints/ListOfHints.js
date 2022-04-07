@@ -11,28 +11,23 @@ import './ListOfHints.css';
 
 function ListOfHints({
   centralElement,
-  elementList,
   onClickButton
 }) {
   return (
     <main className="hints">
-      { elementList.length > 1 && elementList.some((element) => element.listName === 'motion') &&
-        <h2 className="hints__title">Индикатор</h2>
-      }
-      { elementList.length > 1 && elementList.some((element) => element.listName === 'motion') &&
-        <ul className="hints__list">
-          <li className="hints__item">
-            <div className="hints__container">
-              <p className="hints__indicator">1&rarr;2</p>
-            </div>
-            <div className="hints__label">
-              <p className="hints__text">
-                Выберите второй элемент для соединения кабелем
-              </p>
-            </div>
-          </li>
-        </ul>
-      }
+      <h2 className="hints__title">Индикатор</h2>
+      <ul className="hints__list">
+        <li className="hints__item">
+          <div className="hints__container">
+            <p className="hints__indicator">1&rarr;2</p>
+          </div>
+          <div className="hints__label">
+            <p className="hints__text">
+              Выберите второй элемент для соединения кабелем
+            </p>
+          </div>
+        </li>
+      </ul>
       <h2 className="hints__title">Назначение кнопок</h2>
       <ul className="hints__list">
         <li className="hints__item">
@@ -55,30 +50,26 @@ function ListOfHints({
             </p>
           </div>
         </li>
-        { elementList.length > 1 && elementList.some((element) => element.listName === 'motion') &&
-          <li className="hints__item">
-            <div className="hints__container">
-              <Cancel id={centralElement.id} listName="hints" onClickButton={onClickButton} />
-            </div>
-            <div className="hints__label">
-              <p className="hints__text">
-                Отменить соединение кабелем
-              </p>
-            </div>
-          </li>
-        }
-        { elementList.length > 1 && elementList.some((element) => element.listName === 'motion') &&
-          <li className="hints__item">
-            <div className="hints__container">
-              <Change id={centralElement.id} listName="hints" onClickButton={onClickButton} />
-            </div>
-            <div className="hints__label">
-              <p className="hints__text">
-                Изменить длину кабеля
-              </p>
-            </div>
-          </li>
-        }
+        <li className="hints__item">
+          <div className="hints__container">
+            <Cancel id={centralElement.id} listName="hints" onClickButton={onClickButton} />
+          </div>
+          <div className="hints__label">
+            <p className="hints__text">
+              Отменить соединение кабелем
+            </p>
+          </div>
+        </li>
+        <li className="hints__item">
+          <div className="hints__container">
+            <Change id={centralElement.id} listName="hints" onClickButton={onClickButton} />
+          </div>
+          <div className="hints__label">
+            <p className="hints__text">
+              Изменить длину кабеля
+            </p>
+          </div>
+        </li>
         <li className="hints__item">
           <div className="hints__container">
             <Delete id={centralElement.id} listName="hints" onClickButton={onClickButton} />

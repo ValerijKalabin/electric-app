@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { getElementPosition, getItemPos, getPosList, getExpandedPosList, getNeighborList, getCable, step } from '../../utils/position';
-import { getCableElement, getSchemeElement } from '../../utils/element';
+import { getCableElement, getFilteredList, getSchemeElement } from '../../utils/element';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -45,16 +45,10 @@ function App() {
 
 
   function relocationElement(button) {
-    const newElementList = [...schemeElementList];
-    const activeElement = newElementList.find((element) => element.listName === 'motion');
-    newElementList.forEach((element) => {
-      if (activeElement.cableList.some((cable) => cable.id === element.id)) {
-        element.listName = 'motion';
-      }
-    });
-    const filterElementList = schemeElementList.filter((element) => element.listName !== 'motion');
-    const posList = getPosList(activeElement, newElementList);
-    let pos = getItemPos(activeElement);
+    const movableElement = schemeElementList.find((element) => element.listName === 'motion');
+    const filteredElementList = getFilteredList(movableElement, schemeElementList);
+    const posList = getPosList(movableElement, schemeElementList);
+    let pos = getItemPos(movableElement);
     if (button.name === 'left') {
       pos = pos - step;
       while (posList.includes(pos)) {
@@ -67,10 +61,11 @@ function App() {
         pos = pos + step;
       }
     }
-    activeElement.position = getElementPosition(pos, activeElement.name);
-    activeElement.pagePosition = pos;
-    setCentralElement(activeElement);
-    saveSchemeElementList([...filterElementList, activeElement]);
+    movableElement.position = getElementPosition(pos, movableElement.name);
+    movableElement.pagePosition = pos;
+    movableElement.cableList = [];
+    setCentralElement(movableElement);
+    saveSchemeElementList([...filteredElementList, movableElement]);
   }
 
 
@@ -83,7 +78,7 @@ function App() {
     }
     if (centralElement.listName === 'cable') {
       elements.forEach((element) => element.id === button.id ? element.listName = 'motion' : element.listName = 'nolist');
-      const cableElement = elements.find((element) => element.id === button.id);
+      const cableElement = elements.find((element) => element.listName === 'motion');
       setCableElementList([centralElement, cableElement]);
       setCentralElement(cableElement);
       saveSchemeElementList(elements);
@@ -93,16 +88,10 @@ function App() {
 
 
   function deleteElement() {
-    const newElementList = [...schemeElementList];
     const deletedElement = schemeElementList.find((element) => element.listName === 'motion');
-    newElementList.forEach((element) => {
-      if (deletedElement.cableList.some((cable) => cable.id === element.id)) {
-        element.listName = 'motion';
-      }
-    });
-    const filterElementList = newElementList.filter((element) => element.listName !== 'motion');
+    const filteredElementList = getFilteredList(deletedElement, schemeElementList);
     setCentralElement(deletedElement);
-    saveSchemeElementList(filterElementList);
+    saveSchemeElementList(filteredElementList);
   }
 
 
@@ -123,6 +112,14 @@ function App() {
       saveSchemeElementList([...newElementList, cableElement]);
       navigate('/scheme');
     }
+  }
+
+  function createCable(number) {
+    const cable = getCable(cableElementList, pageHeight);
+    const newElement = getCableElement(number, cable, cableElementList);
+    cableElementList.forEach((element) => element.cableList.push(newElement));
+    saveSchemeElementList([...schemeElementList, newElement]);
+    navigate('/scheme');
   }
 
 
@@ -152,21 +149,6 @@ function App() {
         createElement(button, newElementList);
       }
     }
-  }
-
-
-  function createCable(number) {
-    const cable = getCable(cableElementList, pageHeight);
-    const newElement = getCableElement(number, cable);
-    const newElementList = [...schemeElementList];
-    newElementList.forEach((element) => {
-      if (cableElementList.some((cable) => cable.id === element.id)) {
-        element.cableList.push(newElement);
-      }
-    });
-    newElementList.push(newElement);
-    saveSchemeElementList(newElementList);
-    navigate('/scheme');
   }
 
 
@@ -205,7 +187,6 @@ function App() {
         />} />
         <Route path='/hints' element={<ListOfHints
           centralElement={centralElement}
-          elementList={schemeElementList}
           onClickButton={handleClickButton}
         />} />
         <Route path='/cable' element={<CableForm

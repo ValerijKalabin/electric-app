@@ -1,6 +1,6 @@
 import './Right.css';
 
-function Right({ id, listName, onClickButton }) {
+function Right({ id, listName, cableList, onClickButton }) {
   function handleClick() {
     onClickButton({
       id,
@@ -13,7 +13,7 @@ function Right({ id, listName, onClickButton }) {
   return (
     <button
       type="button"
-      className="right"
+      className={`right ${ listName === 'actions' && !!cableList.length ? 'right_warning' : ''}`}
       disabled={listName === 'hints'}
       onClick={ handleClick }
     >

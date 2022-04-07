@@ -60,13 +60,13 @@ function ListOfActions({ element, onClickButton }) {
             ${element.name === 'auto-switch' || element.name === 'socket' || element.name === 'switch' ? 'actions__list_place_top' : ''}
           `}>
             <li className="actions__item">
-              <Left id={element.id} listName="actions" onClickButton={onClickButton} />
+              <Left id={element.id} listName="actions" cableList={element.cableList} onClickButton={onClickButton} />
             </li>
             <li className="actions__item">
-              <Delete id={element.id} listName="actions" onClickButton={onClickButton} />
+              <Delete id={element.id} listName="actions" cableList={element.cableList} onClickButton={onClickButton} />
             </li>
             <li className="actions__item">
-              <Right id={element.id} listName="actions" onClickButton={onClickButton} />
+              <Right id={element.id} listName="actions" cableList={element.cableList} onClickButton={onClickButton} />
             </li>
           </ul>
         </li>

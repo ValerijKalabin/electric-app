@@ -1,6 +1,6 @@
 import './Delete.css';
 
-function Delete({ id, listName, onClickButton }) {
+function Delete({ id, listName, cableList, onClickButton }) {
   function handleClick() {
     onClickButton({
       id,
@@ -13,7 +13,7 @@ function Delete({ id, listName, onClickButton }) {
   return (
     <button
       type="button"
-      className="delete"
+      className={`delete ${ listName === 'actions' && !!cableList.length ? 'delete_warning' : ''}`}
       disabled={listName === 'hints'}
       onClick={ handleClick }
     >
