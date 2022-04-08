@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import Add from '../../buttons/Add/Add';
 import Cancel from '../../buttons/Cancel/Cancel';
-import Change from '../../buttons/Change/Change';
 import Clean from '../../buttons/Clean/Clean';
 import Delete from '../../buttons/Delete/Delete';
 import Left from '../../buttons/Left/Left';
@@ -57,16 +56,6 @@ function ListOfHints({
           <div className="hints__label">
             <p className="hints__text">
               Отменить соединение кабелем
-            </p>
-          </div>
-        </li>
-        <li className="hints__item">
-          <div className="hints__container">
-            <Change id={centralElement.id} listName="hints" onClickButton={onClickButton} />
-          </div>
-          <div className="hints__label">
-            <p className="hints__text">
-              Изменить длину кабеля
             </p>
           </div>
         </li>

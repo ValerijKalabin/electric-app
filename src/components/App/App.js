@@ -140,7 +140,7 @@ function App() {
     }
     if (button.name === 'clean') {
       setCentralElement({});
-      setSchemeElementList([]);
+      saveSchemeElementList([]);
       navigate('/scheme');
     }
     if (button.name === 'cable' || button.name === 'cancel') {
