@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { getElementPosition, getItemPos, getPosList, getExpandedPosList, getNeighborList, getCable, step } from '../../utils/position';
+import { getElementPosition, getPosList, getExpandedPosList, getNeighborList, getCable, step } from '../../utils/position';
 import { notVirtualElement, getCableElement, getFilteredList, getSchemeElement } from '../../utils/element';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
@@ -26,14 +26,14 @@ function App() {
 
   function saveSchemeElementList(elements) {
     const neighbors = getNeighborList(elements);
-    setSchemeElementList(neighbors);
+    setSchemeElementList(elements);
     console.log(neighbors); // delete !!!!!!
   }
 
 
   function createElement(button, elements) {
     const posList = getExpandedPosList(button, elements);
-    let pos = getItemPos(centralElement);
+    let pos = centralElement.pos || 0;
     while (posList.includes(pos)) {
       pos = pos + step;
     }
@@ -67,21 +67,20 @@ function App() {
     const movableElement = schemeElementList.find((element) => element.listName === 'motion');
     const filteredElementList = getFilteredList(movableElement, schemeElementList);
     const posList = getPosList(movableElement, schemeElementList);
-    let pos = getItemPos(movableElement);
     if (button.name === 'left') {
-      pos = pos - step;
-      while (posList.includes(pos)) {
-        pos = pos - step;
+      movableElement.pos = movableElement.pos - step;
+      while (posList.includes(movableElement.pos)) {
+        movableElement.pos = movableElement.pos - step;
       }
     }
     if (button.name === 'right') {
-      pos = pos + step;
-      while (posList.includes(pos)) {
-        pos = pos + step;
+      movableElement.pos = movableElement.pos + step;
+      while (posList.includes(movableElement.pos)) {
+        movableElement.pos = movableElement.pos + step;
       }
     }
-    movableElement.position = getElementPosition(pos, movableElement.name);
-    movableElement.pagePosition = { right: `${pos}px`, transition: 'right 0.3s linear' };
+    movableElement.position = getElementPosition(movableElement.pos, movableElement.name);
+    movableElement.pagePosition = { right: `${movableElement.pos}px`, transition: 'right 0.3s linear' };
     movableElement.cableList = [];
     setCentralElement(movableElement);
     saveSchemeElementList([...filteredElementList, movableElement]);
@@ -188,7 +187,7 @@ function App() {
     if (Math.abs(newVirtualElement.cursorOffset) > 15) {
       const newElementList = [...schemeElementList];
       newElementList.forEach((element) => element.listName = 'nolist');
-      newVirtualElement.position = newVirtualElement.position ? newVirtualElement.position : getItemPos(centralElement);
+      newVirtualElement.position = newVirtualElement.position ? newVirtualElement.position : centralElement.pos;
       newVirtualElement.isMovingScheme = true;
       newVirtualElement.isButtonPressed = false
       newVirtualElement.cursorOffset = 0;

@@ -13,7 +13,6 @@ export const getSchemeMarkup = (pageHeight) => {
   `}
 }
 
-export const getItemPos = (activeItem) => activeItem.position ? parseInt(activeItem.position.left.slice(11), 10) : 0;
 
 export const getPosList = (currentItem, elementList) => {
   const similarElementList = elementList.filter((element) => {
@@ -22,7 +21,7 @@ export const getPosList = (currentItem, elementList) => {
     }
     return element.name === currentItem.name;
   });
-  return similarElementList.map((element) => parseInt(element.position.left.slice(11), 10));
+  return similarElementList.map((element) => parseInt(element.position.left));
 }
 
 
@@ -39,8 +38,8 @@ export const getExpandedPosList = (currentItem, elementList) => {
 export const getNeighborList = (elementList) => {
   const applicants = elementList.filter((element) => element.name === 'socket' || element.name === 'switch' || element.name === 'auto-switch');
   const notApplicants = elementList.filter((element) => element.name !== 'socket' && element.name !== 'switch' && element.name !== 'auto-switch');
-  applicants.sort((element, nextElement) => element.pagePosition - nextElement.pagePosition);
-  const posList = applicants.map((element) => parseInt(element.position.left.slice(11), 10));
+  applicants.sort((element, nextElement) => element.pos - nextElement.pos);
+  const posList = applicants.map((element) => element.pos);
   let index = 0
   while (index < posList.length) {
     applicants[index].blockStatus = 'noblock';
@@ -63,13 +62,13 @@ export const getNeighborList = (elementList) => {
 export const getElementPosition = (position, buttonName) => {
   const lineBottom = lineTop - step;
   if (buttonName === 'lamp') {
-    return { left: `calc(50% + ${position}px)`, top: `${lineTop}px` };
+    return { left: `${position}px`, top: `${lineTop}px` };
   }
   if (buttonName === 'junction-box') {
-    return { left: `calc(50% + ${position}px)`, top: '50%' };
+    return { left: `${position}px`, top: '50%' };
   }
   if (buttonName === 'auto-switch' || buttonName === 'socket' || buttonName === 'switch') {
-    return { left: `calc(50% + ${position}px)`, bottom: `${lineBottom}px` };
+    return { left: `${position}px`, bottom: `${lineBottom}px` };
   }
 }
 
@@ -99,13 +98,13 @@ const getLine = (xStart, xEnd, yStart, yEnd, pageHeight) => {
 
 
 export const getCable = (cableElementList, pageHeight) => {
-  const xStart = parseInt(cableElementList[0].position.left.slice(11), 10);
-  const xEnd = parseInt(cableElementList[1].position.left.slice(11), 10);
+  const xStart = parseInt(cableElementList[0].position.left);
+  const xEnd = parseInt(cableElementList[1].position.left);
   const yStart = getY(cableElementList[0].name, pageHeight);
   const yEnd = getY(cableElementList[1].name, pageHeight);
 
   const position = {
-    left: `calc(50% + ${xEnd < xStart ? xEnd : xStart}px)`,
+    left: `${xEnd < xStart ? xEnd : xStart}px`,
     top: `${yEnd < yStart ? yEnd : yStart}px`
   };
   const width = xEnd !== xStart ? Math.abs(xEnd - xStart) : step;

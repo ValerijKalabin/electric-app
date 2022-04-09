@@ -5,7 +5,8 @@ export const notElement = {
   name: 'noName',
   type: 'noType',
   listName: 'nolist',
-  position: { left: `calc(50% + 0px)`, bottom: '50%' },
+  pos: 0,
+  position: { left: '0px', bottom: '50%' },
   pagePosition: { right: '0px', transition: 'right 0.3s linear' },
   blockStatus: 'noblock',
   cableList: []
@@ -28,6 +29,7 @@ export const getSchemeElement = (button, pos) => {
     name: button.name,
     type: button.type,
     listName: 'motion',
+    pos,
     position: getElementPosition(pos, button.name),
     pagePosition: { right: `${pos}px`, transition: 'right 0.3s linear' },
     blockStatus: 'noblock',
