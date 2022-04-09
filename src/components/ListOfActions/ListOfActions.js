@@ -14,12 +14,7 @@ function ListOfActions({ element, onClickButton }) {
   return (
     <ul className="actions">
       { element.name === 'auto-switch' &&
-        <li className={`
-          actions__item
-          ${element.blockStatus === 'first' ? 'actions__item_place_first' : ''}
-          ${element.blockStatus === 'middle' ? 'actions__item_place_middle' : ''}
-          ${element.blockStatus === 'last' ? 'actions__item_place_last' : ''}
-        `}>
+        <li className="actions__item">
           <AutoSwitch id={element.id} listName="actions" onClickButton={onClickButton} />
         </li>
       }
@@ -34,22 +29,12 @@ function ListOfActions({ element, onClickButton }) {
         </li>
       }
       { element.name === 'socket' &&
-        <li className={`
-          actions__item
-          ${element.blockStatus === 'first' ? 'actions__item_place_first' : ''}
-          ${element.blockStatus === 'middle' ? 'actions__item_place_middle' : ''}
-          ${element.blockStatus === 'last' ? 'actions__item_place_last' : ''}
-        `}>
+        <li className="actions__item">
           <Socket id={element.id} listName="actions" onClickButton={onClickButton} />
         </li>
       }
       { element.name === 'switch' &&
-        <li className={`
-          actions__item
-          ${element.blockStatus === 'first' ? 'actions__item_place_first' : ''}
-          ${element.blockStatus === 'middle' ? 'actions__item_place_middle' : ''}
-          ${element.blockStatus === 'last' ? 'actions__item_place_last' : ''}
-        `}>
+        <li className="actions__item">
           <Switch id={element.id} listName="actions" onClickButton={onClickButton} />
         </li>
       }
@@ -57,7 +42,7 @@ function ListOfActions({ element, onClickButton }) {
         <li className="actions__item">
           <ul className={`
             actions__list
-            ${element.name === 'auto-switch' || element.name === 'socket' || element.name === 'switch' ? 'actions__list_place_top' : ''}
+            ${element.name === 'lamp' || element.name === 'junction-box' ? 'actions__list_bottom' : ''}
           `}>
             <li className="actions__item">
               <Left id={element.id} listName="actions" cableList={element.cableList} onClickButton={onClickButton} />
@@ -75,7 +60,7 @@ function ListOfActions({ element, onClickButton }) {
         <li className="actions__item">
           <ul className={`
             actions__list
-            ${element.name === 'auto-switch' || element.name === 'socket' || element.name === 'switch' ? 'actions__list_place_top' : ''}
+            ${element.name === 'lamp' || element.name === 'junction-box' ? 'actions__list_bottom' : ''}
           `}>
             <li className="actions__item">
               <p className="actions__indicator">1&rarr;2</p>

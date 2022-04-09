@@ -41,6 +41,7 @@ export const getCableElement = (number, cable, cableElementList) => {
     name: 'cable',
     type: 'element',
     listName: 'nolist',
+    blockStatus: 'noblock',
     length: number,
     position: cable.position,
     width: cable.width,

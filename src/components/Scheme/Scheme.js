@@ -31,9 +31,15 @@ function Scheme({
           >
             { elementList.map((element) => (
               <li
-                className={`scheme__item ${element.name === 'cable' ? 'scheme__item_cable' : ''}`}
                 key={element.id}
                 style={element.position}
+                className={`
+                  scheme__item
+                  ${element.name === 'cable' ? 'scheme__item_cable' : ''}
+                  ${element.blockStatus === 'first' ? 'scheme__item_place_first' : ''}
+                  ${element.blockStatus === 'middle' ? 'scheme__item_place_middle' : ''}
+                  ${element.blockStatus === 'last' ? 'scheme__item_place_last' : ''}
+                `}
               >
                 { (element.listName === 'motion' || element.listName === 'cable') &&
                   <ListOfActions element={element} onClickButton={onClickButton} />

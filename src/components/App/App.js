@@ -181,11 +181,11 @@ function App() {
 
   function handleMoveScheme(event) {
     const newVirtualElement = {...virtualElement};
-    if (event.type === 'mousemove' && newVirtualElement.isButtonPressed) {
+    if (newVirtualElement.isButtonPressed) {
       newVirtualElement.cursorOffset = event.clientX - newVirtualElement.startPosition;
       setVirtualElement(newVirtualElement);
     }
-    if (event.type === 'mousemove' && Math.abs(newVirtualElement.cursorOffset) > 15) {
+    if (Math.abs(newVirtualElement.cursorOffset) > 15) {
       const newElementList = [...schemeElementList];
       newElementList.forEach((element) => element.listName = 'nolist');
       newVirtualElement.position = newVirtualElement.position ? newVirtualElement.position : getItemPos(centralElement);
@@ -194,7 +194,7 @@ function App() {
       newVirtualElement.cursorOffset = 0;
       setVirtualElement(newVirtualElement);
     }
-    if (event.type === 'mousemove' && newVirtualElement.isMovingScheme) {
+    if (newVirtualElement.isMovingScheme) {
       newVirtualElement.position = newVirtualElement.position + (newVirtualElement.startPosition - event.clientX) / 30;
       newVirtualElement.pagePosition = { right: `${newVirtualElement.position}px` };
       setVirtualElement(newVirtualElement);
