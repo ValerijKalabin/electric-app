@@ -39,36 +39,40 @@ function ListOfActions({ element, onClickButton }) {
         </li>
       }
       { element.listName === 'motion' &&
-        <li className="actions__item">
-          <ul className={`
-            actions__list
-            ${element.name === 'lamp' || element.name === 'junction-box' ? 'actions__list_bottom' : ''}
+        <li className="actions__item actions__item_container">
+          <div className={`
+            actions__container
+            ${element.name === 'lamp' || element.name === 'junction-box' ? 'actions__container_bottom' : ''}
           `}>
-            <li className="actions__item">
-              <Left id={element.id} listName="actions" cableList={element.cableList} onClickButton={onClickButton} />
-            </li>
-            <li className="actions__item">
-              <Delete id={element.id} listName="actions" cableList={element.cableList} onClickButton={onClickButton} />
-            </li>
-            <li className="actions__item">
-              <Right id={element.id} listName="actions" cableList={element.cableList} onClickButton={onClickButton} />
-            </li>
-          </ul>
+            <ul className="actions__list">
+              <li className="actions__item">
+                <Left id={element.id} listName="actions" cableList={element.cableList} onClickButton={onClickButton} />
+              </li>
+              <li className="actions__item">
+                <Delete id={element.id} listName="actions" cableList={element.cableList} onClickButton={onClickButton} />
+              </li>
+              <li className="actions__item">
+                <Right id={element.id} listName="actions" cableList={element.cableList} onClickButton={onClickButton} />
+              </li>
+            </ul>
+          </div>
         </li>
       }
       { element.listName === 'cable' &&
-        <li className="actions__item">
-          <ul className={`
-            actions__list
-            ${element.name === 'lamp' || element.name === 'junction-box' ? 'actions__list_bottom' : ''}
+        <li className="actions__item actions__item_container">
+          <div className={`
+            actions__container
+            ${element.name === 'lamp' || element.name === 'junction-box' ? 'actions__container_bottom' : ''}
           `}>
-            <li className="actions__item">
-              <p className="actions__indicator">1&rarr;2</p>
-            </li>
-            <li className="actions__item">
-              <Cancel id={element.id} listName="actions" onClickButton={onClickButton} />
-            </li>
-          </ul>
+            <ul className="actions__list">
+              <li className="actions__item actions__item_container">
+                <p className="actions__indicator">1&rarr;2</p>
+              </li>
+              <li className="actions__item">
+                <Cancel id={element.id} listName="actions" onClickButton={onClickButton} />
+              </li>
+            </ul>
+          </div>
         </li>
       }
     </ul>
