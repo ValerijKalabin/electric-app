@@ -66,7 +66,13 @@ function ListOfActions({ element, onClickButton }) {
           `}>
             <ul className="actions__list">
               <li className="actions__item actions__item_container">
-                <p className="actions__indicator">1&rarr;2</p>
+                <p className="actions__indicator">
+                  1
+                  <svg className="bi bi-arrow-right" xmlns="http://www.w3.org/2000/svg" width="24" height="16" fill="#bbbbbb" viewBox="0 0 16 16">
+                    <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                  </svg>
+                  2
+                </p>
               </li>
               <li className="actions__item">
                 <Cancel id={element.id} listName="actions" onClickButton={onClickButton} />
