@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { getElementPosition, getItemPos, getPosList, getExpandedPosList, getNeighborList, getCable, step } from '../../utils/position';
-import { getCableElement, getFilteredList, getSchemeElement } from '../../utils/element';
+import { notVirtualElement, getCableElement, getFilteredList, getSchemeElement } from '../../utils/element';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -17,6 +17,7 @@ function App() {
   const [schemeElementList, setSchemeElementList] = useState([]);
   const [cableElementList, setCableElementList] = useState([]);
   const [centralElement, setCentralElement] = useState({});
+  const [virtualElement, setVirtualElement] = useState(notVirtualElement);
   const [pageHeight, setPageHeight] = useState(0);
   const [isAllNavigationVisible, setNavigationVisibility] = useState(false);
   const navigate = useNavigate();
@@ -80,7 +81,7 @@ function App() {
       }
     }
     movableElement.position = getElementPosition(pos, movableElement.name);
-    movableElement.pagePosition = pos;
+    movableElement.pagePosition = { right: `${pos}px`, transition: 'right 0.3s linear' };
     movableElement.cableList = [];
     setCentralElement(movableElement);
     saveSchemeElementList([...filteredElementList, movableElement]);
@@ -140,6 +141,7 @@ function App() {
     }
     if (button.name === 'clean') {
       setCentralElement({});
+      setVirtualElement(notVirtualElement);
       saveSchemeElementList([]);
       navigate('/scheme');
     }
@@ -147,6 +149,7 @@ function App() {
       startCable(button);
     }
     if (button.type === 'element') {
+      setVirtualElement(notVirtualElement);
       const newElementList = [...schemeElementList];
       if (button.listName === 'nolist') {
         selectingElement(button, newElementList);
@@ -154,6 +157,47 @@ function App() {
       if (button.listName === 'elements') {
         createElement(button, newElementList);
       }
+    }
+  }
+
+
+  function handleDownScheme(event) {
+    const newVirtualElement = {...virtualElement};
+    newVirtualElement.isButtonPressed = true;
+    newVirtualElement.startPosition = event.clientX;
+    setVirtualElement(newVirtualElement);
+  }
+
+
+  function handleUpScheme() {
+    const newVirtualElement = {...virtualElement};
+    newVirtualElement.isButtonPressed = false;
+    newVirtualElement.isMovingScheme = false;
+    newVirtualElement.startPosition = 0;
+    newVirtualElement.cursorOffset = 0;
+    setVirtualElement(newVirtualElement);
+  }
+
+
+  function handleMoveScheme(event) {
+    const newVirtualElement = {...virtualElement};
+    if (event.type === 'mousemove' && newVirtualElement.isButtonPressed) {
+      newVirtualElement.cursorOffset = event.clientX - newVirtualElement.startPosition;
+      setVirtualElement(newVirtualElement);
+    }
+    if (event.type === 'mousemove' && Math.abs(newVirtualElement.cursorOffset) > 15) {
+      const newElementList = [...schemeElementList];
+      newElementList.forEach((element) => element.listName = 'nolist');
+      newVirtualElement.position = newVirtualElement.position ? newVirtualElement.position : getItemPos(centralElement);
+      newVirtualElement.isMovingScheme = true;
+      newVirtualElement.isButtonPressed = false
+      newVirtualElement.cursorOffset = 0;
+      setVirtualElement(newVirtualElement);
+    }
+    if (event.type === 'mousemove' && newVirtualElement.isMovingScheme) {
+      newVirtualElement.position = newVirtualElement.position + (newVirtualElement.startPosition - event.clientX) / 30;
+      newVirtualElement.pagePosition = { right: `${newVirtualElement.position}px` };
+      setVirtualElement(newVirtualElement);
     }
   }
 
@@ -182,8 +226,12 @@ function App() {
         <Route path='/scheme' element={<Scheme
           pageHeight={pageHeight}
           centralElement={centralElement}
+          virtualElement={virtualElement}
           elementList={schemeElementList}
           onClickButton={handleClickButton}
+          onDownScheme={handleDownScheme}
+          onUpScheme={handleUpScheme}
+          onMoveScheme={handleMoveScheme}
         />} />
         <Route path='/list' element={<List />} />
         <Route path='/elements' element={<ListOfElements

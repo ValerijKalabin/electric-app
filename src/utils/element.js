@@ -6,9 +6,20 @@ export const notElement = {
   type: 'noType',
   listName: 'nolist',
   position: { left: `calc(50% + 0px)`, bottom: '50%' },
-  pagePosition: 0,
+  pagePosition: { right: '0px', transition: 'right 0.3s linear' },
   blockStatus: 'noblock',
   cableList: []
+};
+
+export const notVirtualElement = {
+  id: 'virtualId',
+  name: 'virtual',
+  isButtonPressed: false,
+  isMovingScheme: false,
+  cursorOffset: 0,
+  startPosition: 0,
+  position: 0,
+  pagePosition: { right: '0px' }
 };
 
 export const getSchemeElement = (button, pos) => {
@@ -18,7 +29,7 @@ export const getSchemeElement = (button, pos) => {
     type: button.type,
     listName: 'motion',
     position: getElementPosition(pos, button.name),
-    pagePosition: pos,
+    pagePosition: { right: `${pos}px`, transition: 'right 0.3s linear' },
     blockStatus: 'noblock',
     cableList: []
   };
