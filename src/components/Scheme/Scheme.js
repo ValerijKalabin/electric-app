@@ -16,9 +16,9 @@ function Scheme({
   virtualElement,
   elementList,
   onClickButton,
-  onDownScheme,
-  onUpScheme,
-  onMoveScheme
+  onSchemeStart,
+  onSchemeStop,
+  onSchemeMove
 }) {
   return (
     <main className="scheme">
@@ -69,9 +69,12 @@ function Scheme({
             className="scheme__coat"
             type="button"
             name="scheme"
-            onMouseDown={onDownScheme}
-            onMouseUp={onUpScheme}
-            onMouseMove={onMoveScheme}
+            onMouseDown={onSchemeStart}
+            onMouseUp={onSchemeStop}
+            onMouseMove={onSchemeMove}
+            onTouchStart={onSchemeStart}
+            onTouchEnd={onSchemeStop}
+            onTouchMove={onSchemeMove}
           />
         </div>
       }

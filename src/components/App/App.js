@@ -160,15 +160,15 @@ function App() {
   }
 
 
-  function handleDownScheme(event) {
+  function handleSchemeStart(event) {
     const newVirtualElement = {...virtualElement};
     newVirtualElement.isButtonPressed = true;
-    newVirtualElement.startPosition = event.clientX;
+    newVirtualElement.startPosition = event.clientX || event.changedTouches[0].clientX;
     setVirtualElement(newVirtualElement);
   }
 
 
-  function handleUpScheme() {
+  function handleSchemeStop() {
     const newVirtualElement = {...virtualElement};
     newVirtualElement.isButtonPressed = false;
     newVirtualElement.isMovingScheme = false;
@@ -178,10 +178,11 @@ function App() {
   }
 
 
-  function handleMoveScheme(event) {
+  function handleSchemeMove(event) {
     const newVirtualElement = {...virtualElement};
+    const clientX = event.clientX || event.changedTouches[0].clientX;
     if (newVirtualElement.isButtonPressed) {
-      newVirtualElement.cursorOffset = event.clientX - newVirtualElement.startPosition;
+      newVirtualElement.cursorOffset = clientX - newVirtualElement.startPosition;
       setVirtualElement(newVirtualElement);
     }
     if (Math.abs(newVirtualElement.cursorOffset) > 15) {
@@ -194,7 +195,7 @@ function App() {
       setVirtualElement(newVirtualElement);
     }
     if (newVirtualElement.isMovingScheme) {
-      newVirtualElement.position = newVirtualElement.position + (newVirtualElement.startPosition - event.clientX) / 30;
+      newVirtualElement.position = newVirtualElement.position + (newVirtualElement.startPosition - clientX) / 30;
       newVirtualElement.pagePosition = { right: `${newVirtualElement.position}px` };
       setVirtualElement(newVirtualElement);
     }
@@ -228,9 +229,9 @@ function App() {
           virtualElement={virtualElement}
           elementList={schemeElementList}
           onClickButton={handleClickButton}
-          onDownScheme={handleDownScheme}
-          onUpScheme={handleUpScheme}
-          onMoveScheme={handleMoveScheme}
+          onSchemeStart={handleSchemeStart}
+          onSchemeStop={handleSchemeStop}
+          onSchemeMove={handleSchemeMove}
         />} />
         <Route path='/list' element={<List />} />
         <Route path='/elements' element={<ListOfElements
