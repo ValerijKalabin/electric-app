@@ -1,7 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { getElementPosition, getPosList, getExpandedPosList, getNeighborList, getCable, step } from '../../utils/position';
+import { getElementPosition, getPosList, getExpandedPosList, setNeighbors, getCable, step } from '../../utils/position';
 import { notVirtualElement, getCableElement, getFilteredList, getSchemeElement } from '../../utils/element';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
@@ -25,9 +25,8 @@ function App() {
 
 
   function saveSchemeElementList(elements) {
-    const neighbors = getNeighborList(elements);
+    setNeighbors(elements);
     setSchemeElementList(elements);
-    console.log(neighbors); // delete !!!!!!
   }
 
 
@@ -164,6 +163,7 @@ function App() {
     const newVirtualElement = {...virtualElement};
     newVirtualElement.isButtonPressed = true;
     newVirtualElement.startPosition = event.clientX || event.changedTouches[0].clientX;
+    newVirtualElement.divider = event.type === 'touchstart' ? 15 : 30;
     setVirtualElement(newVirtualElement);
   }
 
@@ -195,7 +195,7 @@ function App() {
       setVirtualElement(newVirtualElement);
     }
     if (newVirtualElement.isMovingScheme) {
-      newVirtualElement.position = newVirtualElement.position + (newVirtualElement.startPosition - clientX) / 30;
+      newVirtualElement.position = newVirtualElement.position + (newVirtualElement.startPosition - clientX) / newVirtualElement.divider;
       newVirtualElement.pagePosition = { right: `${newVirtualElement.position}px` };
       setVirtualElement(newVirtualElement);
     }

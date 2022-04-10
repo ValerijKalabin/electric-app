@@ -17,6 +17,7 @@ export const notVirtualElement = {
   name: 'virtual',
   isButtonPressed: false,
   isMovingScheme: false,
+  divider: 30,
   cursorOffset: 0,
   startPosition: 0,
   position: 0,

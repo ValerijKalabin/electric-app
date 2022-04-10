@@ -35,18 +35,16 @@ export const getExpandedPosList = (currentItem, elementList) => {
 }
 
 
-export const getNeighborList = (elementList) => {
-  const applicants = elementList.filter((element) => element.name === 'socket' || element.name === 'switch' || element.name === 'auto-switch');
-  const notApplicants = elementList.filter((element) => element.name !== 'socket' && element.name !== 'switch' && element.name !== 'auto-switch');
+export const setNeighbors = (elementList) => {
+  const applicants = elementList.filter((element) => element.name !== 'lamp' && element.name !== 'junction-box');
   applicants.sort((element, nextElement) => element.pos - nextElement.pos);
-  const posList = applicants.map((element) => element.pos);
   let index = 0
-  while (index < posList.length) {
+  while (index < applicants.length) {
     applicants[index].blockStatus = 'noblock';
-    if (posList[index + 1] !== undefined && posList[index] + step === posList[index + 1]) {
+    if (applicants[index + 1] !== undefined && applicants[index].pos + step === applicants[index + 1].pos) {
       applicants[index].blockStatus = 'first';
       index = index + 1;
-      while (index < posList.length && posList[index - 1] + step === posList[index]) {
+      while (index < applicants.length && applicants[index - 1].pos + step === applicants[index].pos) {
         applicants[index].blockStatus = 'middle';
         index = index + 1;
       }
@@ -55,7 +53,6 @@ export const getNeighborList = (elementList) => {
     }
     index = index + 1;
   }
-  return [...applicants, ...notApplicants];
 }
 
 
