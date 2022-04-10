@@ -1,8 +1,9 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { getElementPosition, getPosList, getExpandedPosList, setNeighbors, getCable, step } from '../../utils/position';
-import { notVirtualElement, getCableElement, getFilteredList, getSchemeElement } from '../../utils/element';
+import { getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
+import { notVirtualElement, getCableElement, getSchemeElement } from '../../utils/element';
+import { defaultStatus, getConnectionStatus, getCable, getFilteredList } from '../../utils/cable';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -17,6 +18,7 @@ function App() {
   const [schemeElementList, setSchemeElementList] = useState([]);
   const [cableElementList, setCableElementList] = useState([]);
   const [centralElement, setCentralElement] = useState({});
+  const [connectionStatus, setConnectionStatus] = useState({});
   const [virtualElement, setVirtualElement] = useState(notVirtualElement);
   const [pageHeight, setPageHeight] = useState(0);
   const [isAllNavigationVisible, setNavigationVisibility] = useState(false);
@@ -26,6 +28,7 @@ function App() {
 
   function saveSchemeElementList(elements) {
     setNeighbors(elements);
+    console.log(elements); // delete !!!
     setSchemeElementList(elements);
   }
 
@@ -36,7 +39,7 @@ function App() {
     while (posList.includes(pos)) {
       pos = pos + step;
     }
-    const newElement = getSchemeElement(button, pos);
+    const newElement = getSchemeElement(button, pos, pageHeight);
     elements.forEach((element) => element.listName = 'nolist');
     setCentralElement(newElement);
     saveSchemeElementList([...elements, newElement]);
@@ -55,6 +58,7 @@ function App() {
       elements.forEach((element) => element.id === button.id ? element.listName = 'motion' : element.listName = 'nolist');
       const cableElement = elements.find((element) => element.listName === 'motion');
       setCableElementList([centralElement, cableElement]);
+      setConnectionStatus(getConnectionStatus([centralElement, cableElement], schemeElementList));
       setCentralElement(cableElement);
       saveSchemeElementList(elements);
       navigate('/cable');
@@ -78,8 +82,8 @@ function App() {
         movableElement.pos = movableElement.pos + step;
       }
     }
-    movableElement.position = getElementPosition(movableElement.pos, movableElement.name);
-    movableElement.pagePosition = { right: `${movableElement.pos}px`, transition: 'right 0.3s linear' };
+    movableElement.position = { left: `${movableElement.pos}px`, top: `${movableElement.posV}px` };
+    movableElement.pagePosition = { right: `${movableElement.pos}px` };
     movableElement.cableList = [];
     setCentralElement(movableElement);
     saveSchemeElementList([...filteredElementList, movableElement]);
@@ -145,6 +149,9 @@ function App() {
     }
     if (button.name === 'cable' || button.name === 'cancel') {
       startCable(button);
+    }
+    if (button.name === 'continue') {
+      setConnectionStatus(defaultStatus);
     }
     if (button.type === 'element') {
       setVirtualElement(notVirtualElement);
@@ -244,6 +251,7 @@ function App() {
           onClickButton={handleClickButton}
         />} />
         <Route path='/cable' element={<CableForm
+          connection={connectionStatus}
           centralElement={centralElement}
           onClickButton={handleClickButton}
           onSubmitForm={createCable}

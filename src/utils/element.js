@@ -1,4 +1,4 @@
-import { getElementPosition } from './position';
+import { getVerticalPosition } from './position';
 
 export const notElement = {
   id: 'noId',
@@ -6,8 +6,9 @@ export const notElement = {
   type: 'noType',
   listName: 'nolist',
   pos: 0,
-  position: { left: '0px', bottom: '50%' },
-  pagePosition: { right: '0px', transition: 'right 0.3s linear' },
+  posV: 0,
+  position: { left: '0px', top: '0px' },
+  pagePosition: { right: '0px' },
   blockStatus: 'noblock',
   cableList: []
 };
@@ -24,15 +25,16 @@ export const notVirtualElement = {
   pagePosition: { right: '0px' }
 };
 
-export const getSchemeElement = (button, pos) => {
+export const getSchemeElement = (button, pos, pageHeight) => {
   return {
     id: `e-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
     name: button.name,
     type: button.type,
     listName: 'motion',
     pos,
-    position: getElementPosition(pos, button.name),
-    pagePosition: { right: `${pos}px`, transition: 'right 0.3s linear' },
+    posV: getVerticalPosition(button.name, pageHeight),
+    position: { left: `${pos}px`, top: `${ getVerticalPosition(button.name, pageHeight) }px` },
+    pagePosition: { right: `${pos}px` },
     blockStatus: 'noblock',
     cableList: []
   };
@@ -49,19 +51,7 @@ export const getCableElement = (number, cable, cableElementList) => {
     position: cable.position,
     width: cable.width,
     height: cable.height,
-    line: cable.line,
+    path: cable.path,
     elementList: cableElementList
   };
 }
-
-export const getFilteredList = (element, elementList) => {
-  element.cableList.forEach((cable) => cable.listName = 'motion');
-  const filteredList = elementList.filter((element) => element.listName !== 'motion');
-  filteredList.forEach((element) => {
-    if (element.cableList) {
-      element.cableList = element.cableList.filter((cable) => cable.listName !== 'motion');
-    }
-  });
-  return filteredList;
-}
-

@@ -12,7 +12,7 @@ function CableLine({ element }) {
       strokeWidth="2"
       viewBox={`0 0 ${element.width} ${element.height}`}
     >
-      <path d={element.line} />
+      <path d={element.path} />
     </svg>
   );
 }

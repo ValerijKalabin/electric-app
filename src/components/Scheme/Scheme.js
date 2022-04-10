@@ -26,7 +26,7 @@ function Scheme({
       { !!elementList.length &&
         <div className="scheme__container" style={ getSchemeMarkup(pageHeight) }>
           <ul
-            className="scheme__list"
+            className={`scheme__list ${!virtualElement.position ? 'scheme__list_movable' : ''}`}
             style={!!virtualElement.position ? virtualElement.pagePosition : centralElement.pagePosition}
           >
             { elementList.map((element) => (
