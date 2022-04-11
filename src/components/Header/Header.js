@@ -1,27 +1,29 @@
 import { NavLink } from 'react-router-dom';
 import './Header.css';
 
-function Header({ elementList, isAllNavigationVisible }) {
+function Header({ elementList, isAppVisible, isAllNavigationVisible }) {
   return (
     <header className="header">
       <nav className="header__navigation">
         <ul className="header__list">
-          <li className={`
-            header__item
-            header__item_hints
-            ${!!elementList.length && isAllNavigationVisible ? 'header__item_visible' : ''}
-          `}>
-            <NavLink
-              to="/hints"
-              className={
-                (navData) => navData.isActive ?
-                "header__link header__link_hints header__link_active" :
-                "header__link header__link_hints"
-              }
-            >
-              ?
-            </NavLink>
-          </li>
+          { isAppVisible &&
+            <li className={`
+              header__item
+              header__item_hints
+              ${!!elementList.length && isAllNavigationVisible ? 'header__item_visible' : ''}
+            `}>
+              <NavLink
+                to="/hints"
+                className={
+                  (navData) => navData.isActive ?
+                  "header__link header__link_hints header__link_active" :
+                  "header__link header__link_hints"
+                }
+              >
+                ?
+              </NavLink>
+            </li>
+          }
           <li className="header__item">
             <NavLink
               to="/scheme"
@@ -60,24 +62,26 @@ function Header({ elementList, isAllNavigationVisible }) {
               Список
             </NavLink>
           </li>
-          <li className={`
-            header__item
-            header__item_elements
-            ${!!elementList.length && isAllNavigationVisible ? 'header__item_visible' : ''}
-          `}>
-            <NavLink
-              to="/elements"
-              className={
-                (navData) => navData.isActive ?
-                "header__link header__link_elements header__link_active" :
-                "header__link header__link_elements"
-              }
-            >
-              <svg className="bi bi-plus" width="26" height="26" fill="#d5d832" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-              </svg>
-            </NavLink>
-          </li>
+          { isAppVisible &&
+            <li className={`
+              header__item
+              header__item_elements
+              ${!!elementList.length && isAllNavigationVisible ? 'header__item_visible' : ''}
+            `}>
+              <NavLink
+                to="/elements"
+                className={
+                  (navData) => navData.isActive ?
+                  "header__link header__link_elements header__link_active" :
+                  "header__link header__link_elements"
+                }
+              >
+                <svg className="bi bi-plus" width="26" height="26" fill="#d5d832" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                </svg>
+              </NavLink>
+            </li>
+          }
         </ul>
       </nav>
     </header>

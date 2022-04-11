@@ -169,3 +169,9 @@
 .header__link_active.header__link_elements {
   background-color: transparent;
 }
+
+@media screen and (max-width: 360px) {
+  .header__navigation {
+    width: 100%;
+  }
+}

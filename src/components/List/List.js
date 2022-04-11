@@ -1,22 +1,6 @@
-import { useEffect, useState } from 'react';
 import './List.css';
 
 function List() {
-  const [scrollWidth, setScrollWidth] = useState(document.documentElement.scrollWidth);
-  const [scrollHeight, setScrollHeight] = useState(document.documentElement.scrollHeight);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setScrollWidth(document.documentElement.scrollWidth);
-      setScrollHeight(document.documentElement.scrollHeight);
-    }
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    }
-  }, []);
-
   return (
     <main className="list">
       <svg className="bi bi-boombox" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#bbbbbb" viewBox="0 0 16 16">
@@ -25,8 +9,8 @@ function List() {
         <path d="M7 10.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-1 0a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z"/>
         <path d="M14 0a.5.5 0 0 1 .5.5V2h.5a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h12.5V.5A.5.5 0 0 1 14 0ZM1 3v3h14V3H1Zm14 4H1v7h14V7Z"/>
       </svg>
-      <p className="list__size">scrollWidth: {scrollWidth}px</p>
-      <p className="list__size">scrollHeight: {scrollHeight}px</p>
+      <p className="list__size">innerWidth: {window.innerWidth}px</p>
+      <p className="list__size">innerHeight: {window.innerHeight}px</p>
     </main>
   );
 }

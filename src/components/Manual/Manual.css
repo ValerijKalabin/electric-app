@@ -1,5 +1,5 @@
 .manual {
-  max-width: 260px;
+  max-width: 230px;
   padding: 10px 10px 20px;
   margin: 0;
 }
@@ -30,6 +30,7 @@
   font-weight: 400;
   line-height: 15px;
   text-indent: 15px;
+  text-align: justify;
   color: #111111;
   background-color: #bbbbbb;
   box-sizing: border-box;

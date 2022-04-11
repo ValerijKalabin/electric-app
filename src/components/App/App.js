@@ -9,19 +9,21 @@ import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
 import List from '../List/List';
 import Footer from '../Footer/Footer';
+import Error from '../Error/Error';
 import CableForm from '../CableForm/CableForm';
 import ListOfElements from '../ListOfElements/ListOfElements';
 import ListOfHints from '../ListOfHints/ListOfHints';
 
 
 function App() {
+  const [pageHeight, setPageHeight] = useState(window.innerHeight);
+  const [isAppVisible, setAppVisibility] = useState(window.innerWidth > 359 && window.innerHeight > 499);
+  const [isAllNavigationVisible, setNavigationVisibility] = useState(false);
   const [schemeElementList, setSchemeElementList] = useState([]);
   const [cableElementList, setCableElementList] = useState([]);
   const [centralElement, setCentralElement] = useState({});
   const [connectionStatus, setConnectionStatus] = useState({});
   const [virtualElement, setVirtualElement] = useState(notVirtualElement);
-  const [pageHeight, setPageHeight] = useState(document.documentElement.scrollHeight);
-  const [isAllNavigationVisible, setNavigationVisibility] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -207,14 +209,15 @@ function App() {
 
   useEffect(() => {
     const handleResize = () => {
-      setPageHeight(document.documentElement.scrollHeight);
+      setAppVisibility(window.innerWidth > 359 && window.innerHeight > 499);
+      setPageHeight(window.innerHeight);
     }
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     }
   }, []);
-  
+
 
   useEffect(() => {
     if (location.pathname === '/scheme' || location.pathname === '/hints' || location.pathname === '/elements') {
@@ -229,36 +232,49 @@ function App() {
     <div className="app">
       <Header
         elementList={schemeElementList}
+        isAppVisible={isAppVisible}
         isAllNavigationVisible={isAllNavigationVisible}
       />
       <Routes>
         <Route path='/' element={<Manual />} />
-        <Route path='/scheme' element={<Scheme
-          pageHeight={pageHeight}
-          centralElement={centralElement}
-          virtualElement={virtualElement}
-          elementList={schemeElementList}
-          onClickButton={handleClickButton}
-          onSchemeStart={handleSchemeStart}
-          onSchemeStop={handleSchemeStop}
-          onSchemeMove={handleSchemeMove}
-        />} />
-        <Route path='/list' element={<List />} />
-        <Route path='/elements' element={<ListOfElements
-          centralElement={centralElement}
-          elementList={schemeElementList}
-          onClickButton={handleClickButton}
-        />} />
-        <Route path='/hints' element={<ListOfHints
-          centralElement={centralElement}
-          onClickButton={handleClickButton}
-        />} />
-        <Route path='/cable' element={<CableForm
-          connection={connectionStatus}
-          centralElement={centralElement}
-          onClickButton={handleClickButton}
-          onSubmitForm={createCable}
-        />} />
+        <Route path='/scheme' element={
+          isAppVisible ?
+          <Scheme
+            pageHeight={pageHeight}
+            centralElement={centralElement}
+            virtualElement={virtualElement}
+            elementList={schemeElementList}
+            onClickButton={handleClickButton}
+            onSchemeStart={handleSchemeStart}
+            onSchemeStop={handleSchemeStop}
+            onSchemeMove={handleSchemeMove}
+          /> : <Error />
+        } />
+        <Route path='/list' element={isAppVisible ? <List /> : <Error />} />
+        <Route path='/elements' element={
+          isAppVisible ?
+          <ListOfElements
+            centralElement={centralElement}
+            elementList={schemeElementList}
+            onClickButton={handleClickButton}
+          /> : <Error />
+        } />
+        <Route path='/hints' element={
+          isAppVisible ?
+          <ListOfHints
+            centralElement={centralElement}
+            onClickButton={handleClickButton}
+          /> : <Error />
+        } />
+        <Route path='/cable' element={
+          isAppVisible ?
+          <CableForm
+            connection={connectionStatus}
+            centralElement={centralElement}
+            onClickButton={handleClickButton}
+            onSubmitForm={createCable}
+          /> : <Error />
+        } />
       </Routes>
       <Footer />
     </div>
