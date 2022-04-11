@@ -118,7 +118,7 @@
   align-items: center;
   width: 41px;
   height: 46px;
-  transform: translate(-24px, -24px);
+  transform: translate(-24px, -12px);
   border-top: 1px solid #bbbbbb;
   border-left: 1px solid #bbbbbb;
   border-bottom: 1px solid #bbbbbb;
@@ -134,7 +134,7 @@
   justify-content: center;
   width: 36px;
   height: 46px;
-  transform: translate(-18px, -24px);
+  transform: translate(-18px, -12px);
   border-top: 1px solid #bbbbbb;
   border-bottom: 1px solid #bbbbbb;
 }
@@ -146,7 +146,7 @@
   align-items: center;
   width: 41px;
   height: 46px;
-  transform: translate(-18px, -24px);
+  transform: translate(-18px, -12px);
   border-top: 1px solid #bbbbbb;
   border-right: 1px solid #bbbbbb;
   border-bottom: 1px solid #bbbbbb;

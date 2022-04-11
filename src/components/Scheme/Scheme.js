@@ -6,7 +6,7 @@ import ListOfActions from '../ListOfActions/ListOfActions';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
 import Wheel from '../Wheel/Wheel';
-import { getSchemeMarkup } from '../../utils/position';
+import { schemeMarkup, getSchemeElementPosition } from '../../utils/position';
 import './Scheme.css';
 
 
@@ -24,15 +24,15 @@ function Scheme({
     <main className="scheme">
       { !elementList.length && <Wheel onClickButton={onClickButton} /> }
       { !!elementList.length &&
-        <div className="scheme__container" style={ getSchemeMarkup(pageHeight) }>
+        <div className="scheme__container" style={schemeMarkup}>
           <ul
-            className={`scheme__list ${!virtualElement.position ? 'scheme__list_movable' : ''}`}
-            style={!!virtualElement.position ? virtualElement.pagePosition : centralElement.pagePosition}
+            className={`scheme__list ${!virtualElement.pos ? 'scheme__list_movable' : ''}`}
+            style={!!virtualElement.pos ? { right: `${virtualElement.pos}px`} : { right: `${centralElement.pos}px`} }
           >
             { elementList.map((element) => (
               <li
                 key={element.id}
-                style={element.position}
+                style={getSchemeElementPosition(element)}
                 className={`
                   scheme__item
                   ${element.name === 'cable' ? 'scheme__item_cable' : ''}
@@ -60,7 +60,7 @@ function Scheme({
                   <Switch element={element} listName="nolist" onClickButton={onClickButton} />
                 }
                 { element.listName === 'nolist' && element.name === 'cable' &&
-                  <CableLine element={element} />
+                  <CableLine element={element} pageHeight={pageHeight} />
                 }
               </li>
             ))}

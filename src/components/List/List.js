@@ -2,12 +2,19 @@ import { useEffect, useState } from 'react';
 import './List.css';
 
 function List() {
-  const [scrollWidth, setScrollWidth] = useState('');
-  const [scrollHeight, setScrollHeight] = useState('');
+  const [scrollWidth, setScrollWidth] = useState(document.documentElement.scrollWidth);
+  const [scrollHeight, setScrollHeight] = useState(document.documentElement.scrollHeight);
 
   useEffect(() => {
-    setScrollWidth(document.documentElement.scrollWidth);
-    setScrollHeight(document.documentElement.scrollHeight);
+    const handleResize = () => {
+      setScrollWidth(document.documentElement.scrollWidth);
+      setScrollHeight(document.documentElement.scrollHeight);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    }
   }, []);
 
   return (

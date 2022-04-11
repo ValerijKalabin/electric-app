@@ -1,45 +1,10 @@
-import { step, getLine, getPosList } from "./position";
+import { getPosList } from "./position";
 
 export const defaultStatus = {
   isCorrect: true,
   toContinue: true,
   errorText: ''
 };
-
-
-const getPath = (xStart, xEnd, yStart, yEnd, pageHeight) => {
-  const line = getLine(pageHeight);
-  const xMax = Math.abs(xEnd - xStart);
-  const yMax = Math.abs(yEnd - yStart);
-  if (xEnd === xStart && yEnd !== yStart) return 'M 1 0 L 1 ' + String(yMax);
-  if (xEnd !== xStart && yEnd === yStart) return 'M 0 1 L ' + String(xMax) + ' 1';
-  if (xEnd !== xStart && yEnd !== yStart && (yStart === line.top || yEnd === line.top)) {
-    if ((xEnd > xStart && yEnd > yStart) || (xEnd < xStart && yEnd < yStart)) return 'M 1 0 L 1 ' + String(yMax * 0.3) + ' Q 1 ' + String(yMax * 0.5) + ' ' + String(xMax * 0.2) + ' ' + String(yMax * 0.6) + ' L ' + String(xMax) + ' ' + String(yMax);
-    if ((xEnd < xStart && yEnd > yStart) || (xEnd > xStart && yEnd < yStart)) return 'M ' + String(xMax - 1) + ' 0 L ' + String(xMax - 1) + ' ' + String(yMax * 0.3) + ' Q ' + String(xMax - 1) + ' ' + String(yMax * 0.5) + ' ' + String(xMax * 0.8) + ' ' + String(yMax * 0.6) + ' L 0 ' + String(yMax);
-  }
-  if (xEnd !== xStart && yEnd !== yStart && (yStart === line.bottom || yEnd === line.bottom)) {
-    if ((xEnd > xStart && yEnd > yStart) || (xEnd < xStart && yEnd < yStart)) return 'M ' + String(xMax - 1) + ' ' + String(yMax) + ' L ' + String(xMax - 1) + ' ' + String(yMax * 0.7) + ' Q ' + String(xMax - 1) + ' ' + String(yMax * 0.5) + ' ' + String(xMax * 0.8) + ' ' + String(yMax * 0.4) + ' L 0 0';
-    if ((xEnd < xStart && yEnd > yStart) || (xEnd > xStart && yEnd < yStart)) return 'M 1 ' + String(yMax) + ' L 1 ' + String(yMax * 0.7) + ' Q 1 ' + String(yMax * 0.5) + ' ' + String(xMax * 0.2) + ' ' + String(yMax * 0.4) + ' L ' + String(xMax - 1) + ' 0';
-  }
-}
-
-
-export const getCable = (cableElementList, pageHeight) => {
-  const xStart = cableElementList[0].pos;
-  const xEnd = cableElementList[1].pos;
-  const yStart = cableElementList[0].posV;
-  const yEnd = cableElementList[1].posV;
-
-  const position = {
-    left: `${xEnd < xStart ? xEnd : xStart}px`,
-    top: `${yEnd < yStart ? yEnd : yStart}px`
-  };
-  const width = xEnd !== xStart ? Math.abs(xEnd - xStart) : step;
-  const height = yEnd !== yStart ? Math.abs(yEnd - yStart) : step;
-  const path = getPath(xStart, xEnd, yStart, yEnd, pageHeight);
-
-  return { position, width, height, path };
-}
 
 
 export const getConnectionStatus = (elements, schemeElements) => {
@@ -50,7 +15,7 @@ export const getConnectionStatus = (elements, schemeElements) => {
         return {
           isCorrect: false,
           toContinue: false,
-          errorText: 'Такое соединение невозможно, измените расположение элементов на схеме'
+          errorText: 'Такое соединение не рекомендуется, измените расположение элементов на схеме'
         };
       }
     }
@@ -87,7 +52,7 @@ export const getConnectionStatus = (elements, schemeElements) => {
   if (elements.some((e) => e.name === 'auto-switch') && elements.some((e) => e.name === 'lamp')) {
     return {
       isCorrect: false,
-      toContinue: true,
+      toContinue: false,
       errorText: 'Не рекомендуется соединять между собой автомат и светильник'
     };
   }
@@ -101,18 +66,38 @@ export const getConnectionStatus = (elements, schemeElements) => {
   if (elements.some((e) => e.name === 'switch') && elements.some((e) => e.name === 'lamp')) {
     return {
       isCorrect: false,
-      toContinue: true,
+      toContinue: false,
       errorText: 'Не рекомендуется соединять между собой выключатель и светильник'
     };
   }
   if (elements.some((e) => e.name === 'socket') && elements.some((e) => e.name === 'lamp')) {
     return {
       isCorrect: false,
-      toContinue: true,
+      toContinue: false,
       errorText: 'Не рекомендуется соединять между собой розетку и светильник'
     };
   }
   return defaultStatus;
+}
+
+
+export const getPath = (elements, internalSpace) => {
+  const quotientPos = elements[1].pos - elements[0].pos;
+  const quotientPosV = elements[1].posV - elements[0].posV
+  const width = Math.abs(elements[1].pos - elements[0].pos);
+  const heightV = Math.abs(elements[1].posV - elements[0].posV);
+  const height = internalSpace / 2;
+
+  if (!width) return 'M 1 0 L 1 ' + String(height);
+  if (!heightV) return 'M 0 1 L ' + String(width) + ' 1';
+  if (!!width && heightV === 10) {
+    if (quotientPos * quotientPosV > 0) return 'M 1 0 L 1 ' + String(height * 0.3) + ' Q 1 ' + String(height * 0.5) + ' ' + String(width * 0.2) + ' ' + String(height * 0.6) + ' L ' + String(width) + ' ' + String(height);
+    if (quotientPos * quotientPosV < 0) return 'M ' + String(width - 1) + ' 0 L ' + String(width - 1) + ' ' + String(height * 0.3) + ' Q ' + String(width - 1) + ' ' + String(height * 0.5) + ' ' + String(width * 0.8) + ' ' + String(height * 0.6) + ' L 0 ' + String(height);
+  }
+  if (!!width && heightV === 20) {
+    if (quotientPos * quotientPosV > 0) return 'M ' + String(width - 1) + ' ' + String(height) + ' L ' + String(width - 1) + ' ' + String(height * 0.7) + ' Q ' + String(width - 1) + ' ' + String(height * 0.5) + ' ' + String(width * 0.8) + ' ' + String(height * 0.4) + ' L 0 0';
+    if (quotientPos * quotientPosV < 0) return 'M 1 ' + String(height) + ' L 1 ' + String(height * 0.7) + ' Q 1 ' + String(height * 0.5) + ' ' + String(width * 0.2) + ' ' + String(height * 0.4) + ' L ' + String(width - 1) + ' 0';
+  }
 }
 
 

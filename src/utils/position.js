@@ -1,33 +1,23 @@
 export const step = 36;
 
-export const getLine = (pageHeight) => {
-  const headerFooterBlocksHeight = 130;
-  const lineTop = 75;
-  const lineCenter = (pageHeight - headerFooterBlocksHeight) / 2;
-  const lineBottom = pageHeight - headerFooterBlocksHeight - lineTop;
-  return {
-    top: lineTop,
-    center: lineCenter,
-    bottom: lineBottom
-  }
+export const schemeMarkup = { backgroundImage: `
+    linear-gradient(to bottom, transparent 75px, #222 75px, #222 76px, transparent 76px),
+    linear-gradient(to bottom, transparent 50%, #222 50%, #222 calc(50% + 1px), transparent calc(50% + 1px)),
+    linear-gradient(to top, transparent 75px, #222 75px, #222 76px, transparent 76px)
+`}
+
+
+export const getPosV = (buttonName) => {
+  if (buttonName === 'lamp') return 40;
+  if (buttonName === 'junction-box') return 50;
+  if (buttonName === 'auto-switch' || buttonName === 'socket' || buttonName === 'switch') return 70;
 }
 
 
-export const getSchemeMarkup = (pageHeight) => {
-  const line = getLine(pageHeight);
-  return { backgroundImage: `
-    linear-gradient(to bottom, transparent ${line.top}px, #222 ${line.top}px, #222 ${line.top + 1}px, transparent ${line.top + 1}px),
-    linear-gradient(to bottom, transparent ${line.center}px, #222 ${line.center}px, #222 ${line.center + 1}px, transparent ${line.center + 1}px),
-    linear-gradient(to bottom, transparent ${line.bottom}px, #222 ${line.bottom}px, #222 ${line.bottom + 1}px, transparent ${line.bottom + 1}px)
-  `}
-}
-
-
-export const getVerticalPosition = (buttonName, pageHeight) => {
-  const line = getLine(pageHeight);
-  if (buttonName === 'lamp') return line.top;
-  if (buttonName === 'junction-box') return line.center;
-  if (buttonName === 'auto-switch' || buttonName === 'socket' || buttonName === 'switch') return line.bottom;
+export const getSchemeElementPosition = (element) => {
+  if (element.posV === 40) return { left: `${element.pos}px`, top: '75px' };
+  if (element.posV === 50) return { left: `${element.pos}px`, top: '50%' };
+  if (element.posV === 70) return { left: `${element.pos}px`, bottom: '39px' };
 }
 
 
@@ -53,7 +43,7 @@ export const getExpandedPosList = (currentItem, elementList) => {
 
 
 export const setNeighbors = (elementList) => {
-  const applicants = elementList.filter((element) => element.name !== 'lamp' && element.name !== 'junction-box');
+  const applicants = elementList.filter((element) => element.name === 'auto-switch' || element.name === 'socket' || element.name === 'switch');
   applicants.sort((element, nextElement) => element.pos - nextElement.pos);
   let index = 0
   while (index < applicants.length) {

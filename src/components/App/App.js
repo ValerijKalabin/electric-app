@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
 import { notVirtualElement, getCableElement, getSchemeElement } from '../../utils/element';
-import { defaultStatus, getConnectionStatus, getCable, getFilteredList } from '../../utils/cable';
+import { defaultStatus, getConnectionStatus, getFilteredList } from '../../utils/cable';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -20,7 +20,7 @@ function App() {
   const [centralElement, setCentralElement] = useState({});
   const [connectionStatus, setConnectionStatus] = useState({});
   const [virtualElement, setVirtualElement] = useState(notVirtualElement);
-  const [pageHeight, setPageHeight] = useState(0);
+  const [pageHeight, setPageHeight] = useState(document.documentElement.scrollHeight);
   const [isAllNavigationVisible, setNavigationVisibility] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,7 +39,7 @@ function App() {
     while (posList.includes(pos)) {
       pos = pos + step;
     }
-    const newElement = getSchemeElement(button, pos, pageHeight);
+    const newElement = getSchemeElement(button, pos);
     elements.forEach((element) => element.listName = 'nolist');
     setCentralElement(newElement);
     saveSchemeElementList([...elements, newElement]);
@@ -82,8 +82,6 @@ function App() {
         movableElement.pos = movableElement.pos + step;
       }
     }
-    movableElement.position = { left: `${movableElement.pos}px`, top: `${movableElement.posV}px` };
-    movableElement.pagePosition = { right: `${movableElement.pos}px` };
     movableElement.cableList = [];
     setCentralElement(movableElement);
     saveSchemeElementList([...filteredElementList, movableElement]);
@@ -123,8 +121,7 @@ function App() {
 
 
   function createCable(number) {
-    const cable = getCable(cableElementList, pageHeight);
-    const newElement = getCableElement(number, cable, cableElementList);
+    const newElement = getCableElement(number, cableElementList);
     cableElementList.forEach((element) => element.cableList.push(newElement));
     saveSchemeElementList([...schemeElementList, newElement]);
     navigate('/scheme');
@@ -195,23 +192,29 @@ function App() {
     if (Math.abs(newVirtualElement.cursorOffset) > 15) {
       const newElementList = [...schemeElementList];
       newElementList.forEach((element) => element.listName = 'nolist');
-      newVirtualElement.position = newVirtualElement.position ? newVirtualElement.position : centralElement.pos;
+      newVirtualElement.pos = newVirtualElement.pos ? newVirtualElement.pos : centralElement.pos;
       newVirtualElement.isMovingScheme = true;
       newVirtualElement.isButtonPressed = false
       newVirtualElement.cursorOffset = 0;
       setVirtualElement(newVirtualElement);
     }
     if (newVirtualElement.isMovingScheme) {
-      newVirtualElement.position = newVirtualElement.position + (newVirtualElement.startPosition - clientX) / newVirtualElement.divider;
-      newVirtualElement.pagePosition = { right: `${newVirtualElement.position}px` };
+      newVirtualElement.pos = newVirtualElement.pos + (newVirtualElement.startPosition - clientX) / newVirtualElement.divider;
       setVirtualElement(newVirtualElement);
     }
   }
 
 
   useEffect(() => {
-    setPageHeight(document.documentElement.scrollHeight);
+    const handleResize = () => {
+      setPageHeight(document.documentElement.scrollHeight);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    }
   }, []);
+  
 
   useEffect(() => {
     if (location.pathname === '/scheme' || location.pathname === '/hints' || location.pathname === '/elements') {
