@@ -8,7 +8,7 @@ export const defaultStatus = {
 
 
 export const getConnectionStatus = (elements, schemeElements) => {
-  if(elements[0].posV === elements[1].posV && elements[0].name !== 'junction-box') {
+  if(elements[0].posV === elements[1].posV) {
       const positions = getPosList(elements[0], schemeElements);
       elements.sort((element, nextElement) => element.pos - nextElement.pos);
       if(positions.some((pos) => pos > elements[0].pos && pos < elements[1].pos)) {
@@ -52,7 +52,7 @@ export const getConnectionStatus = (elements, schemeElements) => {
   if (elements.some((e) => e.name === 'auto-switch') && elements.some((e) => e.name === 'lamp')) {
     return {
       isCorrect: false,
-      toContinue: false,
+      toContinue: true,
       errorText: 'Не рекомендуется соединять между собой автомат и светильник'
     };
   }
@@ -66,14 +66,14 @@ export const getConnectionStatus = (elements, schemeElements) => {
   if (elements.some((e) => e.name === 'switch') && elements.some((e) => e.name === 'lamp')) {
     return {
       isCorrect: false,
-      toContinue: false,
+      toContinue: true,
       errorText: 'Не рекомендуется соединять между собой выключатель и светильник'
     };
   }
   if (elements.some((e) => e.name === 'socket') && elements.some((e) => e.name === 'lamp')) {
     return {
       isCorrect: false,
-      toContinue: false,
+      toContinue: true,
       errorText: 'Не рекомендуется соединять между собой розетку и светильник'
     };
   }
@@ -86,7 +86,7 @@ export const getPath = (elements, internalSpace) => {
   const quotientPosV = elements[1].posV - elements[0].posV
   const width = Math.abs(elements[1].pos - elements[0].pos);
   const heightV = Math.abs(elements[1].posV - elements[0].posV);
-  const height = internalSpace / 2;
+  const height = heightV < 30 ? internalSpace / 2 : internalSpace;
 
   if (!width) return 'M 1 0 L 1 ' + String(height);
   if (!heightV) return 'M 0 1 L ' + String(width) + ' 1';
@@ -97,6 +97,10 @@ export const getPath = (elements, internalSpace) => {
   if (!!width && heightV === 20) {
     if (quotientPos * quotientPosV > 0) return 'M ' + String(width - 1) + ' ' + String(height) + ' L ' + String(width - 1) + ' ' + String(height * 0.7) + ' Q ' + String(width - 1) + ' ' + String(height * 0.5) + ' ' + String(width * 0.8) + ' ' + String(height * 0.4) + ' L 0 0';
     if (quotientPos * quotientPosV < 0) return 'M 1 ' + String(height) + ' L 1 ' + String(height * 0.7) + ' Q 1 ' + String(height * 0.5) + ' ' + String(width * 0.2) + ' ' + String(height * 0.4) + ' L ' + String(width - 1) + ' 0';
+  }
+  if (!!width && heightV === 30) {
+    if (quotientPos * quotientPosV > 0) return 'M 0 0 L ' + String(width) +  ' ' + String(height);
+    if (quotientPos * quotientPosV < 0) return 'M ' + String(width) + ' 0 L 0 ' + String(height);
   }
 }
 

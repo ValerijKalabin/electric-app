@@ -21,6 +21,13 @@ export const getSchemeElementPosition = (element) => {
 }
 
 
+export const gerCableHeight = (heightV, internalSpace) => {
+  if (heightV === 0) return step;
+  if (heightV < 30) return internalSpace / 2;
+  if (heightV === 30) return internalSpace;
+}
+
+
 export const getPosList = (currentItem, elementList) => {
   const similarElementList = elementList.filter((element) => {
     if (currentItem.name === 'auto-switch' || currentItem.name === 'socket' || currentItem.name === 'switch') {

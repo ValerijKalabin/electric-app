@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { step } from '../../utils/position';
+import { gerCableHeight, step } from '../../utils/position';
 import { getPath } from '../../utils/cable';
 import './CableLine.css';
 
@@ -13,7 +13,7 @@ function CableLine({ element, pageHeight }) {
     const internalSpace = pageHeight - outerHeight - innerPadding;
     const width = Math.abs(elements[1].pos - elements[0].pos) || step;
     const heightV = Math.abs(elements[1].posV - elements[0].posV);
-    const height = !!heightV ? internalSpace / 2 : step;
+    const height = gerCableHeight(heightV, internalSpace);
     const viewBox = `0 0 ${width} ${height}`;
     const path = getPath(elements, internalSpace);
     setCable({ width, height, viewBox, path });
