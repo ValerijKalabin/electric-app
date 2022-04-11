@@ -18,14 +18,7 @@ const getCableType = (cableElements, schemeElements) => {
 }
 
 
-export const getCableColor = (cableType) => {
-  if (cableType === 'vertical-long') return '#656514';
-  if (cableType === 'horizontal-top' || cableType === 'horizontal-bottom') return '#154a6b';
-  return '#bbbbbb';
-}
-
-
-export const getConnectionStatus = (elements, schemeElements) => {
+export const getCableStatus = (elements, schemeElements) => {
   const connectionStatus = {
     cableType: '',
     isCorrect: true,
@@ -78,13 +71,27 @@ export const getConnectionStatus = (elements, schemeElements) => {
   if(connectionStatus.cableType === 'no-connection') {
     connectionStatus.isCorrect = false;
     connectionStatus.toContinue = false;
-    connectionStatus.errorText = 'Такое соединение не рекомендуется, измените расположение элементов на схеме';
+    connectionStatus.errorText = 'Такому соединению мешают другие элементы, измените расположение элементов на схеме';
   }
   return connectionStatus;
 }
 
 
-export const getPath = (elements, internalSpace, type) => {
+export const getCableHeight = (heightV, internalSpace) => {
+  if (heightV === 0) return step;
+  if (heightV < maxHeightV) return internalSpace / 2;
+  if (heightV === maxHeightV) return internalSpace;
+}
+
+
+export const getCableColor = (cableType) => {
+  if (cableType === 'vertical-long') return '#656514';
+  if (cableType === 'horizontal-top' || cableType === 'horizontal-bottom') return '#154a6b';
+  return '#bbbbbb';
+}
+
+
+export const getCablePath = (elements, internalSpace, type) => {
   const quotientPos = elements[1].pos - elements[0].pos;
   const quotientPosV = elements[1].posV - elements[0].posV
   const width = Math.abs(elements[1].pos - elements[0].pos);
@@ -110,7 +117,7 @@ export const getPath = (elements, internalSpace, type) => {
 }
 
 
-export const getFilteredList = (element, elementList) => {
+export const getFilteredElementList = (element, elementList) => {
   element.cableList.forEach((cable) => cable.listName = 'motion');
   const filteredList = elementList.filter((element) => element.listName !== 'motion');
   filteredList.forEach((element) => {

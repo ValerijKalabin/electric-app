@@ -1,37 +1,33 @@
 export const step = 36;
 export const stepV = 5;
-export const topHeightV = 10;
-export const bottomHeightV = 20;
-export const maxHeightV = 30;
+export const topPosV = 40;
+export const middlePosV = 50;
+export const bottomPosV = 70;
+export const topHeightV = middlePosV - topPosV;
+export const bottomHeightV = bottomPosV - middlePosV;
+export const maxHeightV = bottomPosV - topPosV;
 
 export const schemeMarkup = { backgroundImage: `
-    linear-gradient(to bottom, transparent 75px, #222 75px, #222 76px, transparent 76px),
-    linear-gradient(to bottom, transparent 50%, #222 50%, #222 calc(50% + 1px), transparent calc(50% + 1px)),
-    linear-gradient(to top, transparent 75px, #222 75px, #222 76px, transparent 76px)
+  linear-gradient(to bottom, transparent 75px, #222 75px, #222 76px, transparent 76px),
+  linear-gradient(to bottom, transparent 50%, #222 50%, #222 calc(50% + 1px), transparent calc(50% + 1px)),
+  linear-gradient(to top, transparent 75px, #222 75px, #222 76px, transparent 76px)
 `}
 
 
 export const getPosV = (buttonName) => {
-  if (buttonName === 'lamp') return 40;
-  if (buttonName === 'junction-box') return 50;
-  if (buttonName === 'auto-switch' || buttonName === 'socket' || buttonName === 'switch') return 70;
+  if (buttonName === 'lamp') return topPosV;
+  if (buttonName === 'junction-box') return middlePosV;
+  if (buttonName === 'auto-switch' || buttonName === 'socket' || buttonName === 'switch') return bottomPosV;
 }
 
 
 export const getSchemeElementPosition = (element) => {
-  if (element.posV === 35) return { left: `${element.pos}px`, top: '39px' };
-  if (element.posV === 40) return { left: `${element.pos}px`, top: '75px' };
-  if (element.posV === 45) return { left: `${element.pos}px`, top: 'calc(50% - 36px)' };
-  if (element.posV === 50) return { left: `${element.pos}px`, top: '50%' };
-  if (element.posV === 65) return { left: `${element.pos}px`, bottom: '75px' };
-  if (element.posV === 70) return { left: `${element.pos}px`, bottom: '39px' };
-}
-
-
-export const gerCableHeight = (heightV, internalSpace) => {
-  if (heightV === 0) return step;
-  if (heightV === 10 || heightV === 20) return internalSpace / 2;
-  if (heightV === 30) return internalSpace;
+  if (element.posV === topPosV - stepV) return { left: `${element.pos}px`, top: '39px' };
+  if (element.posV === topPosV) return { left: `${element.pos}px`, top: '75px' };
+  if (element.posV === middlePosV - stepV) return { left: `${element.pos}px`, top: 'calc(50% - 36px)' };
+  if (element.posV === middlePosV) return { left: `${element.pos}px`, top: '50%' };
+  if (element.posV === bottomPosV - stepV) return { left: `${element.pos}px`, bottom: '75px' };
+  if (element.posV === bottomPosV) return { left: `${element.pos}px`, bottom: '39px' };
 }
 
 

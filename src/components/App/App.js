@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
 import { notVirtualElement, getCableElement, getSchemeElement } from '../../utils/element';
-import { getConnectionStatus, getFilteredList } from '../../utils/cable';
+import { getCableStatus, getFilteredElementList } from '../../utils/cable';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -22,7 +22,7 @@ function App() {
   const [schemeElementList, setSchemeElementList] = useState([]);
   const [cableElementList, setCableElementList] = useState([]);
   const [centralElement, setCentralElement] = useState({});
-  const [connectionStatus, setConnectionStatus] = useState({});
+  const [cableStatus, setCableStatus] = useState({});
   const [virtualElement, setVirtualElement] = useState(notVirtualElement);
   const navigate = useNavigate();
   const location = useLocation();
@@ -60,7 +60,7 @@ function App() {
       elements.forEach((element) => element.id === button.id ? element.listName = 'motion' : element.listName = 'nolist');
       const cableElement = elements.find((element) => element.listName === 'motion');
       setCableElementList([centralElement, cableElement]);
-      setConnectionStatus(getConnectionStatus([centralElement, cableElement], schemeElementList));
+      setCableStatus(getCableStatus([centralElement, cableElement], schemeElementList));
       setCentralElement(cableElement);
       saveSchemeElementList(elements);
       navigate('/cable');
@@ -70,7 +70,7 @@ function App() {
 
   function relocationElement(button) {
     const movableElement = schemeElementList.find((element) => element.listName === 'motion');
-    const filteredElementList = getFilteredList(movableElement, schemeElementList);
+    const filteredElementList = getFilteredElementList(movableElement, schemeElementList);
     const posList = getPosList(movableElement, schemeElementList);
     if (button.name === 'left') {
       movableElement.pos = movableElement.pos - step;
@@ -92,7 +92,7 @@ function App() {
 
   function deleteElement() {
     const deletedElement = schemeElementList.find((element) => element.listName === 'motion');
-    const filteredElementList = getFilteredList(deletedElement, schemeElementList);
+    const filteredElementList = getFilteredElementList(deletedElement, schemeElementList);
     if (filteredElementList.length !== 0) {
       setCentralElement(deletedElement);
     } else {
@@ -119,18 +119,16 @@ function App() {
       saveSchemeElementList([...newElementList, cableElement]);
       navigate('/scheme');
     }
-  }
-
-
-  function confirmCable() {
-    const newStatus = {...connectionStatus};
-    newStatus.isCorrect = true;
-    setConnectionStatus(newStatus);
+    if (button.name === 'continue') {
+      const newStatus = {...cableStatus};
+      newStatus.isCorrect = true;
+      setCableStatus(newStatus);
+    }
   }
 
 
   function createCable(length) {
-    const newElement = getCableElement(length, cableElementList, connectionStatus);
+    const newElement = getCableElement(length, cableElementList, cableStatus);
     cableElementList.forEach((element) => element.cableList.push(newElement));
     saveSchemeElementList([...schemeElementList, newElement]);
     navigate('/scheme');
@@ -153,11 +151,8 @@ function App() {
       saveSchemeElementList([]);
       navigate('/scheme');
     }
-    if (button.name === 'cable' || button.name === 'cancel') {
+    if (button.name === 'cable' || button.name === 'cancel' || button.name === 'continue') {
       startCable(button);
-    }
-    if (button.name === 'continue') {
-      confirmCable();
     }
     if (button.type === 'element') {
       setVirtualElement(notVirtualElement);
@@ -276,7 +271,7 @@ function App() {
         <Route path='/cable' element={
           isAppVisible ?
           <CableForm
-            connection={connectionStatus}
+            cable={cableStatus}
             centralElement={centralElement}
             onClickButton={handleClickButton}
             onSubmitForm={createCable}

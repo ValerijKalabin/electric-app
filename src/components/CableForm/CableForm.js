@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './CableForm.css';
 
-function CableForm({ connection, centralElement, onClickButton, onSubmitForm }) {
+function CableForm({ cable, centralElement, onClickButton, onSubmitForm }) {
   const [numberValue, setNumberValue] = useState('');
   const [numberError, setNumberError] = useState('');
   const [numberValidity, setNumberValidity] = useState(false);
@@ -33,10 +33,10 @@ function CableForm({ connection, centralElement, onClickButton, onSubmitForm }) 
 
   return (
     <main className="magnitude">
-      <h1 className={`magnitude__title ${connection.isCorrect ? '' : 'magnitude__title_attention'}`}>
-        {connection.isCorrect ? 'Длина кабеля' : 'Внимание!'}
+      <h1 className={`magnitude__title ${cable.isCorrect ? '' : 'magnitude__title_attention'}`}>
+        {cable.isCorrect ? 'Длина кабеля' : 'Внимание!'}
       </h1>
-      { connection.isCorrect &&
+      { cable.isCorrect &&
         <form
           className="magnitude__form"
           name="magnitude"
@@ -79,11 +79,11 @@ function CableForm({ connection, centralElement, onClickButton, onSubmitForm }) 
           </div>
         </form>
       }
-      { !connection.isCorrect &&
+      { !cable.isCorrect &&
         <div className="magnitude__error">
-          <p className="magnitude__text">{connection.errorText}</p>
+          <p className="magnitude__text">{cable.errorText}</p>
           <div className="magnitude__buttons">
-            { connection.toContinue &&
+            { cable.toContinue &&
               <button
                 className="magnitude__continue"
                 type="button"
