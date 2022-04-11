@@ -1,4 +1,8 @@
 export const step = 36;
+export const stepV = 5;
+export const topHeightV = 10;
+export const bottomHeightV = 20;
+export const maxHeightV = 30;
 
 export const schemeMarkup = { backgroundImage: `
     linear-gradient(to bottom, transparent 75px, #222 75px, #222 76px, transparent 76px),
@@ -15,15 +19,18 @@ export const getPosV = (buttonName) => {
 
 
 export const getSchemeElementPosition = (element) => {
+  if (element.posV === 35) return { left: `${element.pos}px`, top: '39px' };
   if (element.posV === 40) return { left: `${element.pos}px`, top: '75px' };
+  if (element.posV === 45) return { left: `${element.pos}px`, top: 'calc(50% - 36px)' };
   if (element.posV === 50) return { left: `${element.pos}px`, top: '50%' };
+  if (element.posV === 65) return { left: `${element.pos}px`, bottom: '75px' };
   if (element.posV === 70) return { left: `${element.pos}px`, bottom: '39px' };
 }
 
 
 export const gerCableHeight = (heightV, internalSpace) => {
   if (heightV === 0) return step;
-  if (heightV < 30) return internalSpace / 2;
+  if (heightV === 10 || heightV === 20) return internalSpace / 2;
   if (heightV === 30) return internalSpace;
 }
 

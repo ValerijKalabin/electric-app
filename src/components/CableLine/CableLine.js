@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { gerCableHeight, step } from '../../utils/position';
-import { getPath } from '../../utils/cable';
+import { getCableColor, getPath } from '../../utils/cable';
 import './CableLine.css';
 
 function CableLine({ element, pageHeight }) {
@@ -14,9 +14,10 @@ function CableLine({ element, pageHeight }) {
     const width = Math.abs(elements[1].pos - elements[0].pos) || step;
     const heightV = Math.abs(elements[1].posV - elements[0].posV);
     const height = gerCableHeight(heightV, internalSpace);
+    const color = getCableColor(element.type);
     const viewBox = `0 0 ${width} ${height}`;
-    const path = getPath(elements, internalSpace);
-    setCable({ width, height, viewBox, path });
+    const path = getPath(elements, internalSpace, element.type);
+    setCable({ width, height, color, viewBox, path });
   }, [ element, pageHeight ])
 
   return (
@@ -26,7 +27,7 @@ function CableLine({ element, pageHeight }) {
       width={cable.width}
       height={cable.height}
       fill="transparent"
-      stroke="#bbbbbb"
+      stroke={cable.color}
       strokeWidth="2"
       viewBox={cable.viewBox}
     >

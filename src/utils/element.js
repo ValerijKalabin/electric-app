@@ -1,4 +1,4 @@
-import { getPosV } from './position';
+import { getPosV, stepV } from './position';
 
 export const notElement = {
   id: 'noId',
@@ -35,16 +35,18 @@ export const getSchemeElement = (button, pos) => {
   };
 }
 
-export const getCableElement = (length, elements) => {
+export const getCableElement = (length, elements, status) => {
+  const defaultPosV = elements[1].posV < elements[0].posV ? elements[1].posV : elements[0].posV;
+  const posV = status.cableType === 'horizontal-top' ? defaultPosV - stepV : defaultPosV;
   return {
     id: `c-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
     name: 'cable',
-    type: 'element',
+    type: status.cableType,
     listName: 'nolist',
     blockStatus: 'noblock',
     length,
     pos: elements[1].pos < elements[0].pos ? elements[1].pos : elements[0].pos,
-    posV: elements[1].posV < elements[0].posV ? elements[1].posV : elements[0].posV,
+    posV,
     elementList: elements
   };
 }

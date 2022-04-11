@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
 import { notVirtualElement, getCableElement, getSchemeElement } from '../../utils/element';
-import { defaultStatus, getConnectionStatus, getFilteredList } from '../../utils/cable';
+import { getConnectionStatus, getFilteredList } from '../../utils/cable';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -122,8 +122,15 @@ function App() {
   }
 
 
-  function createCable(number) {
-    const newElement = getCableElement(number, cableElementList);
+  function confirmCable() {
+    const newStatus = {...connectionStatus};
+    newStatus.isCorrect = true;
+    setConnectionStatus(newStatus);
+  }
+
+
+  function createCable(length) {
+    const newElement = getCableElement(length, cableElementList, connectionStatus);
     cableElementList.forEach((element) => element.cableList.push(newElement));
     saveSchemeElementList([...schemeElementList, newElement]);
     navigate('/scheme');
@@ -150,7 +157,7 @@ function App() {
       startCable(button);
     }
     if (button.name === 'continue') {
-      setConnectionStatus(defaultStatus);
+      confirmCable();
     }
     if (button.type === 'element') {
       setVirtualElement(notVirtualElement);
