@@ -170,7 +170,7 @@ function App() {
     const newVirtualElement = {...virtualElement};
     newVirtualElement.isButtonPressed = true;
     newVirtualElement.startPosition = event.clientX || event.changedTouches[0].clientX;
-    newVirtualElement.divider = event.type === 'touchstart' ? 15 : 30;
+    newVirtualElement.divider = event.type === 'touchstart' ? 20 : 30;
     setVirtualElement(newVirtualElement);
   }
 
@@ -230,7 +230,7 @@ function App() {
 
 
   return (
-    <div className="app">
+    <div className="app" style={{ minHeight: `${pageHeight}px` }}>
       <Header
         elementList={schemeElementList}
         isAppVisible={isAppVisible}

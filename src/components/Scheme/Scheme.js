@@ -6,7 +6,7 @@ import ListOfActions from '../ListOfActions/ListOfActions';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
 import Wheel from '../Wheel/Wheel';
-import { schemeMarkup, getSchemeElementPosition } from '../../utils/position';
+import { outerHeight, schemeMarkup, getSchemeElementPosition } from '../../utils/position';
 import './Scheme.css';
 
 
@@ -21,13 +21,16 @@ function Scheme({
   onSchemeMove
 }) {
   return (
-    <main className="scheme">
+    <main className="scheme" style={{ height: `${pageHeight - outerHeight}px` }}>
       { !elementList.length && <Wheel onClickButton={onClickButton} /> }
       { !!elementList.length &&
         <div className="scheme__container" style={schemeMarkup}>
           <ul
             className={`scheme__list ${!virtualElement.pos ? 'scheme__list_movable' : ''}`}
-            style={!!virtualElement.pos ? { right: `${virtualElement.pos}px`} : { right: `${centralElement.pos}px`} }
+            style={ !!virtualElement.pos
+              ? { right: `${virtualElement.pos}px`, height: `${pageHeight - outerHeight}px`}
+              : { right: `${centralElement.pos}px`, height: `${pageHeight - outerHeight}px`}
+            }
           >
             { elementList.map((element) => (
               <li

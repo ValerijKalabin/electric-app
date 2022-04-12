@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { step } from '../../utils/position';
+import { step, outerHeight, innerPadding } from '../../utils/position';
 import { getCableHeight, getCableColor, getCablePath } from '../../utils/cable';
 import './CableLine.css';
 
@@ -8,8 +8,6 @@ function CableLine({ element, pageHeight }) {
 
   useEffect(() => {
     const elements = element.elementList;
-    const outerHeight = 130;
-    const innerPadding = 150;
     const internalSpace = pageHeight - outerHeight - innerPadding;
     const width = Math.abs(elements[1].pos - elements[0].pos) || step;
     const heightV = Math.abs(elements[1].posV - elements[0].posV);

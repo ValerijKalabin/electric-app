@@ -3,7 +3,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: calc(100vh - 130px);
   padding: 0;
   margin: 0;
   overflow: hidden;
@@ -15,7 +14,6 @@
   align-items: center;
   position: relative;
   width: 100%;
-  height: calc(100vh - 130px);
   padding: 0;
   margin: 0;
 }
@@ -28,7 +26,7 @@
   left: 0;
   background-image: repeating-linear-gradient(-90deg, #222, #222 1px, transparent 1px, transparent 36px);
   width: 50%;
-  height: calc(100vh - 130px);
+  height: 100%;
   padding: 0;
   margin: 0;
   z-index: 2;
@@ -42,7 +40,7 @@
   right: 0;
   background-image: repeating-linear-gradient(90deg, transparent, transparent 35px, #222 35px, #222 36px);
   width: 50%;
-  height: calc(100vh - 130px);
+  height: 100%;
   padding: 0;
   margin: 0;
   z-index: 2;
@@ -52,7 +50,7 @@
   list-style-type: none;
   display: block;
   position: relative;
-  height: calc(100vh - 130px);
+  width: 0;
   padding: 0;
   margin: 0;
 }

@@ -1,4 +1,6 @@
 export const step = 36;
+export const outerHeight = 100;
+export const innerPadding = 150;
 export const stepV = 5;
 export const topPosV = 40;
 export const middlePosV = 50;
