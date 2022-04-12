@@ -1,3 +1,4 @@
+import { getCablePosList } from './cable';
 import { getPosV, stepV } from './position';
 
 export const notElement = {
@@ -47,6 +48,7 @@ export const getCableElement = (length, elements, status) => {
     length,
     pos: elements[1].pos < elements[0].pos ? elements[1].pos : elements[0].pos,
     posV,
+    posList: getCablePosList(elements, status),
     elementList: elements
   };
 }

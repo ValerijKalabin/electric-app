@@ -1,19 +1,29 @@
-import { step, topHeightV, bottomHeightV, maxHeightV } from "./position";
+import { step, stepV, topHeightV, bottomHeightV, maxHeightV } from "./position";
 
 
 const getCableType = (cableElements, schemeElements) => {
-  if(Math.abs(cableElements[1].posV - cableElements[0].posV) === maxHeightV) return 'vertical-long';
-  if(cableElements[1].posV !== cableElements[0].posV) return 'vertical';
-  cableElements.sort((element, nextElement) => element.pos - nextElement.pos);
-  const obstacles = schemeElements.filter((element) => {
-    return element.name !== 'cable' && element.posV === cableElements[0].posV
-    && element.pos > cableElements[0].pos && element.pos < cableElements[1].pos;
-  });
-  if(!obstacles.length) return 'horizontal';
-  const topObstacle = obstacles.find((obstacle) => obstacle.cableList.some((cable) => cable.type === 'horizontal-top'));
-  if(!topObstacle) return 'horizontal-top';
-  const bottomObstacle = obstacles.find((obstacle) => obstacle.cableList.some((cable) => cable.type === 'horizontal-bottom'));
-  if(!bottomObstacle) return 'horizontal-bottom';
+  const heightV = Math.abs(cableElements[1].posV - cableElements[0].posV);
+  if(heightV === maxHeightV) {
+    const centerPos = (cableElements[0].pos + cableElements[1].pos) / 2;
+    const requiredPositions = centerPos % step === 0 ? [centerPos] : [centerPos - step / 2, centerPos + step / 2];
+    const elementsPositions = schemeElements.map((element) => element.name === 'junction-box' && element.pos);
+    if (!elementsPositions.some((elementPos) => requiredPositions.some((pos) => pos === elementPos))) return 'vertical-long';
+    return 'no-connection';
+  }
+  if(heightV === topHeightV || heightV === bottomHeightV) return 'vertical';
+  if(heightV === 0) {
+    cableElements.sort((element, nextElement) => element.pos - nextElement.pos);
+    if(!schemeElements.some((element) => element.posV === cableElements[0].posV &&
+    element.pos > cableElements[0].pos && element.pos < cableElements[1].pos)) return 'horizontal';
+
+    const topCables = schemeElements.filter((element) => element.type === 'horizontal-top' && element.posV === cableElements[0].posV - stepV);
+    const topPositions = topCables.reduce((positions, cable) => positions.concat(cable.posList), []);
+    if(!topPositions.some((pos) => pos > cableElements[0].pos && pos < cableElements[1].pos)) return 'horizontal-top';
+
+    const bottomCables = schemeElements.filter((element) => element.type === 'horizontal-bottom' && element.posV === cableElements[0].posV);
+    const bottomPositions = bottomCables.reduce((positions, cable) =>  positions.concat(cable.posList), []);
+    if(!bottomPositions.some((pos) => pos > cableElements[0].pos && pos < cableElements[1].pos)) return 'horizontal-bottom';
+  }
   return 'no-connection';
 }
 
@@ -77,6 +87,24 @@ export const getCableStatus = (elements, schemeElements) => {
 }
 
 
+export const getCablePosList = (elements, status) => {
+  if (status.cableType === 'vertical') return [];
+  if (status.cableType === 'vertical-long') {
+    const centerPos = (elements[0].pos + elements[1].pos) / 2;
+    if (centerPos % step === 0) return [centerPos];
+    return [centerPos - step / 2, centerPos + step / 2];
+  }
+  elements.sort((element, nextElement) => element.pos - nextElement.pos);
+  const posList = [];
+  let pos = elements[0].pos + step;
+  while (pos < elements[1].pos) {
+    posList.push(pos);
+    pos = pos + step;
+  }
+  return posList;
+}
+
+
 export const getCableHeight = (heightV, internalSpace) => {
   if (heightV === 0) return step;
   if (heightV < maxHeightV) return internalSpace / 2;
@@ -87,7 +115,7 @@ export const getCableHeight = (heightV, internalSpace) => {
 export const getCableColor = (cableType) => {
   if (cableType === 'vertical-long') return '#656514';
   if (cableType === 'horizontal-top' || cableType === 'horizontal-bottom') return '#154a6b';
-  return '#bbbbbb';
+  return '#888888';
 }
 
 
