@@ -268,13 +268,12 @@ function App() {
           /> : <Error />
         } />
         <Route path='/cable' element={
-          isAppVisible ?
           <CableForm
             cable={cableStatus}
             centralElement={centralElement}
             onClickButton={handleClickButton}
             onSubmitForm={createCable}
-          /> : <Error />
+          />
         } />
       </Routes>
       <Footer />
