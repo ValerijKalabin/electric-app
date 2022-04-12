@@ -31,19 +31,21 @@ export const getSchemeElementPosition = (element) => {
 }
 
 
-export const getPosList = (currentItem, elementList) => {
-  const similarElementList = elementList.filter((element) => {
-    if (currentItem.name === 'auto-switch' || currentItem.name === 'socket' || currentItem.name === 'switch') {
-      return element.name === 'auto-switch' || element.name === 'socket' || element.name === 'switch';
-    }
-    return element.name === currentItem.name;
-  });
-  return similarElementList.map((element) => element.pos);
+export const getPosList = (posV, elementList) => {
+  const positionOfElements = elementList.map((element) => element.posV === posV && element.name !== 'cable' && element.pos);
+  const cables = elementList.filter((element) => element.posV === posV && element.type === 'horizontal');
+  const positionOfCables = cables.reduce((positions, cable) => positions.concat(cable.posList), []);
+  if(posV === middlePosV) {
+    const longCables = elementList.filter((element) => element.type === 'vertical-long');
+    const positionOfLongCables = longCables.reduce((positions, cable) => positions.concat(cable.posList), []);
+    return [...positionOfCables, ...positionOfElements, ...positionOfLongCables];
+  }
+  return [...positionOfCables, ...positionOfElements];
 }
 
 
-export const getExpandedPosList = (currentItem, elementList) => {
-  const positionOfElements = getPosList(currentItem, elementList);
+export const getExpandedPosList = (button, elementList) => {
+  const positionOfElements = getPosList(getPosV(button.name), elementList);
   positionOfElements.forEach((pos) => {
     positionOfElements.push(pos - step);
     positionOfElements.push(pos + step);

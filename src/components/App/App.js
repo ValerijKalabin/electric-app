@@ -30,7 +30,6 @@ function App() {
 
   function saveSchemeElementList(elements) {
     setNeighbors(elements);
-    console.log(elements); // delete !!!
     setSchemeElementList(elements);
   }
 
@@ -71,7 +70,7 @@ function App() {
   function relocationElement(button) {
     const movableElement = schemeElementList.find((element) => element.listName === 'motion');
     const filteredElementList = getFilteredElementList(movableElement, schemeElementList);
-    const posList = getPosList(movableElement, schemeElementList);
+    const posList = getPosList(movableElement.posV, schemeElementList);
     if (button.name === 'left') {
       movableElement.pos = movableElement.pos - step;
       while (posList.includes(movableElement.pos)) {

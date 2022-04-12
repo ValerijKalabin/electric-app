@@ -10,7 +10,8 @@ const getCableType = (cableElements, schemeElements) => {
     if (!elementsPositions.some((elementPos) => requiredPositions.some((pos) => pos === elementPos))) return 'vertical-long';
     return 'no-connection';
   }
-  if(heightV === topHeightV || heightV === bottomHeightV) return 'vertical';
+  if(heightV === topHeightV) return 'vertical-top';
+  if(heightV === bottomHeightV) return 'vertical-bottom';
   if(heightV === 0) {
     cableElements.sort((element, nextElement) => element.pos - nextElement.pos);
     if(!schemeElements.some((element) => element.posV === cableElements[0].posV &&
@@ -127,18 +128,18 @@ export const getCablePath = (elements, internalSpace, type) => {
   const height = heightV === maxHeightV ? internalSpace : internalSpace / 2;
 
   if (!width) return 'M 1 0 L 1 ' + String(height);
-  if (!heightV && type === 'horizontal') return 'M 0 1 L ' + String(width) + ' 1';
-  if (!heightV && type === 'horizontal-top') return 'M 1 ' + String(step) + ' L 1 ' + String(step / 4) + ' Q 1 1 ' + String(step / 4) + ' 1 L ' + String(width - (step / 4)) + ' 1 Q ' + String(width - 1) + ' 1 ' + String(width - 1) + ' ' + String(step / 4) + ' L ' + String(width - 1) + ' ' + String(step);
-  if (!heightV && type === 'horizontal-bottom') return 'M 1 0 L 1 ' + String(step * 3 / 4) + ' Q 1 ' + String(step - 1) + ' ' + String(step / 4) + ' ' + String(step - 1) + ' L ' + String(width - (step / 4)) + ' ' + String(step - 1) + ' Q ' + String(width - 1) + ' ' + String(step - 1) + ' ' + String(width - 1) + ' ' + String(step * 3 / 4) + ' L ' + String(width - 1) + ' 0';
-  if (!!width && heightV === topHeightV) {
+  if (type === 'horizontal') return 'M 0 1 L ' + String(width) + ' 1';
+  if (type === 'horizontal-top') return 'M 1 ' + String(step) + ' L 1 ' + String(step / 4) + ' Q 1 1 ' + String(step / 4) + ' 1 L ' + String(width - (step / 4)) + ' 1 Q ' + String(width - 1) + ' 1 ' + String(width - 1) + ' ' + String(step / 4) + ' L ' + String(width - 1) + ' ' + String(step);
+  if (type === 'horizontal-bottom') return 'M 1 0 L 1 ' + String(step * 3 / 4) + ' Q 1 ' + String(step - 1) + ' ' + String(step / 4) + ' ' + String(step - 1) + ' L ' + String(width - (step / 4)) + ' ' + String(step - 1) + ' Q ' + String(width - 1) + ' ' + String(step - 1) + ' ' + String(width - 1) + ' ' + String(step * 3 / 4) + ' L ' + String(width - 1) + ' 0';
+  if (type === 'vertical-top') {
     if (quotientPos * quotientPosV > 0) return 'M 1 0 L 1 ' + String(height * 0.3) + ' Q 1 ' + String(height * 0.5) + ' ' + String(width * 0.2) + ' ' + String(height * 0.6) + ' L ' + String(width) + ' ' + String(height);
     if (quotientPos * quotientPosV < 0) return 'M ' + String(width - 1) + ' 0 L ' + String(width - 1) + ' ' + String(height * 0.3) + ' Q ' + String(width - 1) + ' ' + String(height * 0.5) + ' ' + String(width * 0.8) + ' ' + String(height * 0.6) + ' L 0 ' + String(height);
   }
-  if (!!width && heightV === bottomHeightV) {
+  if (type === 'vertical-bottom') {
     if (quotientPos * quotientPosV > 0) return 'M ' + String(width - 1) + ' ' + String(height) + ' L ' + String(width - 1) + ' ' + String(height * 0.7) + ' Q ' + String(width - 1) + ' ' + String(height * 0.5) + ' ' + String(width * 0.8) + ' ' + String(height * 0.4) + ' L 0 0';
     if (quotientPos * quotientPosV < 0) return 'M 1 ' + String(height) + ' L 1 ' + String(height * 0.7) + ' Q 1 ' + String(height * 0.5) + ' ' + String(width * 0.2) + ' ' + String(height * 0.4) + ' L ' + String(width - 1) + ' 0';
   }
-  if (!!width && heightV === maxHeightV) {
+  if (type === 'vertical-long') {
     if (quotientPos * quotientPosV > 0) return 'M 0 0 L ' + String(width) +  ' ' + String(height);
     if (quotientPos * quotientPosV < 0) return 'M ' + String(width) + ' 0 L 0 ' + String(height);
   }
