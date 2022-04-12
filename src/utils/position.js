@@ -55,20 +55,25 @@ export const getExpandedPosList = (button, elementList) => {
 
 
 export const setNeighbors = (elementList) => {
-  const applicants = elementList.filter((element) => element.name === 'auto-switch' || element.name === 'socket' || element.name === 'switch');
+  const applicants = elementList.filter((element) => element.name === 'socket' || element.name === 'switch' || element.name === 'auto-switch');
   applicants.sort((element, nextElement) => element.pos - nextElement.pos);
+  applicants.forEach((element) => element.elementsInBlock = 1);
   let index = 0
+  let elementsInBlock = 0;
   while (index < applicants.length) {
     applicants[index].blockStatus = 'noblock';
+    elementsInBlock = 1;
     if (applicants[index + 1] !== undefined && applicants[index].pos + step === applicants[index + 1].pos) {
       applicants[index].blockStatus = 'first';
       index = index + 1;
       while (index < applicants.length && applicants[index - 1].pos + step === applicants[index].pos) {
         applicants[index].blockStatus = 'middle';
+        elementsInBlock = elementsInBlock + 1;
         index = index + 1;
       }
       index = index - 1;
       applicants[index].blockStatus = 'last';
+      applicants[index].elementsInBlock = applicants[index].name !== 'auto-switch' ? elementsInBlock : 1;
     }
     index = index + 1;
   }

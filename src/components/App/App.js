@@ -251,7 +251,7 @@ function App() {
             onSchemeMove={handleSchemeMove}
           /> : <Error />
         } />
-        <Route path='/list' element={isAppVisible ? <List /> : <Error />} />
+        <Route path='/list' element={ isAppVisible ? <List elementList={schemeElementList} /> : <Error /> } />
         <Route path='/elements' element={
           isAppVisible ?
           <ListOfElements

@@ -32,6 +32,7 @@ export const getSchemeElement = (button, pos) => {
     pos,
     posV: getPosV(button.name),
     blockStatus: 'noblock',
+    elementsInBlock: 1,
     cableList: []
   };
 }

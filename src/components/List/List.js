@@ -1,16 +1,92 @@
+import { useEffect, useState } from 'react';
 import './List.css';
 
-function List() {
+function List({ elementList }) {
+  const [materials, setMaterials] = useState([]);
+
+  useEffect (() => {
+    const autoSwitch = elementList.reduce((number, element) => element.name === 'auto-switch' ? number + 1 : number, 0);
+    const junctionBox = elementList.reduce((number, element) => element.name === 'junction-box' ? number + 1 : number, 0);
+    const lamp = elementList.reduce((number, element) => element.name === 'lamp' ? number + 1 : number, 0);
+    const toggle = elementList.reduce((number, element) => element.name === 'switch' ? number + 1 : number, 0);
+    const socket = elementList.reduce((number, element) => element.name === 'socket' ? number + 1 : number, 0);
+    const cable = elementList.reduce((number, element) => element.name === 'cable' ? number + Number(element.length) : number, 0);
+    const frameForTwo = elementList.reduce((number, element) => element.elementsInBlock === 2 ? number + 1 : number, 0);
+    const frameForThree = elementList.reduce((number, element) => element.elementsInBlock === 3 ? number + 1 : number, 0);
+    const frameForFour = elementList.reduce((number, element) => element.elementsInBlock === 4 ? number + 1 : number, 0);
+    const frameForFive = elementList.reduce((number, element) => element.elementsInBlock === 5 ? number + 1 : number, 0);
+    const frameForSix = elementList.reduce((number, element) => element.elementsInBlock === 6 ? number + 1 : number, 0)
+    const frameForOne = toggle + socket - frameForTwo * 2 - frameForThree * 3 - frameForFour * 4 - frameForFive * 5 -frameForSix * 6;
+
+    setMaterials([
+      {
+        material: 'Автоматические выключатели, шт',
+        number: autoSwitch
+      },
+      {
+        material: 'Распаечные коробки, шт',
+        number: junctionBox
+      },
+      {
+        material: 'Светильники, шт',
+        number: lamp
+      },
+      {
+        material: 'Выключатели, шт',
+        number: toggle
+      },
+      {
+        material: 'Розетки, шт',
+        number: socket
+      },
+      {
+        material: 'Соединительный кабель, м',
+        number: cable
+      },
+      {
+        material: 'Рамки для розеток и выключателей на один пост, шт',
+        number: frameForOne
+      },
+      {
+        material: 'Рамки для розеток и выключателей на два поста, шт',
+        number: frameForTwo
+      },
+      {
+        material: 'Рамки для розеток и выключателей на три поста, шт',
+        number: frameForThree
+      },
+      {
+        material: 'Рамки для розеток и выключателей на четыре поста, шт',
+        number: frameForFour
+      },
+      {
+        material: 'Рамки для розеток и выключателей на пять постов, шт',
+        number: frameForFive
+      },
+      {
+        material: 'Рамки для розеток и выключателей на шесть постов, шт',
+        number: frameForSix
+      }
+    ]);
+  }, [ elementList ]);
+
   return (
-    <main className="list">
-      <svg className="bi bi-boombox" xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="#bbbbbb" viewBox="0 0 16 16">
-        <path d="M2.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm2 0a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm7.5-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm1.5.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1Zm-7-1a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1h-3Zm5.5 6.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>
-        <path d="M11.5 13a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm0-1a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3ZM5 10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"/>
-        <path d="M7 10.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-1 0a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z"/>
-        <path d="M14 0a.5.5 0 0 1 .5.5V2h.5a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h12.5V.5A.5.5 0 0 1 14 0ZM1 3v3h14V3H1Zm14 4H1v7h14V7Z"/>
-      </svg>
-      <p className="list__size">innerWidth: {window.innerWidth}px</p>
-      <p className="list__size">innerHeight: {window.innerHeight}px</p>
+    <main className="materials">
+      <h1 className="materials__title">{ !!elementList.length ? 'Материалы' : 'Здесь будет список материалов' }</h1>
+      <ul className="materials__list">
+        { materials.map((item, index) => (
+          <li className="materials__item" key={`m${index}`}>
+            { !!item.number &&
+              <div className="materials__container">
+                <div className="materials__label">
+                  <p className="materials__name">{item.material}</p>
+                </div>
+                <p className="materials__number">{item.number}</p>
+              </div>
+            }
+          </li>
+        ))}
+      </ul>
     </main>
   );
 }
