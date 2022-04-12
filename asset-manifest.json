@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/electric-app/static/css/main.616e1804.css",
-    "main.js": "/electric-app/static/js/main.f36e18e7.js",
+    "main.css": "/electric-app/static/css/main.0876235a.css",
+    "main.js": "/electric-app/static/js/main.56257478.js",
     "static/js/787.d1f09bd2.chunk.js": "/electric-app/static/js/787.d1f09bd2.chunk.js",
     "static/media/electrician.png": "/electric-app/static/media/electrician.6ad6dc0acba7520bf3af.png",
     "index.html": "/electric-app/index.html",
-    "main.616e1804.css.map": "/electric-app/static/css/main.616e1804.css.map",
-    "main.f36e18e7.js.map": "/electric-app/static/js/main.f36e18e7.js.map",
+    "main.0876235a.css.map": "/electric-app/static/css/main.0876235a.css.map",
+    "main.56257478.js.map": "/electric-app/static/js/main.56257478.js.map",
     "787.d1f09bd2.chunk.js.map": "/electric-app/static/js/787.d1f09bd2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.616e1804.css",
-    "static/js/main.f36e18e7.js"
+    "static/css/main.0876235a.css",
+    "static/js/main.56257478.js"
   ]
 }
