@@ -130,7 +130,7 @@ function App() {
     const newElement = getCableElement(length, cableElementList, cableStatus);
     cableElementList.forEach((element) => element.cableList.push(newElement));
     saveSchemeElementList([...schemeElementList, newElement]);
-    navigate('/scheme');
+    setTimeout(() => navigate('/scheme'), 60);
   }
 
 
