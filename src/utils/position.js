@@ -32,7 +32,7 @@ export const getSchemeElementPosition = (element) => {
 
 
 export const getPosList = (posV, elementList) => {
-  const positionOfElements = elementList.map((element) => element.posV === posV && element.name !== 'cable' && element.pos);
+  const positionOfElements = elementList.map((element) => element.posV === posV && element.type === 'element' && element.pos);
   const cables = elementList.filter((element) => element.posV === posV && element.type === 'horizontal');
   const positionOfCables = cables.reduce((positions, cable) => positions.concat(cable.posList), []);
   if(posV === middlePosV) {

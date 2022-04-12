@@ -72,17 +72,17 @@ export const getCableStatus = (elements, schemeElements) => {
     connectionStatus.toContinue = true;
     connectionStatus.errorText = 'Не рекомендуется соединять между собой розетку и светильник';
   }
+  if(connectionStatus.cableType === 'no-connection') {
+    connectionStatus.isCorrect = false;
+    connectionStatus.toContinue = false;
+    connectionStatus.errorText = 'Такому соединению мешают другие элементы, измените расположение элементов на схеме';
+  }
   if (!!elements[0].cableList.length && !!elements[1].cableList.length &&
     elements[0].cableList.some((cable) => cable.elementList[0].id === elements[1].id ||
     cable.elementList[1].id === elements[1].id)) {
     connectionStatus.isCorrect = false;
     connectionStatus.toContinue = true;
     connectionStatus.errorText = 'Такое соединение уже существует';
-  }
-  if(connectionStatus.cableType === 'no-connection') {
-    connectionStatus.isCorrect = false;
-    connectionStatus.toContinue = false;
-    connectionStatus.errorText = 'Такому соединению мешают другие элементы, измените расположение элементов на схеме';
   }
   return connectionStatus;
 }
@@ -116,7 +116,7 @@ export const getCableHeight = (heightV, internalSpace) => {
 export const getCableColor = (cableType) => {
   if (cableType === 'vertical-long') return '#656514';
   if (cableType === 'horizontal-top' || cableType === 'horizontal-bottom') return '#154a6b';
-  return '#888888';
+  return '#777777';
 }
 
 
