@@ -69,6 +69,7 @@ function Scheme({
             ))}
           </ul>
           <button
+            style={{ height: `${pageHeight - outerHeight}px` }}
             className="scheme__coat"
             type="button"
             name="scheme"
