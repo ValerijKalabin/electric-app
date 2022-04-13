@@ -1,5 +1,5 @@
 .materials {
-  max-width: 450px;
+  width: 420px;
   padding: 25px 15px;
   margin: 0;
 }
@@ -13,7 +13,7 @@
   color: #bbbbbb;
   box-sizing: border-box;
   width: 100%;
-  padding: 0;
+  padding: 0 71px 0 0;
   margin: 0 0 20px;
 }
 
@@ -76,3 +76,11 @@
   padding: 0 10px;
   margin: 0;
 }
+
+@media screen and (max-width: 450px) {
+  .materials {
+    box-sizing: border-box;
+    width: 100%;
+  }
+}
+

@@ -72,7 +72,7 @@ function App() {
   function relocationElement(button) {
     const movableElement = schemeElementList.find((element) => element.listName === 'motion');
     const filteredElementList = getFilteredElementList(movableElement, schemeElementList);
-    const posList = getPosList(movableElement.posV, schemeElementList);
+    const posList = getPosList(movableElement, schemeElementList);
     if (button.name === 'left') {
       movableElement.pos = movableElement.pos - step;
       while (posList.includes(movableElement.pos)) {
@@ -196,7 +196,7 @@ function App() {
     }
     if (Math.abs(newVirtualElement.cursorOffset) > 15) {
       const newElementList = [...schemeElementList];
-      newElementList.forEach((element) => element.listName = 'nolist');
+      newElementList.forEach((element) => element.listName === 'cable' ? element.listName = 'cable' : element.listName = 'nolist');
       newVirtualElement.pos = newVirtualElement.pos ? newVirtualElement.pos : centralElement.pos;
       newVirtualElement.isMovingScheme = true;
       newVirtualElement.isButtonPressed = false

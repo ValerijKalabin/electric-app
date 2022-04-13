@@ -6,7 +6,7 @@ const getCableType = (cableElements, schemeElements) => {
   if(heightV === maxHeightV) {
     const centerPos = (cableElements[0].pos + cableElements[1].pos) / 2;
     const requiredPositions = centerPos % step === 0 ? [centerPos] : [centerPos - step / 2, centerPos + step / 2];
-    const elementsPositions = schemeElements.map((element) => element.name === 'junction-box' && element.pos);
+    const elementsPositions = schemeElements.map((element) => element.name === 'junction-box' ? element.pos : NaN);
     if (!elementsPositions.some((elementPos) => requiredPositions.some((pos) => pos === elementPos))) return 'vertical-long';
     return 'no-connection';
   }

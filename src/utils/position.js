@@ -33,8 +33,17 @@ export const getSchemeElementPosition = (element) => {
 }
 
 
-export const getPosList = (posV, elementList) => {
-  const positionOfElements = elementList.map((element) => element.posV === posV && element.type === 'element' && element.pos);
+export const setExpandedPosList = (positions) => {
+  positions.forEach((pos) => {
+    positions.push(pos - step);
+    positions.push(pos + step);
+  });
+}
+
+
+export const getPosList = (item, elementList) => {
+  const posV = getPosV(item.name);
+  const positionOfElements = elementList.map((element) => element.posV === posV && element.type === 'element' ? element.pos : NaN);
   const cables = elementList.filter((element) => element.posV === posV && element.type === 'horizontal');
   const positionOfCables = cables.reduce((positions, cable) => positions.concat(cable.posList), []);
   if(posV === middlePosV) {
@@ -42,16 +51,24 @@ export const getPosList = (posV, elementList) => {
     const positionOfLongCables = longCables.reduce((positions, cable) => positions.concat(cable.posList), []);
     return [...positionOfCables, ...positionOfElements, ...positionOfLongCables];
   }
+  if(posV === bottomPosV) {
+    const positionOfAutoSwitches = elementList.map((element) => element.name === 'auto-switch' ? element.pos : NaN);
+    const positionOfSwitchesAndSockets = elementList.map((element) => element.name === 'switch' || element.name === 'socket' ? element.pos : NaN);
+    if(item.name === 'auto-switch') {
+      setExpandedPosList(positionOfSwitchesAndSockets);
+    }
+    if(item.name === 'switch' || item.name === 'socket') {
+      setExpandedPosList(positionOfAutoSwitches);
+    }
+    return [...positionOfCables, ...positionOfSwitchesAndSockets, ...positionOfAutoSwitches];
+  }
   return [...positionOfCables, ...positionOfElements];
 }
 
 
 export const getExpandedPosList = (button, elementList) => {
-  const positionOfElements = getPosList(getPosV(button.name), elementList);
-  positionOfElements.forEach((pos) => {
-    positionOfElements.push(pos - step);
-    positionOfElements.push(pos + step);
-  });
+  const positionOfElements = getPosList(button, elementList);
+  setExpandedPosList(positionOfElements);
   return positionOfElements;
 }
 
