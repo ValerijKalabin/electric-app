@@ -14,8 +14,8 @@ const getCableType = (cableElements, schemeElements) => {
   if(heightV === bottomHeightV) return 'vertical-bottom';
   if(heightV === 0) {
     cableElements.sort((element, nextElement) => element.pos - nextElement.pos);
-    if(!schemeElements.some((element) => element.posV === cableElements[0].posV &&
-    element.pos > cableElements[0].pos && element.pos < cableElements[1].pos)) return 'horizontal';
+    if(!schemeElements.some((element) => element.posV === cableElements[0].posV && element.name !== 'cable'
+    && element.pos > cableElements[0].pos && element.pos < cableElements[1].pos)) return 'horizontal';
 
     const topCables = schemeElements.filter((element) => element.type === 'horizontal-top' && element.posV === cableElements[0].posV - stepV);
     const topPositions = topCables.reduce((positions, cable) => positions.concat(cable.posList), []);
