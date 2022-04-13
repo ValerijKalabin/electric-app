@@ -1,12 +1,10 @@
 import './Error.css';
 
-function Error() {
+function Error({ windowError }) {
   return (
     <main className="error">
-      <h1 className="error__title">Ошибка</h1>
-      <p className="error__message">
-        Попробуйте открыть приложение на другом устройстве. Размеры его экрана должны быть немного больше.
-      </p>
+      <h1 className="error__title">{ windowError.title }</h1>
+      <p className="error__message">{ windowError.text }</p>
     </main>
   );
 }

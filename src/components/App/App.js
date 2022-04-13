@@ -4,6 +4,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
 import { notVirtualElement, getCableElement, getSchemeElement } from '../../utils/element';
 import { getCableStatus, getFilteredElementList } from '../../utils/cable';
+import { defaultWindowError, savingWindowError } from '../../utils/errors';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -19,6 +20,7 @@ function App() {
   const [pageHeight, setPageHeight] = useState(window.innerHeight);
   const [isAppVisible, setAppVisibility] = useState(window.innerWidth > 359 && window.innerHeight > 499);
   const [isAllNavigationVisible, setNavigationVisibility] = useState(false);
+  const [windowError, setWindowError] = useState(defaultWindowError);
   const [schemeElementList, setSchemeElementList] = useState([]);
   const [cableElementList, setCableElementList] = useState([]);
   const [centralElement, setCentralElement] = useState({});
@@ -130,7 +132,9 @@ function App() {
     const newElement = getCableElement(length, cableElementList, cableStatus);
     cableElementList.forEach((element) => element.cableList.push(newElement));
     saveSchemeElementList([...schemeElementList, newElement]);
-    setTimeout(() => navigate('/scheme'), 60);
+    setWindowError(savingWindowError);
+    navigate('/scheme');
+    setWindowError(defaultWindowError);
   }
 
 
@@ -239,33 +243,40 @@ function App() {
       <Routes>
         <Route path='/' element={<Manual />} />
         <Route path='/scheme' element={
-          isAppVisible ?
-          <Scheme
-            pageHeight={pageHeight}
-            centralElement={centralElement}
-            virtualElement={virtualElement}
-            elementList={schemeElementList}
-            onClickButton={handleClickButton}
-            onSchemeStart={handleSchemeStart}
-            onSchemeStop={handleSchemeStop}
-            onSchemeMove={handleSchemeMove}
-          /> : <Error />
+          isAppVisible
+          ? <Scheme
+              pageHeight={pageHeight}
+              centralElement={centralElement}
+              virtualElement={virtualElement}
+              elementList={schemeElementList}
+              onClickButton={handleClickButton}
+              onSchemeStart={handleSchemeStart}
+              onSchemeStop={handleSchemeStop}
+              onSchemeMove={handleSchemeMove}
+            />
+          : <Error windowError={windowError} />
         } />
-        <Route path='/list' element={ isAppVisible ? <List elementList={schemeElementList} /> : <Error /> } />
+        <Route path='/list' element={
+          isAppVisible
+          ? <List elementList={schemeElementList} />
+          : <Error windowError={windowError} />
+        } />
         <Route path='/elements' element={
-          isAppVisible ?
-          <ListOfElements
-            centralElement={centralElement}
-            elementList={schemeElementList}
-            onClickButton={handleClickButton}
-          /> : <Error />
+          isAppVisible
+          ? <ListOfElements
+              centralElement={centralElement}
+              elementList={schemeElementList}
+              onClickButton={handleClickButton}
+            />
+          : <Error windowError={windowError} />
         } />
         <Route path='/hints' element={
-          isAppVisible ?
-          <ListOfHints
-            centralElement={centralElement}
-            onClickButton={handleClickButton}
-          /> : <Error />
+          isAppVisible
+          ? <ListOfHints
+              centralElement={centralElement}
+              onClickButton={handleClickButton}
+            />
+          : <Error windowError={windowError} />
         } />
         <Route path='/cable' element={
           <CableForm
