@@ -19,64 +19,64 @@ function ListOfElements({
       <ul className="elements__list">
         { elementList.length > 1 && elementList.some((element) => element.listName === 'motion') &&
           <li className="elements__item">
-            <div className="elements__container">
-              <Cable id={centralElement.id} listName="elements" onClickButton={onClickButton} />
-            </div>
             <div className="elements__label">
               <p className="elements__text">
                 Добавить в схему соединительный кабель
               </p>
             </div>
+            <div className="elements__container">
+              <Cable id={centralElement.id} listName="elements" onClickButton={onClickButton} />
+            </div>
           </li>
         }
         <li className="elements__item">
-          <div className="elements__container">
-            <AutoSwitch id={centralElement.id} listName="elements" onClickButton={onClickButton} />
-          </div>
           <div className="elements__label">
             <p className="elements__text">
               Добавить в схему автоматический выключатель
             </p>
           </div>
+          <div className="elements__container">
+            <AutoSwitch id={centralElement.id} listName="elements" onClickButton={onClickButton} />
+          </div>
         </li>
         <li className="elements__item">
-          <div className="elements__container">
-            <JunctionBox id={centralElement.id} listName="elements" onClickButton={onClickButton} />
-          </div>
           <div className="elements__label">
             <p className="elements__text">
               Добавить в схему распаечную коробку
             </p>
           </div>
+          <div className="elements__container">
+            <JunctionBox id={centralElement.id} listName="elements" onClickButton={onClickButton} />
+          </div>
         </li>
         <li className="elements__item">
-          <div className="elements__container">
-            <Lamp id={centralElement.id} listName="elements" onClickButton={onClickButton} />
-          </div>
           <div className="elements__label">
             <p className="elements__text">
               Добавить в схему светильник
             </p>
           </div>
+          <div className="elements__container">
+            <Lamp id={centralElement.id} listName="elements" onClickButton={onClickButton} />
+          </div>
         </li>
         <li className="elements__item">
-          <div className="elements__container">
-            <Socket id={centralElement.id} listName="elements" onClickButton={onClickButton} />
-          </div>
           <div className="elements__label">
             <p className="elements__text">
               Добавить в схему розетку
             </p>
           </div>
+          <div className="elements__container">
+            <Socket id={centralElement.id} listName="elements" onClickButton={onClickButton} />
+          </div>
         </li>
         <li className="elements__item">
-          <div className="elements__container">
-            <Switch id={centralElement.id} listName="elements" onClickButton={onClickButton} />
-          </div>
           <div className="elements__label">
             <p className="elements__text">
               Добавить в схему выключатель
             </p>
+          </div>
+          <div className="elements__container">
+            <Switch id={centralElement.id} listName="elements" onClickButton={onClickButton} />
           </div>
         </li>
       </ul>
