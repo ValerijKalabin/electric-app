@@ -4,7 +4,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
 import { notVirtualElement, getCableElement, getSchemeElement } from '../../utils/element';
 import { getCableStatus, getFilteredElementList } from '../../utils/cable';
-import { defaultWindowError, savingWindowError } from '../../utils/errors';
+import { sizingWindowError, savingWindowError } from '../../utils/errors';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
 import Scheme from '../Scheme/Scheme';
@@ -20,7 +20,7 @@ function App() {
   const [pageHeight, setPageHeight] = useState(window.innerHeight);
   const [isAppVisible, setAppVisibility] = useState(window.innerWidth > 359 && window.innerHeight > 499);
   const [isAllNavigationVisible, setNavigationVisibility] = useState(false);
-  const [windowError, setWindowError] = useState(defaultWindowError);
+  const [windowError, setWindowError] = useState(sizingWindowError);
   const [schemeElementList, setSchemeElementList] = useState([]);
   const [cableElementList, setCableElementList] = useState([]);
   const [centralElement, setCentralElement] = useState({});
@@ -132,9 +132,7 @@ function App() {
     const newElement = getCableElement(length, cableElementList, cableStatus);
     cableElementList.forEach((element) => element.cableList.push(newElement));
     saveSchemeElementList([...schemeElementList, newElement]);
-    setWindowError(savingWindowError);
     navigate('/scheme');
-    setWindowError(defaultWindowError);
   }
 
 
@@ -216,12 +214,17 @@ function App() {
     const handleResize = () => {
       setAppVisibility(window.innerWidth > 359 && window.innerHeight > 499);
       setPageHeight(window.innerHeight);
+      if(location.pathname === '/cable') {
+        setWindowError(savingWindowError);
+      } else {
+        setWindowError(sizingWindowError);
+      }
     }
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     }
-  }, []);
+  }, [ location ]);
 
 
   useEffect(() => {
@@ -230,7 +233,7 @@ function App() {
     } else {
       setNavigationVisibility(false);
     }
-  }, [location]);
+  }, [ location ]);
 
 
   return (
