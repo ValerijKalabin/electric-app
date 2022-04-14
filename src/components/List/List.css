@@ -17,6 +17,10 @@
   margin: 0 0 20px;
 }
 
+.materials__title_nomaterials {
+  padding: 0;
+}
+
 .materials__list {
   list-style-type: none;
   padding: 0;

@@ -40,7 +40,7 @@ function App() {
     const posList = getExpandedPosList(button, elements);
     let pos = centralElement.pos || 0;
     while (posList.includes(pos)) {
-      pos = pos + step;
+      pos = pos - step;
     }
     const newElement = getSchemeElement(button, pos);
     elements.forEach((element) => element.listName = 'nolist');

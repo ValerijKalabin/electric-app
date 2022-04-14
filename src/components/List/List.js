@@ -16,7 +16,7 @@ function List({ elementList }) {
     const frameForFour = elementList.reduce((number, element) => element.elementsInBlock === 4 ? number + 1 : number, 0);
     const frameForFive = elementList.reduce((number, element) => element.elementsInBlock === 5 ? number + 1 : number, 0);
     const frameForSix = elementList.reduce((number, element) => element.elementsInBlock === 6 ? number + 1 : number, 0)
-    const frameForOne = toggle + socket - frameForTwo * 2 - frameForThree * 3 - frameForFour * 4 - frameForFive * 5 -frameForSix * 6;
+    const frameForOne = toggle + socket - frameForTwo * 2 - frameForThree * 3 - frameForFour * 4 - frameForFive * 5 - frameForSix * 6;
 
     setMaterials([
       {
@@ -72,7 +72,9 @@ function List({ elementList }) {
 
   return (
     <main className="materials">
-      <h1 className="materials__title">{ !!elementList.length ? 'Материалы' : 'Здесь будет список материалов' }</h1>
+      <h1 className={`materials__title ${!elementList.length ? 'materials__title_nomaterials' : ''}`}>
+        { !elementList.length ? 'Здесь будет список материалов' : 'Материалы' }
+      </h1>
       <ul className="materials__list">
         { materials.map((item, index) => (
           <li className="materials__item" key={`m${index}`}>

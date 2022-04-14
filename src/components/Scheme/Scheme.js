@@ -27,9 +27,10 @@ function Scheme({
         <div className="scheme__container" style={schemeMarkup}>
           <ul
             className={`scheme__list ${!virtualElement.pos ? 'scheme__list_movable' : ''}`}
-            style={ !!virtualElement.pos
-              ? { right: `${virtualElement.pos}px`, height: `${pageHeight - outerHeight}px`}
-              : { right: `${centralElement.pos}px`, height: `${pageHeight - outerHeight}px`}
+            style={
+              !!virtualElement.pos
+              ? { right: `${virtualElement.pos}px`, height: `${pageHeight - outerHeight}px` }
+              : { right: `${centralElement.pos}px`, height: `${pageHeight - outerHeight}px` }
             }
           >
             { elementList.map((element) => (
