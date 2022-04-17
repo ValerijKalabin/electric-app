@@ -89,7 +89,7 @@ export const getCableStatus = (elements, schemeElements) => {
 
 
 export const getCablePosList = (elements, status) => {
-  if (status.cableType === 'vertical') return [];
+  if (status.cableType === 'vertical-top' || status.cableType === 'vertical-bottom') return [];
   if (status.cableType === 'vertical-long') {
     const centerPos = (elements[0].pos + elements[1].pos) / 2;
     if (centerPos % step === 0) return [centerPos];
