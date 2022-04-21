@@ -11,12 +11,14 @@ import Scheme from '../Scheme/Scheme';
 import List from '../List/List';
 import Footer from '../Footer/Footer';
 import Error from '../Error/Error';
+import Window from '../Window/Window';
 import CableForm from '../CableForm/CableForm';
 import ListOfElements from '../ListOfElements/ListOfElements';
 import ListOfHints from '../ListOfHints/ListOfHints';
 
 
 function App() {
+  const [pageWidth, setPageWidth] = useState(window.innerWidth);
   const [pageHeight, setPageHeight] = useState(window.innerHeight);
   const [isAppVisible, setAppVisibility] = useState(window.innerWidth > 359 && window.innerHeight > 499);
   const [isAllNavigationVisible, setNavigationVisibility] = useState(false);
@@ -213,6 +215,7 @@ function App() {
   useEffect(() => {
     const handleResize = () => {
       setAppVisibility(window.innerWidth > 359 && window.innerHeight > 499);
+      setPageWidth(window.innerWidth);
       setPageHeight(window.innerHeight);
       if(location.pathname === '/cable') {
         setWindowError(savingWindowError);
@@ -288,6 +291,9 @@ function App() {
             onClickButton={handleClickButton}
             onSubmitForm={createCable}
           />
+        } />
+        <Route path='/window' element={
+          <Window pageWidth={pageWidth} pageHeight={pageHeight} />
         } />
       </Routes>
       <Footer />
