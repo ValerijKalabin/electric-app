@@ -1,8 +1,8 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
-import { notVirtualElement, getCableElement, getSchemeElement } from '../../utils/element';
+import { getPosV, getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
+import { notVirtualElement, getCableElement, getMotionElement } from '../../utils/element';
 import { getCableStatus, getFilteredElementList } from '../../utils/cable';
 import { sizingWindowError, savingWindowError } from '../../utils/errors';
 import Header from '../Header/Header';
@@ -15,6 +15,7 @@ import Window from '../Window/Window';
 import CableForm from '../CableForm/CableForm';
 import ListOfElements from '../ListOfElements/ListOfElements';
 import ListOfHints from '../ListOfHints/ListOfHints';
+import * as api from '../../utils/Api';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
   const [pageHeight, setPageHeight] = useState(window.innerHeight);
   const [isAppVisible, setAppVisibility] = useState(window.innerWidth > 359 && window.innerHeight > 499);
   const [isAllNavigationVisible, setNavigationVisibility] = useState(false);
+  const [isPreloaderVisible, setPreloaderVisibility] = useState(false);
   const [windowError, setWindowError] = useState(sizingWindowError);
   const [schemeElementList, setSchemeElementList] = useState([]);
   const [cableElementList, setCableElementList] = useState([]);
@@ -44,11 +46,26 @@ function App() {
     while (posList.includes(pos)) {
       pos = pos - step;
     }
-    const newElement = getSchemeElement(button, pos);
-    elements.forEach((element) => element.listName = 'nolist');
-    setCentralElement(newElement);
-    saveSchemeElementList([...elements, newElement]);
     navigate('/scheme');
+    setPreloaderVisibility(true);
+    api.createElement({
+      name: button.name,
+      pos,
+      posV: getPosV(button.name)
+    })
+      .then((element) => {
+        const newElement = getMotionElement(element);
+        elements.forEach((element) => element.listName = 'nolist');
+        setCentralElement(newElement);
+        saveSchemeElementList([...elements, newElement]);
+      })
+      .catch((error) => {
+        alert(error.message ? error.message : 'Ошибка сервера, повторите попытку');
+      })
+      .finally(() => {
+        setPreloaderVisibility(false);
+      });
+
   }
 
 
@@ -73,7 +90,6 @@ function App() {
 
   function relocationElement(button) {
     const movableElement = schemeElementList.find((element) => element.listName === 'motion');
-    const filteredElementList = getFilteredElementList(movableElement, schemeElementList);
     const posList = getPosList(movableElement, schemeElementList);
     if (button.name === 'left') {
       movableElement.pos = movableElement.pos - step;
@@ -88,20 +104,42 @@ function App() {
       }
     }
     movableElement.cableList = [];
-    setCentralElement(movableElement);
-    saveSchemeElementList([...filteredElementList, movableElement]);
+    setPreloaderVisibility(true);
+    api.updateElement(movableElement)
+      .then((element) => {
+        const newElement = getMotionElement(element);
+        const filteredElementList = getFilteredElementList(movableElement, schemeElementList);
+        setCentralElement(newElement);
+        saveSchemeElementList([...filteredElementList, newElement]);
+      })
+      .catch((error) => {
+        alert(error.message ? error.message : 'Ошибка сервера, повторите попытку');
+      })
+      .finally(() => {
+        setPreloaderVisibility(false);
+      });
   }
 
 
   function deleteElement() {
     const deletedElement = schemeElementList.find((element) => element.listName === 'motion');
-    const filteredElementList = getFilteredElementList(deletedElement, schemeElementList);
-    if (filteredElementList.length !== 0) {
-      setCentralElement(deletedElement);
-    } else {
-      setCentralElement({});
-    }
-    saveSchemeElementList(filteredElementList);
+    setPreloaderVisibility(true);
+    api.deleteElement(deletedElement.id)
+      .then((element) => {
+        const filteredElementList = getFilteredElementList(deletedElement, schemeElementList);
+        if (filteredElementList.length !== 0) {
+          setCentralElement(getMotionElement(element));
+        } else {
+          setCentralElement({});
+        }
+        saveSchemeElementList(filteredElementList);
+      })
+      .catch((error) => {
+        alert(error.message ? error.message : 'Ошибка сервера, повторите попытку');
+      })
+      .finally(() => {
+        setPreloaderVisibility(false);
+      });
   }
 
 
@@ -255,6 +293,7 @@ function App() {
               centralElement={centralElement}
               virtualElement={virtualElement}
               elementList={schemeElementList}
+              isPreloaderVisible={isPreloaderVisible}
               onClickButton={handleClickButton}
               onSchemeStart={handleSchemeStart}
               onSchemeStop={handleSchemeStop}

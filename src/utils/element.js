@@ -1,14 +1,15 @@
 import { getCablePosList } from './cable';
-import { getPosV, stepV } from './position';
+import { stepV } from './position';
 
 export const notElement = {
-  id: 'noId',
-  name: 'noName',
-  type: 'noType',
+  id: 'noid',
+  name: 'noname',
+  type: 'notype',
   listName: 'nolist',
   pos: 0,
   posV: 0,
   blockStatus: 'noblock',
+  elementsInBlock: 1,
   cableList: []
 };
 
@@ -23,17 +24,17 @@ export const notVirtualElement = {
   pos: 0,
 };
 
-export const getSchemeElement = (button, pos) => {
+export const getMotionElement = (element) => {
   return {
-    id: `e-${(new Date().getTime())}-r-${Math.floor(Math.random() * 1000000)}`,
-    name: button.name,
-    type: button.type,
+    id: element._id,
+    name: element.name,
+    type: element.type,
     listName: 'motion',
-    pos,
-    posV: getPosV(button.name),
-    blockStatus: 'noblock',
-    elementsInBlock: 1,
-    cableList: []
+    pos: element.pos,
+    posV: element.posV,
+    blockStatus: element.blockStatus,
+    elementsInBlock: element.elementsInBlock,
+    cableList: element.cableList
   };
 }
 
