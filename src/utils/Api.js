@@ -117,7 +117,7 @@ export const updateDrawing = (drawingId, elements) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(elements)
+    body: JSON.stringify({elements})
   })
     .then(getResponseData);
 }
