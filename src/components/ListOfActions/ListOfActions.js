@@ -46,13 +46,13 @@ function ListOfActions({ element, onClickButton }) {
           `}>
             <ul className="actions__list">
               <li className="actions__item">
-                <Left id={element.id} listName="actions" cableList={element.cableList} onClickButton={onClickButton} />
+                <Left id={element.id} listName="actions" onClickButton={onClickButton} />
               </li>
               <li className="actions__item">
-                <Delete id={element.id} listName="actions" cableList={element.cableList} onClickButton={onClickButton} />
+                <Delete id={element.id} listName="actions" onClickButton={onClickButton} />
               </li>
               <li className="actions__item">
-                <Right id={element.id} listName="actions" cableList={element.cableList} onClickButton={onClickButton} />
+                <Right id={element.id} listName="actions" onClickButton={onClickButton} />
               </li>
             </ul>
           </div>

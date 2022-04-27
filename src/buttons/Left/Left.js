@@ -1,6 +1,6 @@
 import './Left.css';
 
-function Left({ id, listName, cableList, onClickButton }) {
+function Left({ id, listName, onClickButton }) {
   function handleClick() {
     onClickButton({
       id,
@@ -13,7 +13,7 @@ function Left({ id, listName, cableList, onClickButton }) {
   return (
     <button
       type="button"
-      className={`left ${ listName === 'actions' && !!cableList.length ? 'left_warning' : ''}`}
+      className="left"
       disabled={listName === 'hints'}
       onClick={ handleClick }
     >

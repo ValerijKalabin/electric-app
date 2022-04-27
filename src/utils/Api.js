@@ -68,39 +68,6 @@ export const updateAvatar = (dataAvatar) => {
   .then(getResponseData);
 }
 
-// Element api
-
-export const createElement = (element) => {
-  return fetch(`${BASE_URL}/elements`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(element)
-  })
-    .then(getResponseData);
-}
-
-
-export const updateElement = (element) => {
-  return fetch(`${BASE_URL}/elements/${element.id}`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(element)
-  })
-    .then(getResponseData);
-}
-
-
-export const deleteElement = (elementID) => {
-  return fetch(`${BASE_URL}/elements/${elementID}`, {
-    method: 'DELETE'
-  })
-    .then(getResponseData);
-}
-
 // Drawings api
 
 export const createDrawing = () => {
@@ -118,6 +85,14 @@ export const updateDrawing = (drawingId, elements) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({elements})
+  })
+    .then(getResponseData);
+}
+
+
+export const deleteDrawing = (drawingId) => {
+  return fetch(`${BASE_URL}/drawings/${drawingId}`, {
+    method: 'DELETE'
   })
     .then(getResponseData);
 }
