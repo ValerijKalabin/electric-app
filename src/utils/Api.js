@@ -100,3 +100,24 @@ export const deleteElement = (elementID) => {
   })
     .then(getResponseData);
 }
+
+// Drawings api
+
+export const createDrawing = () => {
+  return fetch(`${BASE_URL}/drawings`, {
+    method: 'POST'
+  })
+    .then(getResponseData);
+}
+
+
+export const updateDrawing = (drawingId, elements) => {
+  return fetch(`${BASE_URL}/drawings/${drawingId}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(elements)
+  })
+    .then(getResponseData);
+}
