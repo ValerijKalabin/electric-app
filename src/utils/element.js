@@ -56,3 +56,24 @@ export const getCableElement = (length, elements, status) => {
     elementList: elements
   };
 }
+
+
+export const getDataBaseElements = (elements) => {
+  const dbElements = elements.map((element) => {
+    return {
+      id: element.id,
+      name: element.name,
+      type: element.type,
+      listName: element.listName,
+      length: element.length ? element.length : 0,
+      pos: element.pos,
+      posV: element.posV,
+      posList: element.posList ? element.posList : [],
+      blockStatus: element.blockStatus ? element.blockStatus : '',
+      elementsInBlock: element.elementsInBlock ? element.elementsInBlock : 0,
+      cableList: element.cableList ? element.cableList.map((cable) => cable.id) : [],
+      elementList: element.elementList ? element.elementList.map((item) => item.id) : [],
+    }
+  });
+  return dbElements;
+}

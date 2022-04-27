@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
-import { notVirtualElement, getCableElement, getSchemeElement } from '../../utils/element';
+import { notVirtualElement, getCableElement, getSchemeElement, getDataBaseElements } from '../../utils/element';
 import { getCableStatus, getFilteredElementList } from '../../utils/cable';
 import { sizingWindowError, savingWindowError } from '../../utils/errors';
 import * as api from '../../utils/Api';
@@ -38,7 +38,7 @@ function App() {
   function saveSchemeElementList(elements) {
     setNeighbors(elements);
     setPreloaderVisibility(true);
-    api.updateDrawing(drawing._id, elements)
+    api.updateDrawing(drawing._id, getDataBaseElements(elements))
       .then(() => {
         setSchemeElementList(elements);
       })
