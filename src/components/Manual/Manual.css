@@ -1,6 +1,6 @@
 .manual {
   max-width: 230px;
-  padding: 10px 10px 20px;
+  padding: 10px;
   margin: 0;
 }
 
@@ -41,4 +41,17 @@
 
 .manual__text:last-of-type {
   padding-bottom: 20px;
+}
+
+.manual__link {
+  display: block;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  margin: 0 auto;
+  opacity: 0.9;
+}
+
+.manual__link:hover {
+  opacity: 0.5;
 }

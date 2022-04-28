@@ -13,6 +13,7 @@ import List from '../List/List';
 import Footer from '../Footer/Footer';
 import Error from '../Error/Error';
 import Window from '../Window/Window';
+import KeyForm from '../KeyForm/KeyForm';
 import CableForm from '../CableForm/CableForm';
 import ListOfElements from '../ListOfElements/ListOfElements';
 import ListOfHints from '../ListOfHints/ListOfHints';
@@ -305,8 +306,12 @@ function App() {
             onSubmitForm={createCable}
           />
         } />
+        <Route path='/key' element={<KeyForm />} />
         <Route path='/window' element={
-          <Window pageWidth={pageWidth} pageHeight={pageHeight} />
+          <Window
+            pageWidth={pageWidth}
+            pageHeight={pageHeight}
+          />
         } />
       </Routes>
       <Footer />
