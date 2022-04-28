@@ -70,21 +70,25 @@ export const updateAvatar = (dataAvatar) => {
 
 // Drawings api
 
-export const createDrawing = () => {
+export const createDrawing = (data) => {
   return fetch(`${BASE_URL}/drawings`, {
-    method: 'POST'
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
   })
     .then(getResponseData);
 }
 
 
-export const updateDrawing = (drawingId, elements) => {
+export const updateDrawing = (drawingId, name, elements) => {
   return fetch(`${BASE_URL}/drawings/${drawingId}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({elements})
+    body: JSON.stringify({name, elements})
   })
     .then(getResponseData);
 }
@@ -93,6 +97,31 @@ export const updateDrawing = (drawingId, elements) => {
 export const deleteDrawing = (drawingId) => {
   return fetch(`${BASE_URL}/drawings/${drawingId}`, {
     method: 'DELETE'
+  })
+    .then(getResponseData);
+}
+
+// Counter api
+
+export const createAction = () => {
+  return fetch(`${BASE_URL}/actions`, {
+    method: 'POST'
+  })
+    .then(getResponseData);
+}
+
+
+export const getActions = () => {
+  return fetch(`${BASE_URL}/actions`, {
+    method: 'GET'
+  })
+    .then(getResponseData);
+}
+
+
+export const getCounter = () => {
+  return fetch(`${BASE_URL}/actions/counter`, {
+    method: 'GET'
   })
     .then(getResponseData);
 }
