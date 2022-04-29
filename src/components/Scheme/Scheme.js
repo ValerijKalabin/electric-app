@@ -6,7 +6,6 @@ import ListOfActions from '../ListOfActions/ListOfActions';
 import Socket from '../../buttons/Socket/Socket';
 import Switch from '../../buttons/Switch/Switch';
 import Wheel from '../Wheel/Wheel';
-import Preloader from '../Preloader/Preloader';
 import { outerHeight, schemeMarkup, getSchemeElementPosition } from '../../utils/position';
 import './Scheme.css';
 
@@ -16,7 +15,6 @@ function Scheme({
   centralElement,
   virtualElement,
   elementList,
-  isPreloaderVisible,
   onClickButton,
   onSchemeStart,
   onSchemeStop,
@@ -85,7 +83,6 @@ function Scheme({
           />
         </div>
       }
-      <Preloader isPreloaderVisible={isPreloaderVisible} />
     </main>
   );
 }

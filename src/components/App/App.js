@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
 import { notVirtualElement, getCableElement, getSchemeElement } from '../../utils/element';
 import { getCableStatus, getFilteredElementList } from '../../utils/cable';
@@ -12,14 +12,18 @@ import Scheme from '../Scheme/Scheme';
 import List from '../List/List';
 import Footer from '../Footer/Footer';
 import Error from '../Error/Error';
+import Preloader from '../Preloader/Preloader';
 import Window from '../Window/Window';
 import KeyForm from '../KeyForm/KeyForm';
 import CableForm from '../CableForm/CableForm';
-import ListOfElements from '../ListOfElements/ListOfElements';
 import ListOfHints from '../ListOfHints/ListOfHints';
+import ListOfElements from '../ListOfElements/ListOfElements';
+import ListOfSchemes from '../ListOfSchemes/ListOfSchemes';
 
 
 function App() {
+  const localUser = JSON.parse(localStorage.getItem('current-user')) || { loggedIn: false };
+  const [currentUser, setCurrentUser] = useState(localUser);
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
   const [pageHeight, setPageHeight] = useState(window.innerHeight);
   const [isAppVisible, setAppVisibility] = useState(window.innerWidth > 359 && window.innerHeight > 499);
@@ -183,6 +187,29 @@ function App() {
   }
 
 
+  function handleSubmitSignin(user) {
+    setCurrentUser(user);
+    localStorage.setItem('current-user', JSON.stringify(user));
+    navigate('/');
+  }
+
+
+  function handleClickSignout() {
+    setPreloaderVisibility(true);
+    api.signout()
+      .then(() => {
+        setCurrentUser({ loggedIn: false });
+        localStorage.removeItem('current-user');
+      })
+      .catch(() => {
+        alert('Ошибка сервера, повторите попытку');
+      })
+      .finally(() => {
+        setPreloaderVisibility(false);
+      });
+  }
+
+
   function handleSchemeStart(event) {
     const newVirtualElement = {...virtualElement};
     newVirtualElement.isButtonPressed = true;
@@ -260,7 +287,11 @@ function App() {
         isAllNavigationVisible={isAllNavigationVisible}
       />
       <Routes>
-        <Route path='/' element={<Manual />} />
+        <Route path='/' element={
+          !currentUser.loggedIn
+          ? <Manual />
+          : <ListOfSchemes onClickSignout={handleClickSignout} />
+        } />
         <Route path='/scheme' element={
           isAppVisible
           ? <Scheme
@@ -268,7 +299,6 @@ function App() {
               centralElement={centralElement}
               virtualElement={virtualElement}
               elementList={schemeElementList}
-              isPreloaderVisible={isPreloaderVisible}
               onClickButton={handleClickButton}
               onSchemeStart={handleSchemeStart}
               onSchemeStop={handleSchemeStop}
@@ -306,7 +336,11 @@ function App() {
             onSubmitForm={createCable}
           />
         } />
-        <Route path='/key' element={<KeyForm />} />
+        <Route path='/key' element={
+          !currentUser.loggedIn
+          ? <KeyForm onSubmitSignin={handleSubmitSignin} />
+          : <Navigate replace to="/" />
+        } />
         <Route path='/window' element={
           <Window
             pageWidth={pageWidth}
@@ -315,6 +349,7 @@ function App() {
         } />
       </Routes>
       <Footer />
+      <Preloader isPreloaderVisible={isPreloaderVisible} />
     </div>
   );
 }

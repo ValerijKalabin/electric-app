@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import * as api from '../../utils/Api';
 import './KeyForm.css';
 
-function KeyForm() {
+function KeyForm({ onSubmitSignin }) {
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
   const [isValueValid, setValueValidity] = useState(false);
   const [isErrorVisible, setErrorVisibility] = useState(false);
+  const [isFormDisabled, setFormDisability] = useState(false);
 
   function handleChange(event) {
     setValue(event.target.value);
@@ -16,7 +18,20 @@ function KeyForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setErrorVisibility(true);
+    setFormDisability(true);
+    api.signin(value)
+      .then(() => api.getUser()
+        .then((user) => {
+          user.loggedIn = true;
+          onSubmitSignin(user);
+        })
+      )
+      .catch(() => {
+        setErrorVisibility(true);
+      })
+      .finally(() => {
+        setFormDisability(false);
+      });
   }
 
   function handleClick() {
@@ -45,23 +60,29 @@ function KeyForm() {
           minLength="14"
           maxLength="14"
           value={value}
+          disabled={isFormDisabled}
           onChange={handleChange}
         />
         <span className={ `key__explanation ${ value ? 'key__explanation_error' : '' }` }>
           { value ? error : 'Для получения ключа отправьте запрос на kavat@internet.ru' }
         </span>
-        <div className="key__buttons">
-          <button
-            className={ `key__submit ${ !isValueValid ? 'key__submit_disabled' : '' }` }
-            type="submit"
-            name="confirm"
-            form="key"
-            disabled={ !isValueValid }
-          >
-            Ok
-          </button>
-          <Link to="/" className="key__return">Закрыть</Link>
-        </div>
+        { !isFormDisabled &&
+          <div className="key__buttons">
+            <button
+              className={ `key__submit ${ !isValueValid ? 'key__submit_disabled' : '' }` }
+              type="submit"
+              name="confirm"
+              form="key"
+              disabled={ !isValueValid }
+            >
+              Ok
+            </button>
+            <Link to="/" className="key__return">Закрыть</Link>
+          </div>
+        }
+        { isFormDisabled &&
+          <p className="key__authorization">Авторизация...</p>
+        }
       </form>
       <div className={`key__error ${isErrorVisible ? 'key__error_visible' : ''}`}>
         <div className="key__container">
