@@ -22,8 +22,7 @@ import ListOfSchemes from '../ListOfSchemes/ListOfSchemes';
 
 
 function App() {
-  const localUser = JSON.parse(localStorage.getItem('current-user')) || { loggedIn: false };
-  const [currentUser, setCurrentUser] = useState(localUser);
+  const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem('kavat-user-logged-in')) || false);
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
   const [pageHeight, setPageHeight] = useState(window.innerHeight);
   const [isAppVisible, setAppVisibility] = useState(window.innerWidth > 359 && window.innerHeight > 499);
@@ -187,9 +186,9 @@ function App() {
   }
 
 
-  function handleSubmitSignin(user) {
-    setCurrentUser(user);
-    localStorage.setItem('current-user', JSON.stringify(user));
+  function handleSubmitSignin() {
+    setLoggedIn(true);
+    localStorage.setItem('kavat-user-logged-in', 'true');
     navigate('/');
   }
 
@@ -198,8 +197,8 @@ function App() {
     setPreloaderVisibility(true);
     api.signout()
       .then(() => {
-        setCurrentUser({ loggedIn: false });
-        localStorage.removeItem('current-user');
+        setLoggedIn(false);
+        localStorage.removeItem('kavat-user-logged-in');
       })
       .catch(() => {
         alert('Ошибка сервера, повторите попытку');
@@ -288,7 +287,7 @@ function App() {
       />
       <Routes>
         <Route path='/' element={
-          !currentUser.loggedIn
+          !loggedIn
           ? <Manual />
           : <ListOfSchemes onClickSignout={handleClickSignout} />
         } />
@@ -337,7 +336,7 @@ function App() {
           />
         } />
         <Route path='/key' element={
-          !currentUser.loggedIn
+          !loggedIn
           ? <KeyForm onSubmitSignin={handleSubmitSignin} />
           : <Navigate replace to="/" />
         } />

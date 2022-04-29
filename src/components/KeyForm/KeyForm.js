@@ -20,12 +20,9 @@ function KeyForm({ onSubmitSignin }) {
     event.preventDefault();
     setFormDisability(true);
     api.signin(value)
-      .then(() => api.getUser()
-        .then((user) => {
-          user.loggedIn = true;
-          onSubmitSignin(user);
-        })
-      )
+      .then(() => {
+        onSubmitSignin();
+      })
       .catch(() => {
         setErrorVisibility(true);
       })
