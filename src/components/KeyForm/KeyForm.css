@@ -91,7 +91,7 @@
   border: 2px solid #d5d832;
   border-radius: 15px;
   box-sizing: border-box;
-  width: 130px;
+  width: 120px;
   padding: 0;
   margin: 0;
   opacity: 1;
@@ -126,7 +126,7 @@
   border: 2px solid #bbbbbb;
   border-radius: 15px;
   box-sizing: border-box;
-  width: 130px;
+  width: 120px;
   padding: 0;
   margin: 0;
 }
@@ -187,12 +187,12 @@
   text-transform: uppercase;
   text-decoration: none;
   text-align: center;
-  color: #d5d832;
+  color: #bbbbbb;
   background-color: transparent;
-  border: 2px solid #d5d832;
+  border: 2px solid #bbbbbb;
   border-radius: 15px;
   box-sizing: border-box;
-  width: 130px;
+  width: 120px;
   padding: 0;
   margin: 0;
   opacity: 1;
@@ -200,7 +200,7 @@
 
 .key__close:hover {
   color: #40030f;
-  background-color: #d5d832;
+  background-color: #bbbbbb;
   cursor: pointer;
 }
 
