@@ -23,7 +23,8 @@ import ServerError from '../ServerError/ServerError';
 
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem('kavat-user-logged-in')) || false);
+  const localUser = JSON.parse(localStorage.getItem('kavat-current-user')) || { loggedIn: false };
+  const [currentUser, setCurrentUser] = useState(localUser);
   const [serverErrorMessage, setServerErrorMessage] = useState('');
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
   const [pageHeight, setPageHeight] = useState(window.innerHeight);
@@ -188,9 +189,10 @@ function App() {
   }
 
 
-  function handleSubmitSignin() {
-    setLoggedIn(true);
-    localStorage.setItem('kavat-user-logged-in', 'true');
+  function handleSubmitSignin(user) {
+    user.loggedIn = true;
+    setCurrentUser(user);
+    localStorage.setItem('kavat-current-user', JSON.stringify(user));
     navigate('/');
   }
 
@@ -199,8 +201,8 @@ function App() {
     setPreloaderVisibility(true);
     api.signout()
       .then(() => {
-        setLoggedIn(false);
-        localStorage.removeItem('kavat-user-logged-in');
+        setCurrentUser({ loggedIn: false });
+        localStorage.removeItem('kavat-current-user');
       })
       .catch(() => {
         setServerErrorMessage('Ошибка сервера, повторите попытку');
@@ -294,9 +296,12 @@ function App() {
       />
       <Routes>
         <Route path='/' element={
-          !loggedIn
+          !currentUser.loggedIn
           ? <Manual />
-          : <ListOfSchemes onClickSignout={handleClickSignout} />
+          : <ListOfSchemes
+              pageHeight={pageHeight}
+              onClickSignout={handleClickSignout}
+            />
         } />
         <Route path='/scheme' element={
           isAppVisible
@@ -343,7 +348,7 @@ function App() {
           />
         } />
         <Route path='/key' element={
-          !loggedIn
+          !currentUser.loggedIn
           ? <KeyForm onSubmitSignin={handleSubmitSignin} />
           : <Navigate replace to="/" />
         } />

@@ -1,11 +1,12 @@
+import { outerHeight } from '../../utils/position';
 import './ListOfSchemes.css';
 
 
-function ListOfSchemes({ onClickSignout }) {
+function ListOfSchemes({ pageHeight, onClickSignout }) {
   return (
-    <main className="schemes">
+    <main className="schemes" style={{ minHeight: `${pageHeight - outerHeight}px` }}>
       <h1 className="schemes__title">
-        Ваши схемы
+        Мои схемы
       </h1>
       <button
         className="schemes__signout"
