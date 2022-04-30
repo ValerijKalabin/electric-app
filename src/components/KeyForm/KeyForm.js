@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as api from '../../utils/Api';
+import ServerError from '../ServerError/ServerError';
 import './KeyForm.css';
 
 function KeyForm({ onSubmitSignin }) {
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
   const [isValueValid, setValueValidity] = useState(false);
-  const [isErrorVisible, setErrorVisibility] = useState(false);
   const [isFormDisabled, setFormDisability] = useState(false);
+  const [serverErrorMessage, setServerErrorMessage] = useState('');
 
   function handleChange(event) {
     setValue(event.target.value);
@@ -24,7 +25,7 @@ function KeyForm({ onSubmitSignin }) {
         onSubmitSignin();
       })
       .catch(() => {
-        setErrorVisibility(true);
+        setServerErrorMessage(`Ключ "${value}" не существует.`);
       })
       .finally(() => {
         setFormDisability(false);
@@ -34,7 +35,7 @@ function KeyForm({ onSubmitSignin }) {
   function handleClick() {
     setValue('');
     setValueValidity(false);
-    setErrorVisibility(false);
+    setServerErrorMessage('');
   }
 
   return (
@@ -81,21 +82,10 @@ function KeyForm({ onSubmitSignin }) {
           <p className="key__authorization">Авторизация...</p>
         }
       </form>
-      <div className={`key__error ${isErrorVisible ? 'key__error_visible' : ''}`}>
-        <div className="key__container">
-          <p className="key__message">
-            {`Ключ "${value}" не существует.`}
-          </p>
-          <button
-            className="key__close"
-            type="button"
-            name="close"
-            onClick={handleClick}
-          >
-            Закрыть
-          </button>
-        </div>
-      </div>
+      <ServerError
+        serverErrorMessage={serverErrorMessage}
+        onClickClose={handleClick}
+      />
     </main>
   );
 }

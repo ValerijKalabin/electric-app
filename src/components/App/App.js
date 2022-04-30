@@ -19,10 +19,12 @@ import CableForm from '../CableForm/CableForm';
 import ListOfHints from '../ListOfHints/ListOfHints';
 import ListOfElements from '../ListOfElements/ListOfElements';
 import ListOfSchemes from '../ListOfSchemes/ListOfSchemes';
+import ServerError from '../ServerError/ServerError';
 
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem('kavat-user-logged-in')) || false);
+  const [serverErrorMessage, setServerErrorMessage] = useState('');
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
   const [pageHeight, setPageHeight] = useState(window.innerHeight);
   const [isAppVisible, setAppVisibility] = useState(window.innerWidth > 359 && window.innerHeight > 499);
@@ -46,7 +48,7 @@ function App() {
         setSchemeElementList(elements);
       })
       .catch(() => {
-        alert('Ошибка сервера, повторите попытку');
+        setServerErrorMessage('Ошибка сервера, повторите попытку');
       })
       .finally(() => {
         setPreloaderVisibility(false);
@@ -201,11 +203,16 @@ function App() {
         localStorage.removeItem('kavat-user-logged-in');
       })
       .catch(() => {
-        alert('Ошибка сервера, повторите попытку');
+        setServerErrorMessage('Ошибка сервера, повторите попытку');
       })
       .finally(() => {
         setPreloaderVisibility(false);
       });
+  }
+
+
+  function handleCloseServerError() {
+    setServerErrorMessage('');
   }
 
 
@@ -349,6 +356,10 @@ function App() {
       </Routes>
       <Footer />
       <Preloader isPreloaderVisible={isPreloaderVisible} />
+      <ServerError
+        serverErrorMessage={serverErrorMessage}
+        onClickClose={handleCloseServerError}
+      />
     </div>
   );
 }
