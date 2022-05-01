@@ -33,7 +33,7 @@ function App() {
   const [drawings, setDrawings] = useState([
     {
       _id: '222',
-      name: 'Новая схема 222',
+      name: 'Новая схема 332',
       createdAt: new Date()
     },
     {
@@ -41,11 +41,16 @@ function App() {
       name: 'Новая схема 33333333333333333333333333333333333333333333333333333333333333333333333333333333333333',
       createdAt: new Date()
     },
-    {
+    /*{
       _id: '444',
       name: 'Новая схема 444',
       createdAt: new Date()
-    }
+    },
+    {
+      _id: '445',
+      name: 'Новая схема 445',
+      createdAt: new Date()
+    }*/
   ]);
   const [serverErrorMessage, setServerErrorMessage] = useState('');
   const [pageWidth, setPageWidth] = useState(window.innerWidth);

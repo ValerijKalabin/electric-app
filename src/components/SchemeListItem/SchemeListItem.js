@@ -31,10 +31,10 @@ function SchemeListItem({ drawing, status, pageWidth, onClickDrawing }) {
         disabled={status === 'current'}
         onClick={handleClickChoose}
       >
-        <h2 className="scheme-list-item__name" style={pageWidth < 460 ? { maxWidth: `${pageWidth - 134}px` } : { maxWidth: '326px' }}>
+        <h2 className="scheme-list-item__name" style={pageWidth < 460 ? { width: `${pageWidth - 134}px` } : { width: '326px' }}>
           {drawing.name}
         </h2>
-        <p className="scheme-list-item__date" style={pageWidth < 460 ? { maxWidth: `${pageWidth - 134}px` } : { maxWidth: '326px' }}>
+        <p className="scheme-list-item__date" style={pageWidth < 460 ? { width: `${pageWidth - 134}px` } : { width: '326px' }}>
           {`Дата записи: ${drawing.createdAt.getDate()}-${drawing.createdAt.getMonth()}-${drawing.createdAt.getFullYear()}`}
         </p>
       </button>

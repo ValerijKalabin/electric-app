@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { outerHeight } from '../../utils/position';
 import SchemeListItem from '../SchemeListItem/SchemeListItem';
+import Search from '../Search/Search';
 import './ListOfSchemes.css';
 
 
@@ -11,6 +13,13 @@ function ListOfSchemes({
   onClickDrawing,
   onClickSignout
 }) {
+  const [filteredDrawings, setFilteredDrawings] = useState(drawings);
+
+  function handleChangeSearch(value) {
+    const filteredDrawings = drawings.filter((drawing) => drawing.name.includes(value));
+    setFilteredDrawings(filteredDrawings);
+  }
+
   function handleClickAdd() {
     onClickDrawing({
       action: 'add',
@@ -24,9 +33,14 @@ function ListOfSchemes({
         Мои чертежи
       </h1>
       <div className="schemes__container">
-        <SchemeListItem drawing={currentDrawing} status="current" pageWidth={pageWidth} onClickDrawing={onClickDrawing} />
+        <div className="schemes__item">
+          <SchemeListItem drawing={currentDrawing} status="current" pageWidth={pageWidth} onClickDrawing={onClickDrawing} />
+        </div>
+        <div className="schemes__item">
+          <Search onChangeSearch={handleChangeSearch} />
+        </div>
         <ul className="schemes__list">
-          {drawings.map((drawing) => (
+          {filteredDrawings.map((drawing) => (
             <li className="schemes__item" key={drawing._id}>
               <SchemeListItem drawing={drawing} status="notcurrent" pageWidth={pageWidth} onClickDrawing={onClickDrawing} />
             </li>
