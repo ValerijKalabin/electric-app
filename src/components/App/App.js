@@ -25,6 +25,28 @@ import ServerError from '../ServerError/ServerError';
 function App() {
   const localUser = JSON.parse(localStorage.getItem('kavat-current-user')) || { loggedIn: false };
   const [currentUser, setCurrentUser] = useState(localUser);
+  const [currentDrawing, setCurrentDrawing] = useState({
+    _id: '111',
+    name: 'Квартира 111',
+    createdAt: new Date()
+  });
+  const [drawings, setDrawings] = useState([
+    {
+      _id: '222',
+      name: 'Новая схема 222',
+      createdAt: new Date()
+    },
+    {
+      _id: '333',
+      name: 'Новая схема 33333333333333333333333333333333333333333333333333333333333333333333333333333333333333',
+      createdAt: new Date()
+    },
+    {
+      _id: '444',
+      name: 'Новая схема 444',
+      createdAt: new Date()
+    }
+  ]);
   const [serverErrorMessage, setServerErrorMessage] = useState('');
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
   const [pageHeight, setPageHeight] = useState(window.innerHeight);
@@ -287,6 +309,32 @@ function App() {
   }, [ location ]);
 
 
+  useEffect(() => {
+    if(currentUser.loggedIn) {
+      setPreloaderVisibility(true);
+      Promise.all([
+        api.getDrawings(),
+        api.createDrawing({
+          name: 'Новая схема',
+          owner: currentUser._id,
+          elements: []
+        })
+      ])
+        .then(([ drawings, currentDrawing ]) => {
+          setDrawings(drawings);
+          setCurrentDrawing(currentDrawing);
+        })
+        .catch(() => {
+          setCurrentUser({ loggedIn: false });
+          localStorage.removeItem('kavat-current-user');
+        })
+        .finally(() => {
+          setPreloaderVisibility(false);
+        });
+    }
+  }, [ currentUser ]);
+
+
   return (
     <div className="app" style={{ minHeight: `${pageHeight}px` }}>
       <Header
@@ -299,7 +347,10 @@ function App() {
           !currentUser.loggedIn
           ? <Manual />
           : <ListOfSchemes
+              pageWidth={pageWidth}
               pageHeight={pageHeight}
+              drawings={drawings}
+              currentDrawing={currentDrawing}
               onClickSignout={handleClickSignout}
             />
         } />

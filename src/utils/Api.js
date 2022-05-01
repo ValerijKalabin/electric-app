@@ -76,6 +76,14 @@ export const updateAvatar = (dataAvatar) => {
 
 // Drawings api
 
+export const getDrawings = () => {
+  return fetch(`${BASE_URL}/drawings/me`, {
+    method: 'GET'
+  })
+    .then(getResponseData);
+}
+
+
 export const createDrawing = (data) => {
   return fetch(`${BASE_URL}/drawings`, {
     method: 'POST',
@@ -89,7 +97,7 @@ export const createDrawing = (data) => {
 
 
 export const updateDrawing = (drawingId, name, elements) => {
-  return fetch(`${BASE_URL}/drawings/${drawingId}`, {
+  return fetch(`${BASE_URL}/drawings/me/${drawingId}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
@@ -101,7 +109,7 @@ export const updateDrawing = (drawingId, name, elements) => {
 
 
 export const deleteDrawing = (drawingId) => {
-  return fetch(`${BASE_URL}/drawings/${drawingId}`, {
+  return fetch(`${BASE_URL}/drawings/me/${drawingId}`, {
     method: 'DELETE'
   })
     .then(getResponseData);
