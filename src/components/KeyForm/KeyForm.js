@@ -21,8 +21,8 @@ function KeyForm({ onSubmitSignin }) {
     event.preventDefault();
     setFormDisability(true);
     api.signin(value)
-      .then((user) => {
-        onSubmitSignin(user);
+      .then(() => {
+        onSubmitSignin();
       })
       .catch(() => {
         setServerErrorMessage(`Ключ "${value}" не существует.`);

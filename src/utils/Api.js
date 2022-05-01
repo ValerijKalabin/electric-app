@@ -7,6 +7,7 @@ export const getResponseData = (response) => {
   return Promise.reject(response);
 };
 
+// Auth api
 
 export const signin = (key) => {
   return fetch(`${BASE_URL}/signin`, {
@@ -27,6 +28,7 @@ export const signout = () => {
     .then(getResponseData);
 }
 
+// User api
 
 export const createUser = (name, days, status, password) => {
   return fetch(`${BASE_URL}/users`, {
@@ -40,49 +42,30 @@ export const createUser = (name, days, status, password) => {
 };
 
 
-export const getUser = () => {
-  return fetch(`${BASE_URL}/info/me`, {
-    method: 'GET'
+export const updateUser = (name, newname, days, password) => {
+  return fetch(`${BASE_URL}/users/name`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ name, newname, days, password })
   })
     .then(getResponseData);
 };
 
 
-export const updateProfile = ({ username, description }) => {
+export const updateAdmin = (name, password) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      name: username,
-      about: description
-    })
-  })
-    .then(getResponseData);
-};
-
-
-export const updateAvatar = (dataAvatar) => {
-  return fetch(`${BASE_URL}/users/me/avatar`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(dataAvatar)
+    body: JSON.stringify({ name, password })
   })
   .then(getResponseData);
 }
 
 // Drawings api
-
-export const getDrawings = () => {
-  return fetch(`${BASE_URL}/drawings/me`, {
-    method: 'GET'
-  })
-    .then(getResponseData);
-}
-
 
 export const createDrawing = (data) => {
   return fetch(`${BASE_URL}/drawings`, {
@@ -111,6 +94,14 @@ export const updateDrawing = (drawingId, name, elements) => {
 export const deleteDrawing = (drawingId) => {
   return fetch(`${BASE_URL}/drawings/me/${drawingId}`, {
     method: 'DELETE'
+  })
+    .then(getResponseData);
+}
+
+
+export const getDrawings = () => {
+  return fetch(`${BASE_URL}/drawings/me`, {
+    method: 'GET'
   })
     .then(getResponseData);
 }

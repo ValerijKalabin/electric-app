@@ -35,7 +35,7 @@ function SchemeListItem({ drawing, status, pageWidth, onClickDrawing }) {
           {drawing.name}
         </h2>
         <p className="scheme-list-item__date" style={pageWidth < 460 ? { width: `${pageWidth - 134}px` } : { width: '326px' }}>
-          {`Дата записи: ${drawing.createdAt.getDate()}-${drawing.createdAt.getMonth()}-${drawing.createdAt.getFullYear()}`}
+          {`Дата записи: ${drawing.createdAt.slice(0, 10).split('-').reverse().join('-')}`}
         </p>
       </button>
       <button

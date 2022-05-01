@@ -4,7 +4,7 @@ import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-
 import { getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
 import { notVirtualElement, getCableElement, getSchemeElement } from '../../utils/element';
 import { getCableStatus, getFilteredElementList } from '../../utils/cable';
-import { sizingWindowError, savingWindowError, startDrawing, startDrawings } from '../../utils/errors';
+import { sizingWindowError, savingWindowError } from '../../utils/errors';
 import * as api from '../../utils/Api';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
@@ -23,8 +23,7 @@ import ServerError from '../ServerError/ServerError';
 
 
 function App() {
-  const localUser = JSON.parse(localStorage.getItem('kavat-current-user')) || { loggedIn: false };
-  const [currentUser, setCurrentUser] = useState(localUser);
+  const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem('kavat-user-logged-in')));
   const [currentDrawing, setCurrentDrawing] = useState({ name: ''});
   const [drawings, setDrawings] = useState([]);
   const [serverErrorMessage, setServerErrorMessage] = useState('');
@@ -41,6 +40,29 @@ function App() {
   const [virtualElement, setVirtualElement] = useState(notVirtualElement);
   const navigate = useNavigate();
   const location = useLocation();
+
+
+  function handleSubmitSignin() {
+    setLoggedIn(true);
+    localStorage.setItem('kavat-user-logged-in', 'true');
+    navigate('/');
+  }
+
+
+  function handleClickSignout() {
+    setPreloaderVisibility(true);
+    api.signout()
+      .then(() => {
+        setLoggedIn(false);
+        localStorage.removeItem('kavat-user-logged-in');
+      })
+      .catch(() => {
+        setServerErrorMessage('Ошибка сервера, повторите попытку');
+      })
+      .finally(() => {
+        setPreloaderVisibility(false);
+      });
+  }
 
 
   function saveSchemeElementList(elements) {
@@ -199,34 +221,31 @@ function App() {
   }
 
 
-  function handleClickDrawing({ action, drawingId}) {
-    if(action === 'choose') {
-      selectingDrawing(drawingId);
-    }
-  }
-
-
-  function handleSubmitSignin(user) {
-    user.loggedIn = true;
-    setCurrentUser(user);
-    localStorage.setItem('kavat-current-user', JSON.stringify(user));
-    navigate('/');
-  }
-
-
-  function handleClickSignout() {
+  function deleteDrawing(drawingId) {
     setPreloaderVisibility(true);
-    api.signout()
-      .then(() => {
-        setCurrentUser({ loggedIn: false });
-        localStorage.removeItem('kavat-current-user');
-      })
+    api.deleteDrawing(drawingId)
+      .then(() => api.getDrawings()
+        .then((drawings) => {
+          const currentDrawings = drawings.filter((drawing) => drawing._id !== currentDrawing._id);
+          setDrawings(currentDrawings);
+        })
+      )
       .catch(() => {
         setServerErrorMessage('Ошибка сервера, повторите попытку');
       })
       .finally(() => {
         setPreloaderVisibility(false);
       });
+  }
+
+
+  function handleClickDrawing({ action, drawingId}) {
+    if(action === 'choose') {
+      selectingDrawing(drawingId);
+    }
+    if(action === 'delete') {
+      deleteDrawing(drawingId);
+    }
   }
 
 
@@ -305,32 +324,29 @@ function App() {
 
 
   useEffect(() => {
-    if(currentUser.loggedIn) {
+    if(loggedIn) {
       setPreloaderVisibility(true);
       Promise.all([
         api.getDrawings(),
         api.createDrawing({
           name: 'Новая схема',
-          owner: currentUser._id,
           elements: []
         })
       ])
         .then(([ drawings, currentDrawing ]) => {
-          setDrawings(drawings);
+          const currentDrawings = drawings.filter((drawing) => drawing._id !== currentDrawing._id);
+          setDrawings(currentDrawings);
           setCurrentDrawing(currentDrawing);
         })
         .catch(() => {
-          setCurrentUser({ loggedIn: false });
-          localStorage.removeItem('kavat-current-user');
+          setLoggedIn(false);
+          localStorage.removeItem('kavat-user-logged-in');
         })
         .finally(() => {
           setPreloaderVisibility(false);
         });
-    } else {
-      setDrawings(startDrawings);
-      setCurrentDrawing(startDrawing);
     }
-  }, [ currentUser ]);
+  }, [ loggedIn ]);
 
 
   return (
@@ -342,7 +358,7 @@ function App() {
       />
       <Routes>
         <Route path='/' element={
-          !currentUser.loggedIn
+          !loggedIn
           ? <Manual />
           : <ListOfSchemes
               pageWidth={pageWidth}
@@ -398,7 +414,7 @@ function App() {
           />
         } />
         <Route path='/key' element={
-          !currentUser.loggedIn
+          !loggedIn
           ? <KeyForm onSubmitSignin={handleSubmitSignin} />
           : <Navigate replace to="/" />
         } />
