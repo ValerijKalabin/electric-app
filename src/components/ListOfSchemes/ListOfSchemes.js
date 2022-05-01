@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { outerHeight } from '../../utils/position';
 import SchemeListItem from '../SchemeListItem/SchemeListItem';
 import './ListOfSchemes.css';
@@ -9,32 +8,42 @@ function ListOfSchemes({
   pageHeight,
   drawings,
   currentDrawing,
+  onClickDrawing,
   onClickSignout
 }) {
+  function handleClickAdd() {
+    onClickDrawing({
+      action: 'add',
+      drawingId: ''
+    });
+  }
+
   return (
     <main className="schemes" style={{ minHeight: `${pageHeight - outerHeight}px` }}>
       <h1 className="schemes__title">
-        Мои схемы
+        Мои чертежи
       </h1>
       <div className="schemes__container">
-        <SchemeListItem drawing={currentDrawing} status="current" pageWidth={pageWidth} />
+        <SchemeListItem drawing={currentDrawing} status="current" pageWidth={pageWidth} onClickDrawing={onClickDrawing} />
         <ul className="schemes__list">
           {drawings.map((drawing) => (
             <li className="schemes__item" key={drawing._id}>
-              <SchemeListItem drawing={drawing} status="notcurrent" pageWidth={pageWidth} />
+              <SchemeListItem drawing={drawing} status="notcurrent" pageWidth={pageWidth} onClickDrawing={onClickDrawing} />
             </li>
           ))}
         </ul>
       </div>
       <div className="schemes__buttons">
-        <Link
-          to="/"
+        <button
           className="schemes__add"
+          type="button"
+          name="add-drawing"
+          onClick={handleClickAdd}
         >
           <svg className="bi bi-plus-lg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d5d832" viewBox="0 0 16 16">
             <path fillRule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
           </svg>
-        </Link>
+        </button>
         <button
           className="schemes__signout"
           type="button"

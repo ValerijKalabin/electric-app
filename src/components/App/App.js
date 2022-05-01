@@ -211,6 +211,12 @@ function App() {
   }
 
 
+  function handleClickDrawing({ action, drawingId}) {
+    console.log(action);
+    console.log(drawingId);
+  }
+
+
   function handleSubmitSignin(user) {
     user.loggedIn = true;
     setCurrentUser(user);
@@ -351,6 +357,7 @@ function App() {
               pageHeight={pageHeight}
               drawings={drawings}
               currentDrawing={currentDrawing}
+              onClickDrawing={handleClickDrawing}
               onClickSignout={handleClickSignout}
             />
         } />

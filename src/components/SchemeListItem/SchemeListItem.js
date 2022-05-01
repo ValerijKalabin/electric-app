@@ -1,31 +1,48 @@
 import './SchemeListItem.css';
 
-function SchemeListItem({ drawing, status, pageWidth }) {
-  function handleClick(event) {
-    console.log(event);
+function SchemeListItem({ drawing, status, pageWidth, onClickDrawing }) {
+  function handleClickChoose() {
+    onClickDrawing({
+      action: 'choose',
+      drawingId: drawing._id
+    });
+  }
+
+  function handleClickEdit() {
+    onClickDrawing({
+      action: 'edit',
+      drawingId: drawing._id
+    });
+  }
+
+  function handleClickDelete() {
+    onClickDrawing({
+      action: 'delete',
+      drawingId: drawing._id
+    });
   }
 
   return (
-    <div className={`scheme-item ${status === 'current' ? 'scheme-item_current' : ''}`}>
+    <div className={`scheme-list-item ${status === 'current' ? 'scheme-list-item_current' : ''}`}>
       <button
-        className={`scheme-item__drawing ${status === 'current' ? 'scheme-item__drawing_current' : ''}`}
+        className={`scheme-list-item__drawing ${status === 'current' ? 'scheme-list-item__drawing_current' : ''}`}
         type="button"
-        name="scheme-item-drawing"
+        name="choose-drawing"
         disabled={status === 'current'}
-        onClick={handleClick}
+        onClick={handleClickChoose}
       >
-        <h2 className="scheme-item__name" style={pageWidth < 460 ? { maxWidth: `${pageWidth - 134}px` } : { maxWidth: '326px' }}>
+        <h2 className="scheme-list-item__name" style={pageWidth < 460 ? { maxWidth: `${pageWidth - 134}px` } : { maxWidth: '326px' }}>
           {drawing.name}
         </h2>
-        <p className="scheme-item__date" style={pageWidth < 460 ? { maxWidth: `${pageWidth - 134}px` } : { maxWidth: '326px' }}>
+        <p className="scheme-list-item__date" style={pageWidth < 460 ? { maxWidth: `${pageWidth - 134}px` } : { maxWidth: '326px' }}>
           {`Дата записи: ${drawing.createdAt.getDate()}-${drawing.createdAt.getMonth()}-${drawing.createdAt.getFullYear()}`}
         </p>
       </button>
       <button
-        className={`scheme-item__action ${status === 'current' ? 'scheme-item__action_current' : ''}`}
+        className={`scheme-list-item__action ${status === 'current' ? 'scheme-list-item__action_current' : ''}`}
         type="button"
-        name="scheme-item-action"
-        onClick={handleClick}
+        name="edit-delete-drawing"
+        onClick={status === 'current' ? handleClickEdit : handleClickDelete}
       >
         { status === 'current' &&
           <svg className="bi bi-pencil" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#bbbbbb" viewBox="0 0 16 16">

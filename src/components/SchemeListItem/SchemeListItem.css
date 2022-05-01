@@ -1,4 +1,4 @@
-.scheme-item {
+.scheme-list-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -13,11 +13,11 @@
   margin: 0;
 }
 
-.scheme-item_current {
+.scheme-list-item_current {
   background-color: #bbbbbb;
 }
 
-.scheme-item__drawing {
+.scheme-list-item__drawing {
   background-color: transparent;
   color: #bbbbbb;
   width: auto;
@@ -29,21 +29,21 @@
   margin: 0 40px 0 0;
 }
 
-.scheme-item__drawing:hover {
+.scheme-list-item__drawing:hover {
   opacity: 0.5;
   cursor: pointer;
 }
 
-.scheme-item__drawing_current {
+.scheme-list-item__drawing_current {
   color: #111111;
 }
 
-.scheme-item__drawing_current:hover {
+.scheme-list-item__drawing_current:hover {
   opacity: 1;
   cursor: default;
 }
 
-.scheme-item__name {
+.scheme-list-item__name {
   font-size: 14px;
   font-weight: 400;
   line-height: 20px;
@@ -56,7 +56,7 @@
   margin: 0;
 }
 
-.scheme-item__date {
+.scheme-list-item__date {
   font-size: 10px;
   font-weight: 400;
   line-height: 16px;
@@ -69,7 +69,7 @@
   margin: 0;
 }
 
-.scheme-item__action {
+.scheme-list-item__action {
   background-color: transparent;
   box-sizing: border-box;
   outline: none;
@@ -81,11 +81,11 @@
   margin: 0;
 }
 
-.scheme-item__action:hover {
+.scheme-list-item__action:hover {
   opacity: 0.5;
   cursor: pointer;
 }
 
-.scheme-item__action_current svg {
+.scheme-list-item__action_current svg {
   fill: #111111;
 }
