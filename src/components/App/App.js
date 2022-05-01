@@ -4,7 +4,7 @@ import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-
 import { getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
 import { notVirtualElement, getCableElement, getSchemeElement } from '../../utils/element';
 import { getCableStatus, getFilteredElementList } from '../../utils/cable';
-import { sizingWindowError, savingWindowError } from '../../utils/errors';
+import { sizingWindowError, savingWindowError, startDrawing, startDrawings } from '../../utils/errors';
 import * as api from '../../utils/Api';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
@@ -25,33 +25,8 @@ import ServerError from '../ServerError/ServerError';
 function App() {
   const localUser = JSON.parse(localStorage.getItem('kavat-current-user')) || { loggedIn: false };
   const [currentUser, setCurrentUser] = useState(localUser);
-  const [currentDrawing, setCurrentDrawing] = useState({
-    _id: '111',
-    name: 'Квартира 111',
-    createdAt: new Date()
-  });
-  const [drawings, setDrawings] = useState([
-    {
-      _id: '222',
-      name: 'Новая схема 332',
-      createdAt: new Date()
-    },
-    {
-      _id: '333',
-      name: 'Новая схема 33333333333333333333333333333333333333333333333333333333333333333333333333333333333333',
-      createdAt: new Date()
-    },
-    /*{
-      _id: '444',
-      name: 'Новая схема 444',
-      createdAt: new Date()
-    },
-    {
-      _id: '445',
-      name: 'Новая схема 445',
-      createdAt: new Date()
-    }*/
-  ]);
+  const [currentDrawing, setCurrentDrawing] = useState({ name: ''});
+  const [drawings, setDrawings] = useState([]);
   const [serverErrorMessage, setServerErrorMessage] = useState('');
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
   const [pageHeight, setPageHeight] = useState(window.innerHeight);
@@ -216,9 +191,18 @@ function App() {
   }
 
 
+  function selectingDrawing(drawingId) {
+    const newCurrentDrawing = drawings.find((drawing) => drawing._id === drawingId);
+    const newCurrentDrawings = drawings.filter((drawing) => drawing._id !== drawingId);
+    setDrawings([...newCurrentDrawings, currentDrawing]);
+    setCurrentDrawing(newCurrentDrawing);
+  }
+
+
   function handleClickDrawing({ action, drawingId}) {
-    console.log(action);
-    console.log(drawingId);
+    if(action === 'choose') {
+      selectingDrawing(drawingId);
+    }
   }
 
 
@@ -342,6 +326,9 @@ function App() {
         .finally(() => {
           setPreloaderVisibility(false);
         });
+    } else {
+      setDrawings(startDrawings);
+      setCurrentDrawing(startDrawing);
     }
   }, [ currentUser ]);
 
