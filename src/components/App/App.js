@@ -16,6 +16,7 @@ import Preloader from '../Preloader/Preloader';
 import Window from '../Window/Window';
 import KeyForm from '../KeyForm/KeyForm';
 import CableForm from '../CableForm/CableForm';
+import DrawingForm from '../DrawingForm/DrawingForm';
 import ListOfHints from '../ListOfHints/ListOfHints';
 import ListOfElements from '../ListOfElements/ListOfElements';
 import ListOfSchemes from '../ListOfSchemes/ListOfSchemes';
@@ -24,7 +25,8 @@ import ServerError from '../ServerError/ServerError';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem('kavat-user-logged-in')));
-  const [currentDrawing, setCurrentDrawing] = useState({ name: ''});
+  const [currentDrawing, setCurrentDrawing] = useState({ name: '' });
+  const [newDrawing, setNewDrawing] = useState({ name: '' });
   const [drawings, setDrawings] = useState([]);
   const [serverErrorMessage, setServerErrorMessage] = useState('');
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
@@ -216,7 +218,7 @@ function App() {
   function selectingDrawing(drawingId) {
     const newCurrentDrawing = drawings.find((drawing) => drawing._id === drawingId);
     const newCurrentDrawings = drawings.filter((drawing) => drawing._id !== drawingId);
-    setDrawings([...newCurrentDrawings, currentDrawing]);
+    setDrawings([currentDrawing, ...newCurrentDrawings]);
     setCurrentDrawing(newCurrentDrawing);
   }
 
@@ -246,6 +248,25 @@ function App() {
     if(action === 'delete') {
       deleteDrawing(drawingId);
     }
+    if(action === 'add') {
+      setNewDrawing({ name: '' });
+      navigate('/drawing')
+    }
+    if(action === 'edit') {
+      setNewDrawing(currentDrawing);
+      navigate('/drawing')
+    }
+  }
+
+
+  function handleSubmitDrawing(drawing) {
+    if(drawing._id === currentDrawing._id) {
+      setCurrentDrawing(drawing);
+    } else {
+      setDrawings([currentDrawing, ...drawings]);
+      setCurrentDrawing(drawing);
+    }
+    navigate('/');
   }
 
 
@@ -335,7 +356,7 @@ function App() {
       ])
         .then(([ drawings, currentDrawing ]) => {
           const currentDrawings = drawings.filter((drawing) => drawing._id !== currentDrawing._id);
-          setDrawings(currentDrawings);
+          setDrawings(currentDrawings.reverse());
           setCurrentDrawing(currentDrawing);
         })
         .catch(() => {
@@ -416,6 +437,14 @@ function App() {
         <Route path='/key' element={
           !loggedIn
           ? <KeyForm onSubmitSignin={handleSubmitSignin} />
+          : <Navigate replace to="/" />
+        } />
+        <Route path='/drawing' element={
+          loggedIn
+          ? <DrawingForm
+            newDrawing={newDrawing}
+            onSubmitDrawing={handleSubmitDrawing}
+          />
           : <Navigate replace to="/" />
         } />
         <Route path='/window' element={

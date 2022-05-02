@@ -28,7 +28,7 @@ export const signout = () => {
     .then(getResponseData);
 }
 
-// User api
+// Users api
 
 export const createUser = (name, days, status, password) => {
   return fetch(`${BASE_URL}/users`, {
@@ -61,6 +61,18 @@ export const updateAdmin = (name, password) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ name, password })
+  })
+  .then(getResponseData);
+}
+
+
+export const deleteUser = (name) => {
+  return fetch(`${BASE_URL}/users`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ name })
   })
   .then(getResponseData);
 }

@@ -1,11 +1,11 @@
-.magnitude {
+.drawing {
   box-sizing: border-box;
   width: 460px;
   padding: 30px 15px;
   margin: 0;
 }
 
-.magnitude__title {
+.drawing__title {
   font-size: 20px;
   font-weight: 500;
   line-height: 24px;
@@ -17,16 +17,12 @@
   margin: 0 0 25px;
 }
 
-.magnitude__title_attention {
-  color: #d5d832;
-}
-
-.magnitude__form {
+.drawing__form {
   padding: 0;
   margin: 0;
 }
 
-.magnitude__input {
+.drawing__input {
   display: block;
   font-size: 16px;
   font-weight: 400;
@@ -43,22 +39,17 @@
   margin: 0 0 5px;
 }
 
-.magnitude__input:hover {
+.drawing__input:hover {
   border-color: #d5d832;
 }
 
-.magnitude__input:focus {
+.drawing__input:focus {
   color: #111111;
   background-color: #bbbbbb;
   border-color: #bbbbbb;
 }
 
-.magnitude__input::-webkit-outer-spin-button,
-.magnitude__input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
-
-.magnitude__explanation {
+.drawing__explanation {
   display: block;
   font-size: 12px;
   font-weight: 400;
@@ -70,11 +61,11 @@
   margin: 0 0 25px;
 }
 
-.magnitude__explanation_error {
+.drawing__explanation_error {
   color: red;
 }
 
-.magnitude__buttons {
+.drawing__buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -83,7 +74,7 @@
   margin: 0;
 }
 
-.magnitude__submit {
+.drawing__submit {
   display: block;
   font-size: 16px;
   font-weight: 400;
@@ -96,29 +87,29 @@
   border: 2px solid #d5d832;
   border-radius: 15px;
   box-sizing: border-box;
-  width: 130px;
+  width: 120px;
   padding: 0;
   margin: 0;
   opacity: 1;
 }
 
-.magnitude__submit:hover {
+.drawing__submit:hover {
   color: #111111;
   background-color: #d5d832;
   cursor: pointer;
 }
 
-.magnitude__submit_disabled {
+.drawing__submit_disabled {
   opacity: 0.3;
 }
 
-.magnitude__submit_disabled:hover {
+.drawing__submit_disabled:hover {
   color: #d5d832;
   background-color: transparent;
   cursor: default;
 }
 
-.magnitude__cancel {
+.drawing__return {
   display: block;
   font-size: 16px;
   font-weight: 400;
@@ -131,34 +122,18 @@
   border: 2px solid #bbbbbb;
   border-radius: 15px;
   box-sizing: border-box;
-  width: 130px;
+  width: 120px;
   padding: 0;
   margin: 0;
 }
 
-.magnitude__cancel:hover {
+.drawing__return:hover {
   color: #111111;
   background-color: #bbbbbb;
   cursor: pointer;
 }
 
-.magnitude__error {
-  padding: 0;
-  margin: 0;
-}
-
-.magnitude__text {
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 20px;
-  text-align: center;
-  color: #bbbbbb;
-  background-color: transparent;
-  padding: 0;
-  margin: 0 0 25px;
-}
-
-.magnitude__continue {
+.drawing__conservation {
   display: block;
   font-size: 16px;
   font-weight: 400;
@@ -166,28 +141,19 @@
   text-transform: uppercase;
   text-decoration: none;
   text-align: center;
-  color: #bbbbbb;
+  color: #d5d832;
   background-color: transparent;
-  border: 2px solid #bbbbbb;
+  border: 2px solid #d5d832;
   border-radius: 15px;
   box-sizing: border-box;
-  width: 150px;
+  width: 230px;
   padding: 0;
-  margin: 0;
-}
-
-.magnitude__continue:hover {
-  color: #111111;
-  background-color: #bbbbbb;
-  cursor: pointer;
-}
-
-.magnitude__cancel_error {
-  width: 150px;
+  margin: 0 auto;
+  opacity: 1;
 }
 
 @media screen and (max-width: 460px) {
-  .magnitude {
+  .drawing {
     width: 100%;
   }
 }
