@@ -14,7 +14,7 @@ export const notElement = {
 };
 
 
-export const notVirtualElement = {
+export const basicVirtualElement = {
   id: 'virtualId',
   name: 'virtual',
   isButtonPressed: false,
@@ -41,7 +41,7 @@ export const getSchemeElement = (button, pos) => {
 }
 
 
-export const getCableElement = (length, elements, status) => {
+export const getSchemeCable = (length, elements, status) => {
   const defaultPosV = elements[1].posV < elements[0].posV ? elements[1].posV : elements[0].posV;
   const posV = status.cableType === 'horizontal-top' ? defaultPosV - stepV : defaultPosV;
   return {
@@ -68,12 +68,70 @@ export const getDataBaseElements = (elements) => {
       length: element.length ? element.length : 0,
       pos: element.pos,
       posV: element.posV,
-      posList: element.posList ? element.posList : [],
-      blockStatus: element.blockStatus ? element.blockStatus : '',
+      posList: element.posList ? 'db|' + element.posList.join('|') : 'db',
+      blockStatus: element.blockStatus ? element.blockStatus : 'noblock',
       elementsInBlock: element.elementsInBlock ? element.elementsInBlock : 0,
-      cableList: element.cableList ? element.cableList.map((cable) => cable.id) : [],
-      elementList: element.elementList ? element.elementList.map((item) => item.id) : [],
+      cableIdList: element.cableList ? element.cableList.reduce((list, item) => list + '|' + item.id, 'db') : 'db',
+      elementIdList: element.elementList ? element.elementList.reduce((list, item) => list + '|' + item.id, 'db') : 'db',
     }
   });
   return dbElements;
+}
+
+
+export const getDataBaseElement = (element) => {
+  return {
+    id: element.id,
+    name: element.name,
+    type: 'element',
+    listName: element.listName,
+    pos: element.pos,
+    posV: element.posV,
+    blockStatus: element.blockStatus,
+    elementsInBlock: element.elementsInBlock,
+    cableIdList: element.cableIdList.split('|'),
+    cableList: []
+  };
+}
+
+
+export const getDataBaseCable = (cable) => {
+  const positions = cable.posList.split('|');
+  positions.shift();
+  return {
+    id: cable.id,
+    name: 'cable',
+    type: cable.type,
+    listName: cable.listName,
+    length: cable.length,
+    pos: cable.pos,
+    posV: cable.posV,
+    posList: positions[0] ? positions.map((pos) => Number(pos)) : [],
+    elementIdList: cable.elementIdList.split('|'),
+    elementList: []
+  };
+}
+
+
+export const getSchemeElements = (elements) => {
+  const items = elements.map((element) => element.type === 'element' ? getDataBaseElement(element) : getDataBaseCable(element));
+  items.forEach((item) => {
+    if(item.type === 'element') {
+      item.cableIdList.forEach((cableId) => {
+        const cable = items.find((item) => item.id === cableId);
+        if(cable) {
+          item.cableList.push(cable);
+        }
+      });
+    }
+    if(item.name === 'cable') {
+      item.elementIdList.forEach((elementId) => {
+        const element = items.find((item) => item.id === elementId);
+        if(element) {
+          item.elementList.push(element);
+        }
+      });
+    }
+  });
+  return items;
 }

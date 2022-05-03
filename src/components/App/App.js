@@ -2,7 +2,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
-import { notVirtualElement, getCableElement, getSchemeElement } from '../../utils/element';
+import { basicVirtualElement, getSchemeElement, getSchemeCable,  getSchemeElements, getDataBaseElements } from '../../utils/element';
 import { getCableStatus, getFilteredElementList } from '../../utils/cable';
 import { sizingWindowError, savingWindowError } from '../../utils/errors';
 import * as api from '../../utils/Api';
@@ -39,7 +39,7 @@ function App() {
   const [cableElementList, setCableElementList] = useState([]);
   const [centralElement, setCentralElement] = useState({});
   const [cableStatus, setCableStatus] = useState({});
-  const [virtualElement, setVirtualElement] = useState(notVirtualElement);
+  const [virtualElement, setVirtualElement] = useState(basicVirtualElement);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -57,6 +57,7 @@ function App() {
       .then(() => {
         setLoggedIn(false);
         localStorage.removeItem('kavat-user-logged-in');
+        setSchemeElementList([]);
       })
       .catch(() => {
         setServerErrorMessage('Ошибка сервера, повторите попытку');
@@ -70,16 +71,30 @@ function App() {
   function saveSchemeElementList(elements) {
     setNeighbors(elements);
     setPreloaderVisibility(true);
-    api.createAction()
-      .then(() => {
-        setSchemeElementList(elements);
-      })
-      .catch(() => {
-        setServerErrorMessage('Ошибка сервера, повторите попытку');
-      })
-      .finally(() => {
-        setPreloaderVisibility(false);
-      });
+    if(loggedIn) {
+      api.updateDrawing(currentDrawing._id, currentDrawing.name, getDataBaseElements(elements))
+        .then((drawing) => {
+          setCurrentDrawing(drawing);
+          setSchemeElementList(getSchemeElements(drawing.elements));
+        })
+        .catch((error) => {
+          setServerErrorMessage(error.message ? error.message : 'Ошибка сервера, повторите попытку');
+        })
+        .finally(() => {
+          setPreloaderVisibility(false);
+        });
+    } else {
+      api.createAction()
+        .then(() => {
+          setSchemeElementList(elements);
+        })
+        .catch(() => {
+          setServerErrorMessage('Ошибка сервера, повторите попытку');
+        })
+        .finally(() => {
+          setPreloaderVisibility(false);
+        });
+    }
   }
 
 
@@ -176,9 +191,14 @@ function App() {
 
 
   function createCable(length) {
-    const newElement = getCableElement(length, cableElementList, cableStatus);
-    cableElementList.forEach((element) => element.cableList.push(newElement));
-    saveSchemeElementList([...schemeElementList, newElement]);
+    const newCable = getSchemeCable(length, cableElementList, cableStatus);
+    const newItems = [...schemeElementList];
+    cableElementList.forEach((element) => {
+      const currentItem = newItems.find((item) => item.id === element.id);
+      currentItem.cableList.push(newCable);
+    });
+    newItems.push(newCable);
+    saveSchemeElementList(newItems);
     navigate('/scheme');
   }
 
@@ -195,7 +215,7 @@ function App() {
     }
     if (button.name === 'clean') {
       setCentralElement({});
-      setVirtualElement(notVirtualElement);
+      setVirtualElement(basicVirtualElement);
       saveSchemeElementList([]);
       navigate('/scheme');
     }
@@ -203,7 +223,7 @@ function App() {
       startCable(button);
     }
     if (button.type === 'element') {
-      setVirtualElement(notVirtualElement);
+      setVirtualElement(basicVirtualElement);
       const newElementList = [...schemeElementList];
       if (button.listName === 'nolist') {
         selectingElement(button, newElementList);
@@ -220,6 +240,7 @@ function App() {
     const newCurrentDrawings = drawings.filter((drawing) => drawing._id !== drawingId);
     setDrawings([currentDrawing, ...newCurrentDrawings]);
     setCurrentDrawing(newCurrentDrawing);
+    setSchemeElementList(getSchemeElements(newCurrentDrawing.elements));
   }
 
 
@@ -265,6 +286,7 @@ function App() {
     } else {
       setDrawings([currentDrawing, ...drawings]);
       setCurrentDrawing(drawing);
+      setSchemeElementList([]);
     }
     navigate('/');
   }
@@ -358,6 +380,7 @@ function App() {
           const currentDrawings = drawings.filter((drawing) => drawing._id !== currentDrawing._id);
           setDrawings(currentDrawings.reverse());
           setCurrentDrawing(currentDrawing);
+          setSchemeElementList([]);
         })
         .catch(() => {
           setLoggedIn(false);
