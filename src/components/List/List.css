@@ -1,6 +1,7 @@
 .materials {
-  width: 420px;
-  padding: 25px 15px;
+  box-sizing: border-box;
+  width: 460px;
+  padding: 30px 15px;
   margin: 0;
 }
 
@@ -81,9 +82,8 @@
   margin: 0;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 460px) {
   .materials {
-    box-sizing: border-box;
     width: 100%;
   }
 }

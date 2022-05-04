@@ -1,6 +1,7 @@
 .hints {
-  max-width: 450px;
-  padding: 25px 15px;
+  box-sizing: border-box;
+  width: 460px;
+  padding: 30px 15px;
   margin: 0;
 }
 
@@ -92,7 +93,8 @@
   border: 2px solid #bbbbbb;
   border-radius: 15px;
   box-sizing: border-box;
-  width: 100px;
+  width: 120px;
+  height: 30px;
   padding: 0;
   margin: 0 auto;
 }
@@ -101,4 +103,10 @@
   color: #111111;
   background-color: #bbbbbb;
   cursor: pointer;
+}
+
+@media screen and (max-width: 460px) {
+  .hints {
+    width: 100%;
+  }
 }
