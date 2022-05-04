@@ -43,7 +43,7 @@ export const createUser = (name, days, status, password) => {
 
 
 export const updateUser = (name, newname, days, password) => {
-  return fetch(`${BASE_URL}/users/name`, {
+  return fetch(`${BASE_URL}/users`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
@@ -73,6 +73,14 @@ export const deleteUser = (name) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ name })
+  })
+  .then(getResponseData);
+}
+
+
+export const getUsers = () => {
+  return fetch(`${BASE_URL}/users`, {
+    method: 'GET'
   })
   .then(getResponseData);
 }

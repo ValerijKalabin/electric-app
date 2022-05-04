@@ -147,11 +147,11 @@ export const getCablePath = (elements, internalSpace, type) => {
 
 
 export const getFilteredElementList = (element, elementList) => {
-  element.cableList.forEach((cable) => cable.listName = 'motion');
-  const filteredList = elementList.filter((element) => element.listName !== 'motion');
+  element.cableList.forEach((cable) => cable.listName = 'nocable');
+  const filteredList = elementList.filter((element) => element.listName !== 'motion' && element.listName !== 'nocable');
   filteredList.forEach((element) => {
     if (element.cableList) {
-      element.cableList = element.cableList.filter((cable) => cable.listName !== 'motion');
+      element.cableList = element.cableList.filter((cable) => cable.listName !== 'nocable');
     }
   });
   return filteredList;
