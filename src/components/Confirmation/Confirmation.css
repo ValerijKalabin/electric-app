@@ -1,0 +1,111 @@
+.confirmation {
+  box-sizing: border-box;
+  width: 460px;
+  padding: 30px 15px;
+  margin: 0;
+}
+
+.confirmation__title {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #bbbbbb;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 15px;
+}
+
+.confirmation__question {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: center;
+  color: #bbbbbb;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 30px;
+}
+
+.confirmation__actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.confirmation__continue {
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  color: #d83d32;
+  background-color: transparent;
+  border: 2px solid #d83d32;
+  border-radius: 15px;
+  box-sizing: border-box;
+  width: 130px;
+  padding: 0;
+  margin: 0;
+}
+
+.confirmation__continue:hover {
+  color: #111111;
+  background-color: #d83d32;
+  cursor: pointer;
+}
+
+.confirmation__cancel {
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  color: #bbbbbb;
+  background-color: transparent;
+  border: 2px solid #bbbbbb;
+  border-radius: 15px;
+  box-sizing: border-box;
+  width: 130px;
+  padding: 0;
+  margin: 0;
+}
+
+.confirmation__cancel:hover {
+  color: #111111;
+  background-color: #bbbbbb;
+  cursor: pointer;
+}
+
+.confirmation__banner {
+  display: block;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  color: #d83d32;
+  background-color: transparent;
+  border: 2px solid #d83d32;
+  border-radius: 15px;
+  box-sizing: border-box;
+  width: 230px;
+  padding: 0;
+  margin: 0 auto;
+  opacity: 1;
+}
+
+@media screen and (max-width: 460px) {
+  .confirmation {
+    width: 100%;
+  }
+}

@@ -21,12 +21,14 @@ import ListOfHints from '../ListOfHints/ListOfHints';
 import ListOfElements from '../ListOfElements/ListOfElements';
 import ListOfSchemes from '../ListOfSchemes/ListOfSchemes';
 import ServerError from '../ServerError/ServerError';
+import Confirmation from '../Confirmation/Confirmation';
 
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(Boolean(localStorage.getItem('kavat-user-logged-in')));
   const [currentDrawing, setCurrentDrawing] = useState({ name: '' });
-  const [newDrawing, setNewDrawing] = useState({ name: '' });
+  const [newDrawing, setNewDrawing] = useState({});
+  const [deletedDrawing, setDeletedDrawing] = useState({});
   const [drawings, setDrawings] = useState([]);
   const [serverErrorMessage, setServerErrorMessage] = useState('');
   const [pageWidth, setPageWidth] = useState(window.innerWidth);
@@ -235,46 +237,24 @@ function App() {
   }
 
 
-  function selectingDrawing(drawingId) {
-    const newCurrentDrawing = drawings.find((drawing) => drawing._id === drawingId);
-    const newCurrentDrawings = drawings.filter((drawing) => drawing._id !== drawingId);
-    setDrawings([currentDrawing, ...newCurrentDrawings]);
-    setCurrentDrawing(newCurrentDrawing);
-    setSchemeElementList(getSchemeElements(newCurrentDrawing.elements));
+  function selectingDrawing(selectedDrawing) {
+    const newDrawings = drawings.filter((drawing) => drawing._id !== selectedDrawing._id);
+    setDrawings([currentDrawing, ...newDrawings]);
+    setCurrentDrawing(selectedDrawing);
+    setSchemeElementList(getSchemeElements(selectedDrawing.elements));
   }
 
 
-  function deleteDrawing(drawingId) {
-    setPreloaderVisibility(true);
-    api.deleteDrawing(drawingId)
-      .then(() => api.getDrawings()
-        .then((drawings) => {
-          const currentDrawings = drawings.filter((drawing) => drawing._id !== currentDrawing._id);
-          setDrawings(currentDrawings);
-        })
-      )
-      .catch(() => {
-        setServerErrorMessage('Ошибка сервера, повторите попытку');
-      })
-      .finally(() => {
-        setPreloaderVisibility(false);
-      });
-  }
-
-
-  function handleClickDrawing({ action, drawingId}) {
+  function handleClickDrawing({ action, drawing }) {
     if(action === 'choose') {
-      selectingDrawing(drawingId);
+      selectingDrawing(drawing);
     }
     if(action === 'delete') {
-      deleteDrawing(drawingId);
+      setDeletedDrawing(drawing);
+      navigate('/confirm');
     }
-    if(action === 'add') {
-      setNewDrawing({ name: '' });
-      navigate('/drawing')
-    }
-    if(action === 'edit') {
-      setNewDrawing(currentDrawing);
+    if(action === 'add' || action === 'edit') {
+      setNewDrawing(drawing);
       navigate('/drawing')
     }
   }
@@ -288,6 +268,13 @@ function App() {
       setCurrentDrawing(drawing);
       setSchemeElementList([]);
     }
+    navigate('/');
+  }
+
+
+  function handleDeleteDrawing(drawings) {
+    const currentDrawings = drawings.filter((drawing) => drawing._id !== currentDrawing._id);
+    setDrawings(currentDrawings);
     navigate('/');
   }
 
@@ -471,6 +458,14 @@ function App() {
           ? <DrawingForm
             newDrawing={newDrawing}
             onSubmitDrawing={handleSubmitDrawing}
+          />
+          : <Navigate replace to="/" />
+        } />
+        <Route path='/confirm' element={
+          loggedIn
+          ? <Confirmation
+            deletedDrawing={deletedDrawing}
+            onClickDelete={handleDeleteDrawing}
           />
           : <Navigate replace to="/" />
         } />

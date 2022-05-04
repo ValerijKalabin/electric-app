@@ -23,7 +23,10 @@ function ListOfSchemes({
   function handleClickAdd() {
     onClickDrawing({
       action: 'add',
-      drawingId: ''
+      drawing: {
+        _id: '',
+        name: 'Новая схема'
+      }
     });
   }
 

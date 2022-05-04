@@ -4,21 +4,21 @@ function SchemeListItem({ drawing, status, pageWidth, onClickDrawing }) {
   function handleClickChoose() {
     onClickDrawing({
       action: 'choose',
-      drawingId: drawing._id
+      drawing: drawing
     });
   }
 
   function handleClickEdit() {
     onClickDrawing({
       action: 'edit',
-      drawingId: drawing._id
+      drawing: drawing
     });
   }
 
   function handleClickDelete() {
     onClickDrawing({
       action: 'delete',
-      drawingId: drawing._id
+      drawing: drawing
     });
   }
 
@@ -32,10 +32,10 @@ function SchemeListItem({ drawing, status, pageWidth, onClickDrawing }) {
         onClick={handleClickChoose}
       >
         <h2 className="scheme-list-item__name" style={pageWidth < 460 ? { width: `${pageWidth - 134}px` } : { width: '326px' }}>
-          {drawing.name}
+          {drawing.name ? drawing.name : ''}
         </h2>
         <p className="scheme-list-item__date" style={pageWidth < 460 ? { width: `${pageWidth - 134}px` } : { width: '326px' }}>
-          {`Дата записи: ${drawing.createdAt.slice(0, 10).split('-').reverse().join('-')}`}
+          {`Дата записи: ${drawing.createdAt ? drawing.createdAt.slice(0, 10).split('-').reverse().join('-') : ''}`}
         </p>
       </button>
       <button

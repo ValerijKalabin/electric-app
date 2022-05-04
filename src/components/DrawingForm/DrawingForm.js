@@ -20,7 +20,7 @@ function DrawingForm({ newDrawing, onSubmitDrawing }) {
   function handleSubmit(event) {
     event.preventDefault();
     setFormDisability(true);
-    if(!newDrawing.name) {
+    if(!newDrawing._id) {
       api.createDrawing({
         name: value,
         elements: []
