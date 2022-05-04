@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './List.css';
 
-function List({ elementList }) {
+function List({ currentDrawing, elementList }) {
   const [materials, setMaterials] = useState([]);
 
   useEffect (() => {
@@ -75,6 +75,11 @@ function List({ elementList }) {
       <h1 className={`materials__title ${!elementList.length ? 'materials__title_nomaterials' : ''}`}>
         { !elementList.length ? 'Здесь будет список материалов' : 'Материалы' }
       </h1>
+      {!!currentDrawing.name &&
+        <p className={`materials__subtitle ${!elementList.length ? 'materials__subtitle_nomaterials' : ''}`}>
+          {currentDrawing.name}
+        </p>
+      }
       <ul className="materials__list">
         { materials.map((item, index) => (
           <li className="materials__item" key={`m${index}`}>

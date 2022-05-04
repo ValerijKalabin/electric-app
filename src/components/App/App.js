@@ -417,6 +417,7 @@ function App() {
           isAppVisible
           ? <Scheme
               pageHeight={pageHeight}
+              currentDrawing={currentDrawing}
               centralElement={centralElement}
               virtualElement={virtualElement}
               elementList={schemeElementList}
@@ -429,7 +430,10 @@ function App() {
         } />
         <Route path='/list' element={
           isAppVisible
-          ? <List elementList={schemeElementList} />
+          ? <List
+              currentDrawing={currentDrawing}
+              elementList={schemeElementList}
+            />
           : <Error windowError={windowError} />
         } />
         <Route path='/elements' element={

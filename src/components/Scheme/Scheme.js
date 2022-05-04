@@ -12,6 +12,7 @@ import './Scheme.css';
 
 function Scheme({
   pageHeight,
+  currentDrawing,
   centralElement,
   virtualElement,
   elementList,
@@ -22,6 +23,9 @@ function Scheme({
 }) {
   return (
     <main className="scheme" style={{ height: `${pageHeight - outerHeight}px` }}>
+      {!!currentDrawing.name &&
+        <h1 className="scheme__title">{currentDrawing.name}</h1>
+      }
       { !elementList.length && <Wheel onClickButton={onClickButton} /> }
       { !!elementList.length &&
         <div className="scheme__container" style={schemeMarkup}>
