@@ -1,6 +1,6 @@
 import './SchemeListItem.css';
 
-function SchemeListItem({ drawing, status, pageWidth, onClickDrawing }) {
+function SchemeListItem({ drawing, status, onClickDrawing }) {
   function handleClickChoose() {
     onClickDrawing({
       action: 'choose',
@@ -31,10 +31,10 @@ function SchemeListItem({ drawing, status, pageWidth, onClickDrawing }) {
         disabled={status === 'current'}
         onClick={handleClickChoose}
       >
-        <h2 className="scheme-list-item__name" style={pageWidth < 460 ? { width: `${pageWidth - 134}px` } : { width: '326px' }}>
+        <h2 className="scheme-list-item__name">
           {drawing.name ? drawing.name : ''}
         </h2>
-        <p className="scheme-list-item__date" style={pageWidth < 460 ? { width: `${pageWidth - 134}px` } : { width: '326px' }}>
+        <p className="scheme-list-item__date">
           {`Дата записи: ${drawing.createdAt ? drawing.createdAt.slice(0, 10).split('-').reverse().join('-') : ''}`}
         </p>
       </button>

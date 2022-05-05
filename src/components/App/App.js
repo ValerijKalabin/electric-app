@@ -270,7 +270,7 @@ function App() {
 
   function handleDeleteDrawing(drawings) {
     const currentDrawings = drawings.filter((drawing) => drawing._id !== currentDrawing._id);
-    setDrawings(currentDrawings);
+    setDrawings(currentDrawings.reverse());
     navigate('/');
   }
 
@@ -327,7 +327,11 @@ function App() {
       setAppVisibility(window.innerWidth > 359 && window.innerHeight > 499);
       setPageWidth(window.innerWidth);
       setPageHeight(window.innerHeight);
-      if(location.pathname === '/key' || location.pathname === '/cable' || location.pathname === '/drawing') {
+      if ( location.pathname === '/'
+        || location.pathname === '/key'
+        || location.pathname === '/cable'
+        || location.pathname === '/drawing'
+      ) {
         setWindowError(savingWindowError);
       } else {
         setWindowError(sizingWindowError);
@@ -397,7 +401,6 @@ function App() {
           !loggedIn
           ? <Manual />
           : <ListOfSchemes
-              pageWidth={pageWidth}
               pageHeight={pageHeight}
               drawings={drawings}
               currentDrawing={currentDrawing}

@@ -6,7 +6,6 @@ import './ListOfSchemes.css';
 
 
 function ListOfSchemes({
-  pageWidth,
   pageHeight,
   drawings,
   currentDrawing,
@@ -42,7 +41,7 @@ function ListOfSchemes({
         </h1>
         {!!currentDrawing.name &&
           <div className="schemes__item">
-            <SchemeListItem drawing={currentDrawing} status="current" pageWidth={pageWidth} onClickDrawing={onClickDrawing} />
+            <SchemeListItem drawing={currentDrawing} status="current" onClickDrawing={onClickDrawing} />
           </div>
         }
         {!!currentDrawing.name &&
@@ -54,7 +53,7 @@ function ListOfSchemes({
           <ul className="schemes__list">
             {filteredDrawings.map((drawing) => (
               <li className="schemes__item" key={drawing._id}>
-                <SchemeListItem drawing={drawing} status="notcurrent" pageWidth={pageWidth} onClickDrawing={onClickDrawing} />
+                <SchemeListItem drawing={drawing} status="notcurrent" onClickDrawing={onClickDrawing} />
               </li>
             ))}
           </ul>
