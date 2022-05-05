@@ -72,29 +72,27 @@ function App() {
 
   function saveSchemeElementList(elements) {
     setNeighbors(elements);
-    setPreloaderVisibility(true);
     if(loggedIn) {
+      setPreloaderVisibility(true);
       api.updateDrawing(currentDrawing._id, currentDrawing.name, getDataBaseElements(elements))
         .then((drawing) => {
           setCurrentDrawing(drawing);
           setSchemeElementList(getSchemeElements(drawing.elements));
-        })
-        .catch((error) => {
-          setServerErrorMessage(error.message ? error.message : 'Ошибка сервера, повторите попытку');
-        })
-        .finally(() => {
-          setPreloaderVisibility(false);
-        });
-    } else {
-      api.createAction()
-        .then(() => {
-          setSchemeElementList(elements);
         })
         .catch(() => {
           setServerErrorMessage('Ошибка сервера, повторите попытку');
         })
         .finally(() => {
           setPreloaderVisibility(false);
+        });
+    } else {
+      setSchemeElementList(elements);
+      api.createAction()
+        .then(() => {
+          console.log('Ok');
+        })
+        .catch(() => {
+          console.log('Error');
         });
     }
   }
@@ -329,12 +327,17 @@ function App() {
       setAppVisibility(window.innerWidth > 359 && window.innerHeight > 499);
       setPageWidth(window.innerWidth);
       setPageHeight(window.innerHeight);
+      if(location.pathname === '/key' || location.pathname === '/cable' || location.pathname === '/drawing') {
+        setWindowError(savingWindowError);
+      } else {
+        setWindowError(sizingWindowError);
+      }
     }
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     }
-  }, []);
+  }, [ location ]);
 
 
   useEffect(() => {
@@ -343,21 +346,12 @@ function App() {
     } else {
       setNavigationVisibility(false);
     }
-
-    if(location.pathname === '/key' || location.pathname === '/cable' || location.pathname === '/drawing') {
-      setWindowError(savingWindowError);
-    } else {
-      setWindowError(sizingWindowError);
-    }
-
     if (location.pathname !== '/cable') {
       setCableElementList([]);
     }
-
     if (location.pathname !== '/drawing') {
       setNewDrawing({});
     }
-
     if (location.pathname !== '/confirm') {
       setDeletedDrawing({});
     }
