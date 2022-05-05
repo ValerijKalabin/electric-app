@@ -34,7 +34,8 @@ function DrawingForm({ newDrawing, onSubmitDrawing }) {
         .finally(() => {
           setFormDisability(false);
         });
-    } else {
+    }
+    if(newDrawing._id) {
       api.updateDrawing(newDrawing._id, value, newDrawing.elements)
         .then((drawing) => {
           onSubmitDrawing(drawing);

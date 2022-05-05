@@ -4,6 +4,6 @@ export const sizingWindowError = {
 }
 
 export const savingWindowError = {
-  title: 'Сохранение...',
+  title: 'Переключение...',
   text: ''
 }

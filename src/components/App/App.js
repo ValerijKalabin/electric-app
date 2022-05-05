@@ -266,14 +266,12 @@ function App() {
       setSchemeElementList([]);
     }
     setCurrentDrawing(drawing);
-    setNewDrawing({});
     navigate('/');
   }
 
 
   function handleDeleteDrawing(drawings) {
     const currentDrawings = drawings.filter((drawing) => drawing._id !== currentDrawing._id);
-    setDeletedDrawing({});
     setDrawings(currentDrawings);
     navigate('/');
   }
@@ -331,17 +329,12 @@ function App() {
       setAppVisibility(window.innerWidth > 359 && window.innerHeight > 499);
       setPageWidth(window.innerWidth);
       setPageHeight(window.innerHeight);
-      if(location.pathname === '/cable') {
-        setWindowError(savingWindowError);
-      } else {
-        setWindowError(sizingWindowError);
-      }
     }
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     }
-  }, [ location ]);
+  }, []);
 
 
   useEffect(() => {
@@ -349,6 +342,24 @@ function App() {
       setNavigationVisibility(true);
     } else {
       setNavigationVisibility(false);
+    }
+
+    if(location.pathname === '/key' || location.pathname === '/cable' || location.pathname === '/drawing') {
+      setWindowError(savingWindowError);
+    } else {
+      setWindowError(sizingWindowError);
+    }
+
+    if (location.pathname !== '/cable') {
+      setCableElementList([]);
+    }
+
+    if (location.pathname !== '/drawing') {
+      setNewDrawing({});
+    }
+
+    if (location.pathname !== '/confirm') {
+      setDeletedDrawing({});
     }
   }, [ location ]);
 
@@ -441,12 +452,14 @@ function App() {
           : <Error windowError={windowError} />
         } />
         <Route path='/cable' element={
-          <CableForm
-            cable={cableStatus}
-            centralElement={centralElement}
-            onClickButton={handleClickButton}
-            onSubmitForm={createCable}
-          />
+          cableElementList.length > 0
+          ? <CableForm
+              cable={cableStatus}
+              centralElement={centralElement}
+              onClickButton={handleClickButton}
+              onSubmitForm={createCable}
+            />
+          : <Navigate replace to="/scheme" />
         } />
         <Route path='/key' element={
           !loggedIn
@@ -454,7 +467,7 @@ function App() {
           : <Navigate replace to="/" />
         } />
         <Route path='/drawing' element={
-          loggedIn
+          loggedIn && !!newDrawing.name
           ? <DrawingForm
             newDrawing={newDrawing}
             onSubmitDrawing={handleSubmitDrawing}
@@ -462,7 +475,7 @@ function App() {
           : <Navigate replace to="/" />
         } />
         <Route path='/confirm' element={
-          loggedIn
+          loggedIn && !!deletedDrawing._id
           ? <Confirmation
             deletedDrawing={deletedDrawing}
             onClickDelete={handleDeleteDrawing}
