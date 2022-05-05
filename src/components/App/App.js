@@ -261,19 +261,19 @@ function App() {
 
 
   function handleSubmitDrawing(drawing) {
-    if(drawing._id === currentDrawing._id) {
-      setCurrentDrawing(drawing);
-    } else {
+    if(drawing._id !== currentDrawing._id) {
       setDrawings([currentDrawing, ...drawings]);
-      setCurrentDrawing(drawing);
       setSchemeElementList([]);
     }
+    setCurrentDrawing(drawing);
+    setNewDrawing({});
     navigate('/');
   }
 
 
   function handleDeleteDrawing(drawings) {
     const currentDrawings = drawings.filter((drawing) => drawing._id !== currentDrawing._id);
+    setDeletedDrawing({});
     setDrawings(currentDrawings);
     navigate('/');
   }

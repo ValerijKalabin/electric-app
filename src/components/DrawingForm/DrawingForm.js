@@ -57,7 +57,7 @@ function DrawingForm({ newDrawing, onSubmitDrawing }) {
   return (
     <main className="drawing">
       <h1 className="drawing__title">
-        Наименование схемы
+        {newDrawing._id ? 'Наименование схемы' : 'Создание схемы'}
       </h1>
       <form
         className="drawing__form"

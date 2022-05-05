@@ -39,23 +39,25 @@ function Confirmation({ deletedDrawing, onClickDelete }) {
         Удаление чертежа
       </h1>
       <p className="confirmation__question">
-        {`Вы уверены, что хотите удалить чертёж "${deletedDrawing.name ? deletedDrawing.name : ''}"?`}
+        {deletedDrawing.name ? `Вы уверены, что хотите удалить чертёж "${deletedDrawing.name}"?` : 'Чертёж не выбран!'}
       </p>
       {!isBannerVisible &&
         <div className="confirmation__actions">
-          <button
-            className="confirmation__continue"
-            type="button"
-            name="confirm"
-            onClick={handleClickConfirm}
-          >
-            Удалить
-          </button>
+          {!!deletedDrawing.name &&
+            <button
+              className="confirmation__continue"
+              type="button"
+              name="confirm"
+              onClick={handleClickConfirm}
+            >
+              Удалить
+            </button>
+          }
           <Link
             to='/'
             className="confirmation__cancel"
           >
-            Отменить
+            {deletedDrawing.name ? 'Отменить' : 'Закрыть'}
           </Link>
         </div>
       }

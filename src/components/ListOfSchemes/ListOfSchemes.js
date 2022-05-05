@@ -25,7 +25,7 @@ function ListOfSchemes({
       action: 'add',
       drawing: {
         _id: '',
-        name: 'Новая схема'
+        name: 'Новый объект'
       }
     });
   }
