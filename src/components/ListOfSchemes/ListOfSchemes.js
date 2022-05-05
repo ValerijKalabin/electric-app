@@ -15,7 +15,11 @@ function ListOfSchemes({
   const [filteredDrawings, setFilteredDrawings] = useState(drawings);
 
   function handleChangeSearch(value) {
-    const filteredDrawings = drawings.filter((drawing) => drawing.name.includes(value));
+    const lowerValue = value.toLowerCase();
+    const filteredDrawings = drawings.filter((drawing) => {
+      const lowerName = drawing.name.toLowerCase();
+      return lowerName.includes(lowerValue);
+    });
     setFilteredDrawings(filteredDrawings);
   }
 
