@@ -266,6 +266,7 @@ function App() {
     const newDrawings = drawings.filter((drawing) => drawing._id !== selectedDrawing._id);
     setDrawings([currentDrawing, ...newDrawings]);
     setCurrentDrawing(selectedDrawing);
+    setVirtualElement(basicVirtualElement);
     setDrawingElementList(selectedDrawing.elements);
   }
 
