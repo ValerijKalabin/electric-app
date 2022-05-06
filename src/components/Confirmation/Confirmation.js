@@ -19,7 +19,7 @@ function Confirmation({ deletedDrawing, onClickDelete }) {
           })
         )
         .catch(() => {
-          setServerErrorMessage('Ошибка сервера, повторите попытку');
+          setServerErrorMessage('Ошибка сервера, возможно чертёж уже удалён с другого устройства');
         })
         .finally(() => {
           setBannerVisibility(false);

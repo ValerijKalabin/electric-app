@@ -2,9 +2,16 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { getPosList, getExpandedPosList, setNeighbors, step } from '../../utils/position';
-import { basicVirtualElement, getSchemeElement, getSchemeCable,  getSchemeElements, getDataBaseElements } from '../../utils/element';
 import { getCableStatus, getFilteredElementList } from '../../utils/cable';
 import { sizingWindowError, savingWindowError } from '../../utils/errors';
+import {
+  notElement,
+  basicVirtualElement,
+  getSchemeElement,
+  getSchemeCable,
+  getSchemeElements,
+  getDataBaseElements
+} from '../../utils/element';
 import * as api from '../../utils/Api';
 import Header from '../Header/Header';
 import Manual from '../Manual/Manual';
@@ -70,17 +77,34 @@ function App() {
   }
 
 
+  function setDrawingElementList(elements, center = 0) {
+    const currentElementList = getSchemeElements(elements);
+    const currentCentralElement = currentElementList.find((element) => element.listName === 'motion' || element.listName === 'cable');
+    if(currentCentralElement) {
+      setCentralElement(currentCentralElement);
+    } else if(center) {
+      setCentralElement(centralElement);
+    } else {
+      setCentralElement(notElement);
+    }
+    setSchemeElementList(currentElementList);
+  }
+
+
   function saveSchemeElementList(elements) {
     setNeighbors(elements);
+    setPreloaderVisibility(true);
     if(loggedIn) {
-      setPreloaderVisibility(true);
+      const center = centralElement.pos ? centralElement.pos : 0;
       api.updateDrawing(currentDrawing._id, currentDrawing.name, getDataBaseElements(elements))
         .then((drawing) => {
           setCurrentDrawing(drawing);
-          setSchemeElementList(getSchemeElements(drawing.elements));
+          setDrawingElementList(drawing.elements, center);
         })
         .catch(() => {
+          setDrawingElementList(currentDrawing.elements, center);
           setServerErrorMessage('Ошибка сервера, повторите попытку');
+          navigate('/scheme');
         })
         .finally(() => {
           setPreloaderVisibility(false);
@@ -93,6 +117,9 @@ function App() {
         })
         .catch(() => {
           console.log('Error');
+        })
+        .finally(() => {
+          setPreloaderVisibility(false);
         });
     }
   }
@@ -239,7 +266,7 @@ function App() {
     const newDrawings = drawings.filter((drawing) => drawing._id !== selectedDrawing._id);
     setDrawings([currentDrawing, ...newDrawings]);
     setCurrentDrawing(selectedDrawing);
-    setSchemeElementList(getSchemeElements(selectedDrawing.elements));
+    setDrawingElementList(selectedDrawing.elements);
   }
 
 
@@ -352,6 +379,7 @@ function App() {
     }
     if (location.pathname !== '/cable') {
       setCableElementList([]);
+      setCableStatus({});
     }
     if (location.pathname !== '/drawing') {
       setNewDrawing({});
