@@ -13,11 +13,9 @@ function Confirmation({ deletedDrawing, onClickDelete }) {
     if(deletedDrawing._id) {
       setBannerVisibility(true);
       api.deleteDrawing(deletedDrawing._id)
-        .then(() => api.getDrawings()
-          .then((drawings) => {
-            onClickDelete(drawings);
-          })
-        )
+        .then(() => {
+          onClickDelete(deletedDrawing);
+        })
         .catch(() => {
           setServerErrorMessage('Ошибка сервера, возможно чертёж уже удалён с другого устройства');
         })

@@ -12,18 +12,20 @@ function ListOfSchemes({
   onClickDrawing,
   onClickSignout
 }) {
-  const [filteredDrawings, setFilteredDrawings] = useState(drawings);
+  const [searchValue, setSearchValue] = useState('');
+  const [indexedDrawings, setIndexedDrawings] = useState(drawings);
 
   function handleChangeSearch(value) {
-    const lowerValue = value.toLowerCase();
-    const filteredDrawings = drawings.filter((drawing) => {
-      const lowerName = drawing.name.toLowerCase();
-      return lowerName.includes(lowerValue);
-    });
-    setFilteredDrawings(filteredDrawings);
+    setSearchValue(value);
+  }
+
+  function handleClickItem({ action, drawing }) {
+    setSearchValue('');
+    onClickDrawing({ action, drawing })
   }
 
   function handleClickAdd() {
+    setSearchValue('');
     onClickDrawing({
       action: 'add',
       drawing: {
@@ -34,8 +36,25 @@ function ListOfSchemes({
   }
 
   useEffect(() => {
-    setFilteredDrawings(drawings);
-  }, [ drawings ])
+    const newDrawings = [...drawings].reverse();
+    const lowerValue = searchValue.toLowerCase();
+    const filteredDrawings = newDrawings.filter((drawing) => {
+      const lowerName = drawing.name ? drawing.name.toLowerCase() : '';
+      return lowerName.includes(lowerValue) || drawing._id === currentDrawing._id;
+    });
+    let index = 0;
+    filteredDrawings.forEach((drawing) => {
+      if(drawing._id === currentDrawing._id) {
+        drawing.status = 'current';
+        drawing.posTop = {top: '-90px'};
+      } else {
+        drawing.status = 'notcurrent';
+        drawing.posTop = {top: `${10 + index * 50}px`};
+        index = index + 1;
+      }
+    });
+    setIndexedDrawings(filteredDrawings);
+  }, [ drawings, currentDrawing, searchValue ])
 
   return (
     <main className="schemes" style={{ minHeight: `${pageHeight - outerHeight}px` }}>
@@ -44,20 +63,23 @@ function ListOfSchemes({
           Мои чертежи
         </h1>
         {!!currentDrawing.name &&
-          <div className="schemes__item">
-            <SchemeListItem drawing={currentDrawing} status="current" onClickDrawing={onClickDrawing} />
-          </div>
+          <Search value={searchValue} onChangeSearch={handleChangeSearch} />
         }
         {!!currentDrawing.name &&
-          <div className="schemes__item">
-            <Search onChangeSearch={handleChangeSearch} />
-          </div>
-        }
-        {!!currentDrawing.name &&
-          <ul className="schemes__list">
-            {filteredDrawings.map((drawing) => (
-              <li className="schemes__item" key={drawing._id}>
-                <SchemeListItem drawing={drawing} status="notcurrent" onClickDrawing={onClickDrawing} />
+          <ul
+            className="schemes__list"
+            style={{height: `${(indexedDrawings.length - 1) * 50}px`}}
+          >
+            {indexedDrawings.map((drawing) => (
+              <li
+                className="schemes__item"
+                key={drawing._id}
+                style={drawing.posTop}
+              >
+                <SchemeListItem
+                  drawing={drawing}
+                  onClickItem={handleClickItem}
+                />
               </li>
             ))}
           </ul>

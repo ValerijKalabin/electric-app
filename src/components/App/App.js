@@ -262,18 +262,11 @@ function App() {
   }
 
 
-  function selectingDrawing(selectedDrawing) {
-    const newDrawings = drawings.filter((drawing) => drawing._id !== selectedDrawing._id);
-    setDrawings([currentDrawing, ...newDrawings]);
-    setCurrentDrawing(selectedDrawing);
-    setVirtualElement(basicVirtualElement);
-    setDrawingElementList(selectedDrawing.elements);
-  }
-
-
   function handleClickDrawing({ action, drawing }) {
     if(action === 'choose') {
-      selectingDrawing(drawing);
+      setCurrentDrawing(drawing);
+      setVirtualElement(basicVirtualElement);
+      setDrawingElementList(drawing.elements);
     }
     if(action === 'delete') {
       setDeletedDrawing(drawing);
@@ -288,17 +281,27 @@ function App() {
 
   function handleSubmitDrawing(drawing) {
     if(drawing._id !== currentDrawing._id) {
-      setDrawings([currentDrawing, ...drawings]);
+      setDrawings([...drawings, drawing]);
       setSchemeElementList([]);
+    } else {
+      const newDrawings = [...drawings];
+      newDrawings.forEach((newDrawing) => {
+        if(newDrawing._id === currentDrawing._id) {
+          newDrawing.name = drawing.name;
+        }
+      });
+      setDrawings(newDrawings);
     }
     setCurrentDrawing(drawing);
     navigate('/');
   }
 
 
-  function handleDeleteDrawing(drawings) {
-    const currentDrawings = drawings.filter((drawing) => drawing._id !== currentDrawing._id);
-    setDrawings(currentDrawings.reverse());
+  function handleDeleteDrawing(deletedDrawing) {
+    if(deletedDrawing._id) {
+      const newDrawings = drawings.filter((drawing) => drawing._id !== deletedDrawing._id);
+      setDrawings(newDrawings);
+    }
     navigate('/');
   }
 
@@ -402,8 +405,10 @@ function App() {
         })
       ])
         .then(([ drawings, currentDrawing ]) => {
-          const currentDrawings = drawings.filter((drawing) => drawing._id !== currentDrawing._id);
-          setDrawings(currentDrawings.reverse());
+          if(!drawings.some((drawing) => drawing._id === currentDrawing._id)) {
+            drawings.push(currentDrawing);
+          }
+          setDrawings(drawings);
           setCurrentDrawing(currentDrawing);
           setSchemeElementList([]);
         })

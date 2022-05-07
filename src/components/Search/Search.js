@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import './Search.css';
 
-function Search({ onChangeSearch }) {
-  const [value, setValue] = useState('');
+function Search({ value, onChangeSearch }) {
   const [backgroundColor, setBackgroundColor] = useState('#111111');
   const [color, setColor] = useState('#d5d832');
 
@@ -17,7 +16,6 @@ function Search({ onChangeSearch }) {
   }
 
   function handleChange(event) {
-    setValue(event.target.value);
     onChangeSearch(event.target.value);
   }
 
