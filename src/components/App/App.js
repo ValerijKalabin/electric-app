@@ -97,9 +97,16 @@ function App() {
     if(loggedIn) {
       const center = centralElement.pos ? centralElement.pos : 0;
       api.updateDrawing(currentDrawing._id, currentDrawing.name, getDataBaseElements(elements))
-        .then((drawing) => {
-          setCurrentDrawing(drawing);
-          setDrawingElementList(drawing.elements, center);
+        .then((newDrawing) => {
+          const newDrawings = drawings.map((drawing) => {
+            if(drawing._id === currentDrawing._id) {
+              drawing.elements = newDrawing.elements;
+            }
+            return drawing;
+          });
+          setDrawings(newDrawings);
+          setCurrentDrawing(newDrawing);
+          setDrawingElementList(newDrawing.elements, center);
         })
         .catch(() => {
           setDrawingElementList(currentDrawing.elements, center);
@@ -279,20 +286,20 @@ function App() {
   }
 
 
-  function handleSubmitDrawing(drawing) {
-    if(drawing._id !== currentDrawing._id) {
-      setDrawings([...drawings, drawing]);
+  function handleSubmitDrawing(newDrawing) {
+    if(newDrawing._id !== currentDrawing._id) {
+      setDrawings([...drawings, newDrawing]);
       setSchemeElementList([]);
     } else {
-      const newDrawings = [...drawings];
-      newDrawings.forEach((newDrawing) => {
-        if(newDrawing._id === currentDrawing._id) {
-          newDrawing.name = drawing.name;
+      const newDrawings = drawings.map((drawing) => {
+        if(drawing._id === currentDrawing._id) {
+          drawing.name = newDrawing.name;
         }
+        return drawing;
       });
       setDrawings(newDrawings);
     }
-    setCurrentDrawing(drawing);
+    setCurrentDrawing(newDrawing);
     navigate('/');
   }
 
@@ -404,12 +411,12 @@ function App() {
           elements: []
         })
       ])
-        .then(([ drawings, currentDrawing ]) => {
-          if(!drawings.some((drawing) => drawing._id === currentDrawing._id)) {
-            drawings.push(currentDrawing);
+        .then(([ drawings, newDrawing ]) => {
+          if(!drawings.some((drawing) => drawing._id === newDrawing._id)) {
+            drawings.push(newDrawing);
           }
           setDrawings(drawings);
-          setCurrentDrawing(currentDrawing);
+          setCurrentDrawing(newDrawing);
           setSchemeElementList([]);
         })
         .catch(() => {
