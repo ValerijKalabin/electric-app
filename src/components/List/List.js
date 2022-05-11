@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import { outerHeight } from '../../utils/position';
 import './List.css';
 
-function List({ currentDrawing, elementList }) {
+function List({ pageHeight, currentDrawing, elementList }) {
   const [materials, setMaterials] = useState([]);
 
   useEffect (() => {
@@ -71,29 +72,31 @@ function List({ currentDrawing, elementList }) {
   }, [ elementList ]);
 
   return (
-    <main className="materials">
-      <h1 className={`materials__title ${!elementList.length ? 'materials__title_nomaterials' : ''}`}>
-        { !elementList.length ? 'Здесь будет список материалов' : 'Материалы' }
-      </h1>
-      {!!currentDrawing.name &&
-        <p className={`materials__subtitle ${!elementList.length ? 'materials__subtitle_nomaterials' : ''}`}>
-          {currentDrawing.name}
-        </p>
-      }
-      <ul className="materials__list">
-        { materials.map((item, index) => (
-          <li className="materials__item" key={`m${index}`}>
-            { !!item.number &&
-              <div className="materials__container">
-                <div className="materials__label">
-                  <p className="materials__name">{item.material}</p>
+    <main className="materials" style={{ minHeight: `${pageHeight - outerHeight}px` }}>
+      <div className="materials__page">
+        <h1 className={`materials__title ${!elementList.length ? 'materials__title_nomaterials' : ''}`}>
+          { !elementList.length ? 'Здесь будет список материалов' : 'Материалы' }
+        </h1>
+        {!!currentDrawing.name &&
+          <p className={`materials__subtitle ${!elementList.length ? 'materials__subtitle_nomaterials' : ''}`}>
+            {currentDrawing.name}
+          </p>
+        }
+        <ul className="materials__list">
+          { materials.map((item, index) => (
+            <li className="materials__item" key={`m${index}`}>
+              { !!item.number &&
+                <div className="materials__container">
+                  <div className="materials__label">
+                    <p className="materials__name">{item.material}</p>
+                  </div>
+                  <p className="materials__number">{item.number}</p>
                 </div>
-                <p className="materials__number">{item.number}</p>
-              </div>
-            }
-          </li>
-        ))}
-      </ul>
+              }
+            </li>
+          ))}
+        </ul>
+      </div>
     </main>
   );
 }

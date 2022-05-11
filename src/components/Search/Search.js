@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Search.css';
 
 function Search({ value, onChangeSearch }) {
-  const [backgroundColor, setBackgroundColor] = useState('#111111');
+  const [backgroundColor, setBackgroundColor] = useState('transparent');
   const [color, setColor] = useState('#d5d832');
 
   function handleFocus() {
@@ -11,7 +11,7 @@ function Search({ value, onChangeSearch }) {
   }
 
   function handleBlur() {
-    setBackgroundColor('#111111');
+    setBackgroundColor('transparent');
     setColor('#d5d832');
   }
 

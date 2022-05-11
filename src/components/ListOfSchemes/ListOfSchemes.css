@@ -3,15 +3,19 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  box-sizing: border-box;
-  width: 460px;
-  padding: 30px 15px;
+  background-image: url('../../images/house.svg');
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  padding: 0;
   margin: 0;
 }
 
 .schemes__container {
-  width: 100%;
-  padding: 0 0 30px;
+  box-sizing: border-box;
+  width: 460px;
+  padding: 30px 15px 0;
   margin: 0;
 }
 
@@ -50,8 +54,9 @@
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  width: 100%;
-  padding: 0;
+  box-sizing: border-box;
+  width: 460px;
+  padding: 30px 15px;
   margin: 0;
 }
 
@@ -59,7 +64,7 @@
   display: block;
   text-align: center;
   line-height: 24px;
-  background-color: #111111;
+  background-color: transparent;
   border: 2px solid #d5d832;
   border-radius: 15px;
   box-sizing: border-box;
@@ -87,7 +92,7 @@
   text-decoration: none;
   text-align: center;
   color: #bbbbbb;
-  background-color: #111111;
+  background-color: transparent;
   border: 2px solid #bbbbbb;
   border-radius: 15px;
   box-sizing: border-box;
@@ -104,7 +109,11 @@
 }
 
 @media screen and (max-width: 460px) {
-  .schemes {
+  .schemes__container {
+    width: 100%;
+  }
+
+  .schemes__buttons {
     width: 100%;
   }
 }

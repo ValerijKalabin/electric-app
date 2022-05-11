@@ -66,6 +66,8 @@ function App() {
       .then(() => {
         setLoggedIn(false);
         localStorage.removeItem('kavat-user-logged-in');
+        setDrawings([]);
+        setCurrentDrawing({name: ''});
         setSchemeElementList([]);
       })
       .catch(() => {
@@ -440,7 +442,7 @@ function App() {
       <Routes>
         <Route path='/' element={
           !loggedIn
-          ? <Manual />
+          ? <Manual pageHeight={pageHeight} />
           : <ListOfSchemes
               pageHeight={pageHeight}
               drawings={drawings}
@@ -467,6 +469,7 @@ function App() {
         <Route path='/list' element={
           isAppVisible
           ? <List
+              pageHeight={pageHeight}
               currentDrawing={currentDrawing}
               elementList={schemeElementList}
             />

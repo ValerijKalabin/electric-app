@@ -26,7 +26,7 @@ function Scheme({
       {!!currentDrawing.name &&
         <h1 className="scheme__title">{currentDrawing.name}</h1>
       }
-      { !elementList.length && <Wheel onClickButton={onClickButton} /> }
+      { !elementList.length && <Wheel pageHeight={pageHeight} onClickButton={onClickButton} /> }
       { !!elementList.length &&
         <div className="scheme__container" style={schemeMarkup}>
           <ul

@@ -35,6 +35,20 @@
 }
 
 .wheel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../../images/circle.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.wheel__list {
   list-style-type: none;
   position: relative;
   display: block;

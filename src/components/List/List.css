@@ -1,4 +1,18 @@
 .materials {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url('../../images/circle.svg');
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.materials__page {
   box-sizing: border-box;
   width: 460px;
   padding: 30px 15px;
@@ -13,9 +27,9 @@
   text-align: center;
   color: #bbbbbb;
   box-sizing: border-box;
-  width: 100%;
+  max-width: 200px;
   padding: 0 71px 0 0;
-  margin: 0 0 5px;
+  margin: 0 auto 5px;
 }
 
 .materials__title_nomaterials {
@@ -99,8 +113,7 @@
 }
 
 @media screen and (max-width: 460px) {
-  .materials {
+  .materials__page {
     width: 100%;
   }
 }
-
