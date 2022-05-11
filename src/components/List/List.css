@@ -15,8 +15,16 @@
 .materials__page {
   box-sizing: border-box;
   width: 460px;
-  padding: 30px 15px;
+  padding: 30px 15px 90px;
   margin: 0;
+}
+
+.materials__page_nodrawing {
+  padding: 30px 15px 70px;
+}
+
+.materials__page_nolist {
+  padding: 30px 15px 30px;
 }
 
 .materials__title {
@@ -28,12 +36,12 @@
   color: #bbbbbb;
   box-sizing: border-box;
   max-width: 200px;
-  padding: 0 71px 0 0;
+  padding: 0;
   margin: 0 auto 5px;
 }
 
-.materials__title_nomaterials {
-  padding: 0;
+.materials__title_nodrawing {
+  margin: 0 auto 16px;
 }
 
 .materials__subtitle {
@@ -44,12 +52,8 @@
   color: #bbbbbb;
   box-sizing: border-box;
   width: 100%;
-  padding: 0 71px 0 0;
-  margin: 0 0 20px;
-}
-
-.materials__subtitle_nomaterials {
   padding: 0;
+  margin: 0 0 15px;
 }
 
 .materials__list {
@@ -59,16 +63,19 @@
 }
 
 .materials__item {
-  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr max-content;
+  column-gap: 4px;
+  padding: 2px 0;
   margin: 0;
 }
 
-.materials__container {
-  display: grid;
-  grid-template-columns: 1fr max-content;
-  column-gap: 15px;
-  padding: 5px 0;
-  margin: 0;
+.materials__item:first-child {
+  padding: 0 0 2px;
+}
+
+.materials__item:last-child {
+  padding: 2px 0 0;
 }
 
 .materials__label {
@@ -80,7 +87,6 @@
   box-sizing: border-box;
   width: 100%;
   min-height: 36px;
-  border-radius: 18px;
   padding: 0 20px;
   margin: 0;
 }
@@ -98,18 +104,32 @@
 .materials__number {
   font-size: 16px;
   font-weight: 500;
-  line-height: 32px;
+  line-height: 36px;
   text-transform: uppercase;
   text-decoration: none;
   text-align: center;
-  color: #bbbbbb;
-  background-color: #111111;
-  border: 2px solid #bbbbbb;
-  border-radius: 18px;
+  color: #111111;
+  background-color: #bbbbbb;
   min-width: 32px;
-  height: 32px;
+  height: 36px;
   padding: 0 10px;
   margin: 0;
+}
+
+.materials__item:first-child .materials__label {
+  border-top-left-radius: 18px;
+}
+
+.materials__item:last-child .materials__label {
+  border-bottom-left-radius: 18px;
+}
+
+.materials__item:first-child .materials__number {
+  border-top-right-radius: 18px;
+}
+
+.materials__item:last-child .materials__number {
+  border-bottom-right-radius: 18px;
 }
 
 @media screen and (max-width: 460px) {

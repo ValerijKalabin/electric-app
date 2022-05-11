@@ -18,8 +18,7 @@ function List({ pageHeight, currentDrawing, elementList }) {
     const frameForFive = elementList.reduce((number, element) => element.elementsInBlock === 5 ? number + 1 : number, 0);
     const frameForSix = elementList.reduce((number, element) => element.elementsInBlock === 6 ? number + 1 : number, 0)
     const frameForOne = toggle + socket - frameForTwo * 2 - frameForThree * 3 - frameForFour * 4 - frameForFive * 5 - frameForSix * 6;
-
-    setMaterials([
+    const allMaterials = [
       {
         material: 'Автоматические выключатели, шт',
         number: autoSwitch
@@ -68,31 +67,33 @@ function List({ pageHeight, currentDrawing, elementList }) {
         material: 'Рамки для розеток и выключателей на шесть постов, шт',
         number: frameForSix
       }
-    ]);
+    ];
+    const currentMaterials = allMaterials.filter((item) => item.number > 0);
+    setMaterials(currentMaterials);
   }, [ elementList ]);
 
   return (
     <main className="materials" style={{ minHeight: `${pageHeight - outerHeight}px` }}>
-      <div className="materials__page">
-        <h1 className={`materials__title ${!elementList.length ? 'materials__title_nomaterials' : ''}`}>
+      <div className={`
+        materials__page
+        ${!currentDrawing.name ? 'materials__page_nodrawing' : ''}
+        ${!elementList.length ? 'materials__page_nolist' : ''}
+      `}>
+        <h1 className={`materials__title ${!currentDrawing.name ? 'materials__title_nodrawing' : ''}`}>
           { !elementList.length ? 'Здесь будет список материалов' : 'Материалы' }
         </h1>
         {!!currentDrawing.name &&
-          <p className={`materials__subtitle ${!elementList.length ? 'materials__subtitle_nomaterials' : ''}`}>
+          <p className="materials__subtitle">
             {currentDrawing.name}
           </p>
         }
         <ul className="materials__list">
           { materials.map((item, index) => (
             <li className="materials__item" key={`m${index}`}>
-              { !!item.number &&
-                <div className="materials__container">
-                  <div className="materials__label">
-                    <p className="materials__name">{item.material}</p>
-                  </div>
-                  <p className="materials__number">{item.number}</p>
-                </div>
-              }
+              <div className="materials__label">
+                <p className="materials__name">{item.material}</p>
+              </div>
+              <p className="materials__number">{item.number}</p>
             </li>
           ))}
         </ul>
